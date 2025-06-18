@@ -5,101 +5,26 @@
 <p>16/06/2025</p>
 <h2 id="introdu-o">Introdução</h2>
 <p> Acho que aqui vale uma introdução do problema com algumas imagens.</p>
-<h2 id="problema-a-ser-abordado">Problema a ser abordado</h2>
-<h3 id="-a-leitura-de-imagem-em-arquivo">(A) Leitura de imagem em arquivo</h3>
-<pre><code>import numpy as <span class="hljs-built_in">np</span>
-import cv2 as <span class="hljs-built_in">cv</span>
-
-img = <span class="hljs-built_in">cv</span>.imread('messi5.jpg',<span class="hljs-number">0</span>)
-<span class="hljs-built_in">cv</span>.imshow('<span class="hljs-built_in">image</span>',img)
-k = <span class="hljs-built_in">cv</span>.waitKey(<span class="hljs-number">0</span>)
-<span class="hljs-keyword">if</span> k == <span class="hljs-number">27</span>:         # wait <span class="hljs-keyword">for</span> ESC <span class="hljs-built_in">key</span> to exit
-    <span class="hljs-built_in">cv</span>.destroyAllWindows()
-elif k == ord('s'): # wait <span class="hljs-keyword">for</span> 's' <span class="hljs-built_in">key</span> to <span class="hljs-built_in">save</span> <span class="hljs-keyword">and</span> exit
-    <span class="hljs-built_in">cv</span>.imwrite('messigray.png',img)
-    <span class="hljs-built_in">cv</span>.destroyAllWindows()
-</code></pre><h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Leitura de vídeo em arquivo</h3>
-<pre><code><span class="hljs-keyword">import</span> time
-<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
-<span class="hljs-keyword">import</span> cv2 <span class="hljs-keyword">as</span> cv
-
-cap = cv.VideoCapture(<span class="hljs-string">'big_buck_bunny.mp4'</span>)
-
-<span class="hljs-keyword">while</span>(cap.isOpened()):
-    ret, frame = cap.read()
-
-    <span class="hljs-keyword">if</span> ret==<span class="hljs-keyword">True</span>:
-        <span class="hljs-comment"># show the frame</span>
-        cv.imshow(<span class="hljs-string">'frame'</span>,frame)
-
-        <span class="hljs-comment">#wait next frame by 40ms - 25fps</span>
-        time.sleep(<span class="hljs-number">1</span>/<span class="hljs-number">25.0</span>) 
-
-        <span class="hljs-keyword">if</span> cv.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == ord(<span class="hljs-string">'q'</span>):
-            <span class="hljs-keyword">break</span>
-    <span class="hljs-keyword">else</span>:
-        <span class="hljs-keyword">break</span>
-
-cap.release()
-cv.destroyAllWindows()
-</code></pre><h3 id="-c-leitura-de-imagem-de-c-mera">(C) Leitura de imagem de câmera</h3>
-<pre><code>import numpy <span class="hljs-keyword">as</span> np
-import cv2 <span class="hljs-keyword">as</span> cv
-
-<span class="hljs-keyword">cap</span> = cv.VideoCapture(0)
-
-<span class="hljs-keyword">if</span> not <span class="hljs-keyword">cap</span>.isOpened():
-    <span class="hljs-keyword">print</span>(<span class="hljs-string">"Cannot open camera"</span>)
-    <span class="hljs-keyword">exit</span>()
-
-<span class="hljs-keyword">while</span> True:
-    # <span class="hljs-keyword">Capture</span> frame-<span class="hljs-keyword">by</span>-frame
-    <span class="hljs-keyword">ret</span>, frame = <span class="hljs-keyword">cap</span>.<span class="hljs-keyword">read</span>()
-    # <span class="hljs-keyword">if</span> frame is <span class="hljs-keyword">read</span> correctly <span class="hljs-keyword">ret</span> is True
-    <span class="hljs-keyword">if</span> not <span class="hljs-keyword">ret</span>:
-        <span class="hljs-keyword">print</span>(<span class="hljs-string">"Can't receive frame (stream end?). Exiting ..."</span>)
-        <span class="hljs-keyword">break</span>
-
-    # <span class="hljs-keyword">Display</span> the resulting frame
-    cv.imshow('frame', frame)
-
-    <span class="hljs-keyword">if</span> cv.waitKey(1) == ord('q'):
-        <span class="hljs-keyword">break</span>
-
-# When everything done, release the <span class="hljs-keyword">capture</span>
-<span class="hljs-keyword">cap</span>.release()
-cv.destroyAllWindows()
-</code></pre><h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Gravação de vídeo da câmera</h3>
-<pre><code>import numpy as <span class="hljs-built_in">np</span>
-import cv2 as <span class="hljs-built_in">cv</span>
-cap = <span class="hljs-built_in">cv</span>.VideoCapture(<span class="hljs-number">0</span>)
-
-# Get current <span class="hljs-built_in">width</span> of frame
-<span class="hljs-built_in">width</span> = cap.<span class="hljs-built_in">get</span>(<span class="hljs-built_in">cv</span>.CAP_PROP_FRAME_WIDTH)   # <span class="hljs-built_in">float</span>
-# Get current <span class="hljs-built_in">height</span> of frame
-<span class="hljs-built_in">height</span> = cap.<span class="hljs-built_in">get</span>(<span class="hljs-built_in">cv</span>.CAP_PROP_FRAME_HEIGHT) # <span class="hljs-built_in">float</span>
-# Define Video Frame Rate <span class="hljs-keyword">in</span> fps
-fps = <span class="hljs-number">10.0</span>
-
-# Define the codec <span class="hljs-keyword">and</span> create VideoWriter object
-fourcc = <span class="hljs-built_in">cv</span>.VideoWriter_fourcc(*'XVID')
-out = <span class="hljs-built_in">cv</span>.VideoWriter('saida.avi', fourcc, fps, (int(<span class="hljs-built_in">width</span>),int(<span class="hljs-built_in">height</span>)) )
-
-<span class="hljs-keyword">while</span> cap.isOpened():
-    ret, frame = cap.<span class="hljs-built_in">read</span>()
-    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> ret:
-        <span class="hljs-built_in">print</span>(<span class="hljs-string">"Can't receive frame (stream end?). Exiting ..."</span>)
-        <span class="hljs-built_in">break</span>
-    frame = <span class="hljs-built_in">cv</span>.flip(frame, <span class="hljs-number">0</span>)
-    # write the flipped frame
-    out.write(frame)
-    <span class="hljs-built_in">cv</span>.imshow('frame', frame)
-    <span class="hljs-keyword">if</span> <span class="hljs-built_in">cv</span>.waitKey(<span class="hljs-number">1</span>) == ord('q'):
-        <span class="hljs-built_in">break</span>
-
-# Release everything <span class="hljs-keyword">if</span> job <span class="hljs-built_in">is</span> finished
-cap.release()
-out.release()
+<h2 id="etapas-desenvolvimento">Etapas de desenvolvimento</h2>
+<h3 id="-problema-a-ser-abordado">(A) Problema a ser abordado</h3>
+<p> O problema escolhido pelo grupo tem como base o tema apresentado na entrevista realizada pelo aluno Jorge Luiz Pinto Junior a sua mãe Cristina Alexandre Pinto. A proposta consiste na utilização de câmeras de segurança integradas a um sistema de identificação para monitorar, em tempo real, quando uma pessoa se levanta da cama (a mãe da entrevistada). A partir dessa detecção, o sistema seria capaz de emitir um aviso imediato a um responsável ou cuidador. Essa abordagem visa oferecer maior segurança e acompanhamento para pessoas que necessitam de supervisão constante, como idosos ou pacientes com mobilidade reduzida.</p>
+</code></pre><h3 id="-objetivo">(B) Objetivo</h3>
+<p>O objetivo deste projeto é desenvolver um sistema de identificação por meio de câmeras que permita monitorar uma pessoa enquanto está em um móvel — como uma cama, cadeira ou sofá. O sistema será capaz de detectar automaticamente quando essa pessoa se levanta e, a partir disso, enviar um alerta imediato a um responsável ou cuidador. A iniciativa visa proporcionar maior segurança, especialmente em contextos de cuidado com idosos, pacientes em recuperação ou indivíduos com limitações de mobilidade.
+</p>
+</code></pre><h3 id="-como-se-usa-o-sistema">(C) Como se usa o sistema</h3>
+<p>O funcionamento do sistema é simples e pensado para facilitar o uso por cuidadores ou responsáveis. Inicialmente, o ambiente onde a pessoa permanece — como o quarto ou sala — deve estar equipado com uma câmera posicionada de forma estratégica, com visão clara do móvel (cama, cadeira ou sofá).
+A câmera envia as imagens em tempo real para o sistema de processamento, que utiliza algoritmos de visão computacional para identificar a presença da pessoa e monitorar sua postura. Quando o sistema detecta que a pessoa se levantou ou deixou o móvel, ele interpreta essa mudança como um evento relevante e, imediatamente, envia um alerta.
+O aviso pode ser emitido por diferentes meios, como:
+Notificação em um aplicativo no celular do cuidador;
+Mensagem de texto (SMS);
+Alarme sonoro ou visual em um painel local.
+O sistema pode ser personalizado para diferentes perfis de usuários, horários e níveis de sensibilidade, tornando-se uma ferramenta útil tanto para cuidados residenciais quanto em instituições de saúde.
+</p>
+</code></pre><h3 id="-qual-o-beneficio">(D) Qual o benefício?</h3>
+<p>O principal benefício deste sistema é oferecer mais segurança e tranquilidade para famílias que convivem com pessoas com mobilidade reduzida, como idosos, pacientes em recuperação ou pessoas com deficiência.
+Mesmo estando fora de casa, o responsável é notificado imediatamente quando a pessoa monitorada se levanta, permitindo que esteja em alerta para possíveis situações de risco, como quedas ou desorientações.
+Dessa forma, o sistema atua como uma extensão da atenção do cuidador, garantindo um acompanhamento contínuo e contribuindo para a autonomia e bem-estar da pessoa assistida, sem a necessidade de supervisão presencial constante.
+</p>
 <span class="hljs-built_in">cv</span>.destroyAllWindows()
 </code></pre><h2 id="an-lise-e-discuss-o">Análise e discussão</h2>
 <h2 id="conclus-o">Conclusão</h2>
