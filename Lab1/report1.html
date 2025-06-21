@@ -253,6 +253,25 @@ cv.destroyAllWindows()
 </script>
 <h3 id="-c-leitura-de-imagem-de-c-mera">(C) Leitura de imagem de câmera</h3>
 
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Foi proposto que se alterasse o código fornecido para que uma imagem da câmera fosse salva ao pressionar a tecla <strong>"x"</strong> do teclado. A seguir, o detalhamento das ações tomadas: 
+</p>
+
+<figure style="text-align: center;">
+  <img src="captura_tecla_x.jpg" alt="Figura 5 - Ajuste do script para captura." width="450" height="550">
+  <figcaption>Figura 5 - Ajuste do script para captura de imagem com tecla x.</figcaption>
+</figure>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  O ajuste realizado foi inserir a condição destacada na imagem, ou seja, o comando <strong>cv.waitKey(1) == ord('x')</strong> serve para verificar se foi pressionada a tecla x em algum momento e se esta condição for verdadeira o seguinte comando é executado: <strong>cv.imwrite('foto1.png',frame)</strong>. Este comando salva em um arquivo de imagem o frame no momento em que a tecla foi pressionada. Como o terminal foi executado na pasta do laboratório 1, não foi preciso indicar um diretório de saída pois a imagem é salva onde o programa foi executado.
+</p>
+
+<figure style="text-align: center;">
+  <img src="" alt="Figura 6 - Diretório foto 1." width="500" height="350">
+  <figcaption>Figura 6 - Diretório do arquivo foto1.png.</figcaption>
+</figure>
+
+
 <h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Gravação de vídeo da câmera</h3>
 
 <h2 id="conclus-o">Conclusão</h2>
