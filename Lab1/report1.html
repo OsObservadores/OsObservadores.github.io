@@ -330,6 +330,15 @@ cv.destroyAllWindows()
   <figcaption>Figura 8 - Método flip().</figcaption>
 </figure>
 
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    Caso seja necessário inserir algum processamento na imagem, o método deve ser aplicado na variável frame no momento de sua exibição, ou seja, no comando <strong>cv.imshow('frame',frame).</strong>. Por exemplo, para utilizar o comando <strong>Canny</strong> para detecção de bordas, o comando deve ser aplicado da seguinte forma: <strong>cv.imshow('frame',cv.Canny(frame,100,100)).</strong>
+</p>
+
+<figure style="text-align: center;">
+  <img src="canny.jpg" alt="Figura 10 - Canny() aplicado ao frame." width="800" height="500">
+  <figcaption>Figura 10 - Canny() aplicado ao frame.</figcaption>
+</figure>
+
 <h2 id="conclus-o">Conclusão</h2>
 
 <h2 id="Ref-s">Referências</h2>
@@ -337,12 +346,6 @@ cv.destroyAllWindows()
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   https://docs.opencv.org/4.11.0/d8/d6a/group__imgcodecs__flags.html#gga61d9b0126a3e57d9277ac48327799c80ab6573b69300c092b61800222fe555953
 </p>
-<<<<<<< HEAD
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   https://docs.opencv.org/4.11.0/d2/de8/group__core__array.html#ga6c7adcc7771b452141c8f9a22a54bcf5
 </p>
-
-
-=======
-
->>>>>>> faf0232f4c55c7b18c1cbcd6c703b36c611a8be2
