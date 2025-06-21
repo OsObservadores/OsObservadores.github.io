@@ -53,13 +53,13 @@ cap = cv.VideoCapture(<span class="hljs-string">'big_buck_bunny.mp4'</span>)    
     ret, frame = cap.read()    # Lê o próximo frame do vídeo. 'ret' indica se a leitura foi bem-sucedida, 'frame' é a imagem
 
     <span class="hljs-keyword">if</span> ret==<span class="hljs-keyword">True</span>:         # Se o frame foi lido com sucesso
-        <span class="hljs-comment"># show the frame</span>        # Exibe o frame na janela chamada 'frame'
-        cv.imshow(<span class="hljs-string">'frame'</span>,frame)     # Espera 1/25 segundos para simular 25 frames por segundo (fps)
+    
+        cv.imshow(<span class="hljs-string">'frame'</span>,frame)     # Exibe o frame na janela chamada 'frame'
 
-        <span class="hljs-comment">#wait next frame by 40ms - 25fps</span>    # Se a tecla 'q' for pressionada, sai do loop
-        time.sleep(<span class="hljs-number">1</span>/<span class="hljs-number">25.0</span>) 
+  
+        time.sleep(<span class="hljs-number">1</span>/<span class="hljs-number">25.0</span>)  # Espera 1/25 segundos para simular 25 frames por segundo (fps)
 
-        <span class="hljs-keyword">if</span> cv.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == ord(<span class="hljs-string">'q'</span>):
+        <span class="hljs-keyword">if</span> cv.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == ord(<span class="hljs-string">'q'</span>):    # Se a tecla 'q' for pressionada, sai do loop
             <span class="hljs-keyword">break</span>        # Se não conseguir ler o frame (fim do vídeo, erro, etc.), sai do loop
     <span class="hljs-keyword">else</span>:
         <span class="hljs-keyword">break</span>
