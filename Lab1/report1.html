@@ -73,19 +73,41 @@ cv.destroyAllWindows()
   O código acima realiza a leitura de um vídeo gravado em um arquivo e o exibe em uma janela do linux. O vídeo exibido é mostrado a seguir:
 </p>
 
+<video width="640" height="360" controls autoplay loop muted>
+  <source src="big_buck_bunny.mp4" type="video/mp4">
+</video>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  As seguintes alterações foram prospostas: Modifique o programa para que as imagens sejam exibidas <strong>mais rápidamente</strong> e depois para que seja exibidas <strong>mais lentamente</strong>. Responda: Qual a explicação de alteração de velocidade de exibição e apresente suas conclusões detalhadamente:
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Verificamos que o comando que controla a velocidade de exibição é o comando: <strong>time.sleep(1/25.0)</strong>. Este comando divide 1 segundo de vídeo por 25 quadros (FPS), então um novo frame é exibido a cada 40 milisegundos.
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Então para alterarmos a velocidade de exibição basta alteramos o valor de FPS. O vídeo a seguir executa o comando com a seguinte configuração <strong>time.sleep(1/60)</strong>, ou seja, em 60 quadros por segundo, portanto um novo frame é exibido a cada 1 milisegundo.
+</p>
+
 <video id='meuVideo' width="640" height="360" controls autoplay loop muted>
   <source src="big_buck_bunny.mp4" type="video/mp4">
 </video>
 
 <script>
-    // Define a velocidade de reprodução (por exemplo, 0.75x)
-    document.getElementById('meuVideo').playbackRate = 0.75;
+    // Define a velocidade de reprodução (por exemplo, 2.0x)
+    document.getElementById('meuVideo').playbackRate = 2.0;
 </script>
 
-<video width="640" height="360" controls autoplay loop muted>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  A seguir, alteramos o comando da seguinte forma: <strong>time.sleep(1/120)</strong>, ou seja, 120 quadros por segundo, portanto, um novo quadro é exibido a cada 0,5 milisegundos.
+</p>
+
+<video id='meuVideo2' width="640" height="360" controls autoplay loop muted>
   <source src="big_buck_bunny.mp4" type="video/mp4">
 </video>
 
+<script>
+    // Define a velocidade de reprodução (por exemplo, 2.0x)
+    document.getElementById('meuVideo2').playbackRate = 4.0;
+</script>
 
 <h3 id="-c-leitura-de-imagem-de-c-mera">(C) Leitura de imagem de câmera</h3>
 <pre><code>import numpy <span class="hljs-keyword">as</span> np
