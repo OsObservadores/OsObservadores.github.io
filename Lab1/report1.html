@@ -17,16 +17,16 @@
 <h2 id="procedimentos-experimentais">Procedimentos Experimentais</h2>
 <h3 id="-a-leitura-de-imagem-em-arquivo">(A) Leitura de imagem em arquivo</h3>
 <pre><code>import numpy as <span class="hljs-built_in">np</span>         # Importa a biblioteca NumPy, usada para trabalhar com arrays e operações numéricas
-import cv2 as <span class="hljs-built_in">cv</span>          # Importa a biblioteca OpenCV, usada para processamento de imagens e visão computacional
+import cv2 as <span class="hljs-built_in">cv</span>           # Importa a biblioteca OpenCV, usada para processamento de imagens e visão computacional
 
 img = <span class="hljs-built_in">cv</span>.imread('messi5.jpg',<span class="hljs-number">0</span>)     # Lê a imagem 'messi5.jpg' em escala de cinza (0 indica tons de cinza)
-<span class="hljs-built_in">cv</span>.imshow('<span class="hljs-built_in">image</span>',img)          # Exibe a imagem em uma janela chamada 'image'
-k = <span class="hljs-built_in">cv</span>.waitKey(<span class="hljs-number">0</span>)              # Espera o usuário pressionar uma tecla (tempo 0 = espera indefinidamente)
-<span class="hljs-keyword">if</span> k == <span class="hljs-number">27</span>:                   # Se a tecla pressionada for ESC (a tecla ESC em código ASCII é o número 27), então:
+<span class="hljs-built_in">cv</span>.imshow('<span class="hljs-built_in">image</span>',img)               # Exibe a imagem em uma janela chamada 'image'
+k = <span class="hljs-built_in">cv</span>.waitKey(<span class="hljs-number">0</span>)                    # Espera o usuário pressionar uma tecla (tempo 0 = espera indefinidamente)
+<span class="hljs-keyword">if</span> k == <span class="hljs-number">27</span>:                          # Se a tecla pressionada for ESC (a tecla ESC em código ASCII é o número 27), então:
     <span class="hljs-built_in">cv</span>.destroyAllWindows()         # Fecha todas as janelas criadas pelo OpenCV
 elif k == ord('s'): # wait <span class="hljs-keyword">for</span> 's' <span class="hljs-built_in">key</span> to <span class="hljs-built_in">save</span> <span class="hljs-keyword">and</span> exit      # Se a tecla 's' for pressionada:
     <span class="hljs-built_in">cv</span>.imwrite('messigray.png',img)          # Salva a imagem em tons de cinza com o nome 'messigray.png'
-    <span class="hljs-built_in">cv</span>.destroyAllWindows()</code>       # Fecha todas as janelas após salvar a imagem </pre>
+    <span class="hljs-built_in">cv</span>.destroyAllWindows()</code>           # Fecha todas as janelas após salvar a imagem </pre>
 
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
