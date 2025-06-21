@@ -147,8 +147,16 @@ out.release()
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   O script acima realiza a leitura de imagens da câmera e exibe a sequência de imagens numa janela do linux. Ao digitar a tecla 'q' salva toda a sequência de imagens num arquivo "saida.avi" no formato AVI de vídeo. O resultado da execução do script é mostrado a seguir:
 </p>
+ 
+<title>Vídeo invertido</title>
+  <style>
+    .invertido {
+      transform: rotate(180deg);
+    }
+  </style>
 
-<video width="640" height="360" controls autoplay loop muted>
+<video class="invertido" width="640" height="360" controls autoplay loop muted>
+    transform: rotate(180deg);
   <source src="video_pessoa_rapido.mp4" type="video/mp4">
 </video>
 
@@ -285,6 +293,8 @@ cv.destroyAllWindows()
 
 
 <h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Gravação de vídeo da câmera</h3>
+
+
 
 <h2 id="conclus-o">Conclusão</h2>
 
