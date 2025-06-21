@@ -149,7 +149,6 @@ out.release()
   O script acima realiza a leitura de imagens da câmera e exibe a sequência de imagens numa janela do linux. Ao digitar a tecla 'q' salva toda a sequência de imagens num arquivo "saida.avi" no formato AVI de vídeo. O resultado da execução do script é mostrado a seguir:
 </p>
  
-<title>Vídeo invertido</title>
 <style>
     .video-container {
       display: inline-block;
@@ -318,8 +317,23 @@ cv.destroyAllWindows()
 </figure>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Foi setada uma variável chamada de "fps" com valor igual à "10.0" e depois esta variável foi passada como parâmetro de FPS (Frames por segundo) no comando <strong>cv.VideoWriter</strong>. Ou seja, o vídeo de saída estava exibindo um novo frame a cada 100 milisegundos.
+  Foi setada uma variável chamada de "fps" com valor igual à "10.0" e depois esta variável foi passada como parâmetro de FPS (Frames por segundo) no comando <strong>cv.VideoWriter</strong>. Ou seja, o vídeo de saída estava exibindo um novo frame a cada 100 milisegundos. O vídeo foi exibido de ponta cabeça devido o seguinte comando:
 </p>
+
+<figure style="text-align: center;">
+  <img src="frame_invertido.jpg" alt="Figura 8 - Inversão de frame." width="500" height="350">
+  <figcaption>Figura 8 - Inversão de frame.</figcaption>
+</figure>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+ O parâmetro 0 no comando <strong>cv.flip(frame,0)</strong> indica em qual eixo deve ocorrer a inversão, no caso do valor igual a zero a inversão é realizada no eixo vertical.
+</p>
+
+<figure style="text-align: center;">
+  <img src="flip.jpg" alt="Figura 9 - Método flip()." width="800" height="500">
+  <figcaption>Figura 8 - Método flip().</figcaption>
+</figure>
+
 <h2 id="conclus-o">Conclusão</h2>
 
 <h2 id="Ref-s">Referências</h2>
@@ -327,3 +341,12 @@ cv.destroyAllWindows()
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   https://docs.opencv.org/4.11.0/d8/d6a/group__imgcodecs__flags.html#gga61d9b0126a3e57d9277ac48327799c80ab6573b69300c092b61800222fe555953
 </p>
+<<<<<<< HEAD
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  https://docs.opencv.org/4.11.0/d2/de8/group__core__array.html#ga6c7adcc7771b452141c8f9a22a54bcf5
+</p>
+
+
+=======
+
+>>>>>>> faf0232f4c55c7b18c1cbcd6c703b36c611a8be2
