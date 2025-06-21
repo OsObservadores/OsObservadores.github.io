@@ -19,7 +19,7 @@
 <pre><code>import numpy as <span class="hljs-built_in">np</span> <p> # Importa a biblioteca NumPy, usada para trabalhar com arrays e operações numéricas </p>
 import cv2 as <span class="hljs-built_in">cv</span> <p> # Importa a biblioteca OpenCV, usada para processamento de imagens e visão computacional</p>
 
-img = <span class="hljs-built_in">cv</span>.imread('messi5.jpg',<span class="hljs-number">0</span>) <p> # Lê a imagem 'messi5.jpg' em escala de cinza (0 indica tons de cinza)</p>
+img = <span class="hljs-built_in">cv</span>.imread('messi5.jpg',<span class="hljs-number">0</span>) # Lê a imagem 'messi5.jpg' em escala de cinza (0 indica tons de cinza)
 <span class="hljs-built_in">cv</span>.imshow('<span class="hljs-built_in">image</span>',img) <p> # Exibe a imagem em uma janela chamada 'image'</p>
 k = <span class="hljs-built_in">cv</span>.waitKey(<span class="hljs-number">0</span>) <p> # Espera o usuário pressionar uma tecla (tempo 0 = espera indefinidamente)</p>
 <span class="hljs-keyword">if</span> k == <span class="hljs-number">27</span>:         <p> # Se a tecla pressionada for ESC (a tecla ESC em código ASCII é o número 27), então:</p>
