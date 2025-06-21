@@ -87,6 +87,31 @@ cv.destroyAllWindows()
   Então para alterarmos a velocidade de exibição basta alteramos o valor de FPS. O vídeo a seguir executa o comando com a seguinte configuração <strong>time.sleep(1/60)</strong>, ou seja, em 60 quadros por segundo, portanto um novo frame é exibido a cada 1 milisegundo.
 </p>
 
+<pre><code><span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> cv2 <span class="hljs-keyword">as</span> cv
+
+cap = cv.VideoCapture(<span class="hljs-string">'big_buck_bunny.mp4'</span>)
+
+<span class="hljs-keyword">while</span>(cap.isOpened()):
+    ret, frame = cap.read()
+
+    <span class="hljs-keyword">if</span> ret==<span class="hljs-keyword">True</span>:
+        <span class="hljs-comment"># show the frame</span>
+        cv.imshow(<span class="hljs-string">'frame'</span>,frame)
+
+        <span class="hljs-comment">#wait next frame by 1ms - 60fps</span>
+        time.sleep(<span class="hljs-number">1</span>/<span class="hljs-number">60.0</span>) 
+
+        <span class="hljs-keyword">if</span> cv.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == ord(<span class="hljs-string">'q'</span>):
+            <span class="hljs-keyword">break</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">break</span>
+
+cap.release()
+cv.destroyAllWindows()
+</code></pre>
+
 <video id='meuVideo' width="640" height="360" controls autoplay loop muted>
   <source src="big_buck_bunny.mp4" type="video/mp4">
 </video>
@@ -99,6 +124,31 @@ cv.destroyAllWindows()
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   A seguir, alteramos o comando da seguinte forma: <strong>time.sleep(1/120)</strong>, ou seja, 120 quadros por segundo, portanto, um novo quadro é exibido a cada 0,5 milisegundos.
 </p>
+
+<pre><code><span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> cv2 <span class="hljs-keyword">as</span> cv
+
+cap = cv.VideoCapture(<span class="hljs-string">'big_buck_bunny.mp4'</span>)
+
+<span class="hljs-keyword">while</span>(cap.isOpened()):
+    ret, frame = cap.read()
+
+    <span class="hljs-keyword">if</span> ret==<span class="hljs-keyword">True</span>:
+        <span class="hljs-comment"># show the frame</span>
+        cv.imshow(<span class="hljs-string">'frame'</span>,frame)
+
+        <span class="hljs-comment">#wait next frame by 0.5ms - 120fps</span>
+        time.sleep(<span class="hljs-number">1</span>/<span class="hljs-number">120.0</span>) 
+
+        <span class="hljs-keyword">if</span> cv.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == ord(<span class="hljs-string">'q'</span>):
+            <span class="hljs-keyword">break</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">break</span>
+
+cap.release()
+cv.destroyAllWindows()
+</code></pre>
 
 <video id='meuVideo2' width="640" height="360" controls autoplay loop muted>
   <source src="big_buck_bunny.mp4" type="video/mp4">
