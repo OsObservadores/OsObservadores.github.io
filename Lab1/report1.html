@@ -308,9 +308,17 @@ cv.destroyAllWindows()
 <h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Gravação de vídeo da câmera</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  O ajuste realizado foi inserir a condição destacada na imagem, ou seja, o comando <strong>cv.waitKey(1) == ord('x')</strong> serve para verificar se foi pressionada a tecla x em algum momento e se esta condição for verdadeira o seguinte comando é executado: <strong>cv.imwrite('foto1.png',frame)</strong>. Este comando salva em um arquivo de imagem o frame no momento em que a tecla foi pressionada. Como o terminal foi executado na pasta do laboratório 1, não foi preciso indicar um diretório de saída pois a imagem é salva onde o programa foi executado.
+  Foi solicitada a modificação do programa de captura de vídeo com o objetivo de assegurar que as imagens gravadas no arquivo de saída mantivessem sua orientação original (sem rotação), ou seja, “normais”, independentemente da forma como são exibidas ao usuário durante a execução do programa. Além disso, exigiu-se que o vídeo gerado apresentasse uma taxa de exibição condizente com o tempo real, de modo a preservar a fluidez da reprodução e evitar distorções temporais, como aceleração ou lentidão no vídeo final.
 </p>
 
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  A lentidão apresentada no vídeo "saida.avi" é causada pelo seguinte trecho do código:
+</p>
+
+<figure style="text-align: center;">
+  <img src="lentidao.jpg" alt="Figura 7 - Variável FPS." width="500" height="350">
+  <figcaption>Figura 7 - Escolha de FPS.</figcaption>
+</figure>
 <h2 id="conclus-o">Conclusão</h2>
 
 <h2 id="Ref-s">Referências</h2>
