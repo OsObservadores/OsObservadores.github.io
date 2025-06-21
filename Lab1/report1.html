@@ -33,17 +33,7 @@ elif k == ord('s'): # wait <span class="hljs-keyword">for</span> 's' <span class
   <figcaption>Figura 1 - Resultado código L1_1.</figcaption>
 </figure>
 
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Mediante os resultados, foi proposta a seguinte pergunta: <strong>Por que a janela não mostra a imagem colorida?</strong>
-  A imagem foi exibida em preto e branco devido ao parâmetro "imreadModes" que está setado com valor zero. Como mostra a imagem abaixo, podemos setar este parâmetro para diferentes resultados desejados:
-</p>
-
-<figure style="text-align: center;">
-  <img src="L1_1_img_pq_preto_e_branco.jpg" alt="Figura 2 - Parâmetro imreadModes" width="400" height="450">
-  <figcaption>Figura 2 - Parâmetro imreadModes.</figcaption>
-</figure>
-
-</code></pre><h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Leitura de vídeo em arquivo</h3>
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Leitura de vídeo em arquivo</h3>
 <pre><code><span class="hljs-keyword">import</span> time
 <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
 <span class="hljs-keyword">import</span> cv2 <span class="hljs-keyword">as</span> cv
@@ -186,7 +176,9 @@ import cv2 <span class="hljs-keyword">as</span> cv
 # When everything done, release the <span class="hljs-keyword">capture</span>
 <span class="hljs-keyword">cap</span>.release()
 cv.destroyAllWindows()
-</code></pre><h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Gravação de vídeo da câmera</h3>
+</code></pre>
+
+<h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Gravação de vídeo da câmera</h3>
 <pre><code>import numpy as <span class="hljs-built_in">np</span>
 import cv2 as <span class="hljs-built_in">cv</span>
 cap = <span class="hljs-built_in">cv</span>.VideoCapture(<span class="hljs-number">0</span>)
@@ -219,4 +211,36 @@ cap.release()
 out.release()
 <span class="hljs-built_in">cv</span>.destroyAllWindows()
 </code></pre><h2 id="an-lise-e-discuss-o">Análise e discussão</h2>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  A seguir, são descritas as modificações e testes solicitados em cada um dos quatro códigos.
+</p>
+
+<h3 id="-a-leitura-de-imagem-em-arquivo">(A) Leitura de imagem em arquivo</h3>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Mediante os resultados, foi proposta a seguinte pergunta: <strong>Por que a janela não mostra a imagem colorida?</strong>
+  A imagem foi exibida em preto e branco devido ao parâmetro "imreadModes" que está setado com valor zero. Como mostra a imagem abaixo, podemos setar este parâmetro para diferentes resultados desejados:
+</p>
+
+<figure style="text-align: center;">
+  <img src="L1_1_img_pq_preto_e_branco.jpg" alt="Figura 2 - Parâmetro imreadModes" width="400" height="450">
+  <figcaption>Figura 2 - Parâmetro imreadModes.</figcaption>
+</figure>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  A seguir modificamos o parâmetro "imreadModes" para 256 e obtivemos o seguinte resultado:
+</p>
+
+<figure style="text-align: center;">
+  <img src="imreadModes_256.jpg" alt="Figura 3 - imreadModes = 256." width="400" height="500">
+  <figcaption>Figura 3 - imreadModes = 256.</figcaption>
+</figure>
+
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Leitura de vídeo em arquivo</h3>
+
+<h3 id="-c-leitura-de-imagem-de-c-mera">(C) Leitura de imagem de câmera</h3>
+
+<h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Gravação de vídeo da câmera</h3>
+
 <h2 id="conclus-o">Conclusão</h2>
