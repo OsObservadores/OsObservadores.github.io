@@ -16,17 +16,17 @@
 
 <h2 id="procedimentos-experimentais">Procedimentos Experimentais</h2>
 <h3 id="-a-leitura-de-imagem-em-arquivo">(A) Leitura de imagem em arquivo</h3>
-<pre><code>import numpy as <span class="hljs-built_in">np</span>
-import cv2 as <span class="hljs-built_in">cv</span>
+<pre><code>import numpy as <span class="hljs-built_in">np</span> <p> # Importa a biblioteca NumPy, usada para trabalhar com arrays e operações numéricas </p>
+import cv2 as <span class="hljs-built_in">cv</span> <p> # Importa a biblioteca OpenCV, usada para processamento de imagens e visão computacional</p>
 
-img = <span class="hljs-built_in">cv</span>.imread('messi5.jpg',<span class="hljs-number">0</span>)
-<span class="hljs-built_in">cv</span>.imshow('<span class="hljs-built_in">image</span>',img)
-k = <span class="hljs-built_in">cv</span>.waitKey(<span class="hljs-number">0</span>)
-<span class="hljs-keyword">if</span> k == <span class="hljs-number">27</span>:         # wait <span class="hljs-keyword">for</span> ESC <span class="hljs-built_in">key</span> to exit
-    <span class="hljs-built_in">cv</span>.destroyAllWindows()
-elif k == ord('s'): # wait <span class="hljs-keyword">for</span> 's' <span class="hljs-built_in">key</span> to <span class="hljs-built_in">save</span> <span class="hljs-keyword">and</span> exit
-    <span class="hljs-built_in">cv</span>.imwrite('messigray.png',img)
-    <span class="hljs-built_in">cv</span>.destroyAllWindows()</code></pre>
+img = <span class="hljs-built_in">cv</span>.imread('messi5.jpg',<span class="hljs-number">0</span>) <p> # Lê a imagem 'messi5.jpg' em escala de cinza (0 indica tons de cinza)</p>
+<span class="hljs-built_in">cv</span>.imshow('<span class="hljs-built_in">image</span>',img) <p> # Exibe a imagem em uma janela chamada 'image'</p>
+k = <span class="hljs-built_in">cv</span>.waitKey(<span class="hljs-number">0</span>) <p> # Espera o usuário pressionar uma tecla (tempo 0 = espera indefinidamente)</p>
+<span class="hljs-keyword">if</span> k == <span class="hljs-number">27</span>:         <p> # Se a tecla pressionada for ESC (a tecla ESC em código ASCII é o número 27), então:</p>
+    <span class="hljs-built_in">cv</span>.destroyAllWindows()        <p> # Fecha todas as janelas criadas pelo OpenCV</p>
+elif k == ord('s'): # wait <span class="hljs-keyword">for</span> 's' <span class="hljs-built_in">key</span> to <span class="hljs-built_in">save</span> <span class="hljs-keyword">and</span> exit <p> # Se a tecla 's' for pressionada:</p>
+    <span class="hljs-built_in">cv</span>.imwrite('messigray.png',img) <p> # Salva a imagem em tons de cinza com o nome 'messigray.png'</p>
+    <span class="hljs-built_in">cv</span>.destroyAllWindows()</code></pre>  <p> # Fecha todas as janelas após salvar a imagem </p>
 
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
@@ -40,7 +40,7 @@ elif k == ord('s'): # wait <span class="hljs-keyword">for</span> 's' <span class
 
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Leitura de vídeo em arquivo</h3>
 <pre><code><span class="hljs-keyword">import</span> time
-<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np # Importa a biblioteca NumPy, usada para trabalhar com arrays e operações numéricas
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np 
 <span class="hljs-keyword">import</span> cv2 <span class="hljs-keyword">as</span> cv
 
 cap = cv.VideoCapture(<span class="hljs-string">'big_buck_bunny.mp4'</span>)
