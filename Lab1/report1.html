@@ -166,16 +166,52 @@ out.release()                          # Finaliza e salva o arquivo de vídeo
     <video src="video_pessoa_rapido.mp4" controls></video>
 </div>
 <h2 id="procedimentos-experimentais">Procedimentos Experimentais - Parte 2</h2>
-
+<h3 id="-a-leitura-de-imagem-em-arquivo">(A) Foto geral</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   A imagem aseguir mostra o a imagem com todos os membros da equipe:
 </p>
 
 <figure style="text-align: center;">
   <img src="foto grupo.png" alt="Figura 1 - Resultado código L1_1" width="600" height="400">
+  <figcaption>Figura X - foto em grupo</figcaption>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Na imagem à esquerda de verde está Marcos Baldrigue (CFO), no meio de azul está Jorge Pinto (CEO) e de vermelho Guilherme (CPO). Para salvar a imagem da webcam foi utilizado o código L1_3_webcam a seguir:
+</p>
+<pre><code>import numpy <span class="hljs-keyword">as</span> np            # Importa a biblioteca NumPy, útil para lidar com arrays e operações numéricas
+import cv2 <span class="hljs-keyword">as</span> cv              # Importa a biblioteca OpenCV, usada para capturar e processar imagens/vídeo
+
+<span class="hljs-keyword">cap</span> = cv.VideoCapture(0)     # Abre a câmera padrão (geralmente a webcam). O argumento '0' representa a câmera principal
+
+<span class="hljs-keyword">if</span> not <span class="hljs-keyword">cap</span>.isOpened():        # Verifica se a câmera foi aberta corretamente
+    <span class="hljs-keyword">print</span>(<span class="hljs-string">"Cannot open camera"</span>)    # Se não abrir, imprime erro
+    <span class="hljs-keyword">exit</span>()    # Sai do programa imediatamente
+
+<span class="hljs-keyword">while</span> True:        # Loop infinito para capturar os frames da câmera em tempo real
+    <span class="hljs-keyword">ret</span>, frame = <span class="hljs-keyword">cap</span>.<span class="hljs-keyword">read</span>()    # Lê um frame da câmera. 'ret' é True se a leitura foi bem-sucedida, 'frame' é a imagem capturada
+    <span class="hljs-keyword">if</span> not <span class="hljs-keyword">ret</span>:    # Se não conseguir ler um frame (problema na câmera, desconexão, etc.)
+    <span class="hljs-keyword">print</span>(<span class="hljs-string">"Can't receive frame (stream end?). Exiting ..."</span>)    # Mostra mensagem de erro
+    <span class="hljs-keyword">break</span>    # Encerra o loop
+
+    cv.imshow('frame', frame)    # Exibe o frame atual em uma janela chamada 'frame'
+
+    <span class="hljs-keyword">if</span> cv.waitKey(1) == ord('q'):    # Espera 1 milissegundo por uma tecla. Se for 'q', sai do loop
+        <span class="hljs-keyword">break</span>
+
+<span class="hljs-keyword">cap</span>.release()                    # Libera a câmera para outros programas/sistemas
+cv.destroyAllWindows()           # Fecha todas as janelas abertas pelo OpenCV
+</code></pre>
+
+<h3 id="-a-leitura-de-imagem-em-arquivo">(A) Foto geral</h3>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  A imagem aseguir mostra o a imagem com os avatares dos membros da equipe:
+</p>
+<figure style="text-align: center;">
+  <img src="foto_grupo_avatar.png" alt="Figura 1 - Resultado código L1_1" width="600" height="400">
+  <figcaption>Figura X - foto em grupo</figcaption>
 
 
-
+    
 <h2 id="an-lise-e-discuss-o">Análises e discussões</h2>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
