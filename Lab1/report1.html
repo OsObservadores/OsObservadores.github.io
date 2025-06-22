@@ -258,6 +258,34 @@ cv.destroyAllWindows()           # Fecha todas as janelas abertas pelo OpenCV
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   Para os quatro vídeos apresentados anteriormente foram realizados com o código L1_4, que é ultilizado para gravar vários frames em sequencia, formando um vídeo.
 </p>
+
+<pre><code>import numpy as <span class="hljs-built_in">np</span>                  # Importa a biblioteca NumPy, usada para manipulação de arrays numéricos
+import cv2 as <span class="hljs-built_in">cv</span>                    # Importa a biblioteca OpenCV, usada para captura, processamento e gravação de vídeo
+cap = <span class="hljs-built_in">cv</span>.VideoCapture(<span class="hljs-number">0</span>)           # Abre a câmera padrão (webcam). O argumento 0 indica a câmera principal
+
+
+<span class="hljs-built_in">width</span> = cap.<span class="hljs-built_in">get</span>(<span class="hljs-built_in">cv</span>.CAP_PROP_FRAME_WIDTH)   # <span class="hljs-built_in">float</span>    # Obtém a largura atual dos frames da câmera (retorna float)
+<span class="hljs-built_in">height</span> = cap.<span class="hljs-built_in">get</span>(<span class="hljs-built_in">cv</span>.CAP_PROP_FRAME_HEIGHT) # <span class="hljs-built_in">float</span>    # Obtém a altura atual dos frames da câmera (retorna float)
+fps = <span class="hljs-number">10.0</span>        # Define a taxa de quadros por segundo (frames per second) do vídeo de saída
+
+fourcc = <span class="hljs-built_in">cv</span>.VideoWriter_fourcc(*'XVID')    # Define o codec de vídeo (XVID é um dos formatos AVI mais comuns)
+out = <span class="hljs-built_in">cv</span>.VideoWriter('saida.avi', fourcc, fps, (int(<span class="hljs-built_in">width</span>),int(<span class="hljs-built_in">height</span>)) )    # Cria o objeto VideoWriter para salvar o vídeo em 'saida.avi' com o codec, fps e tamanho definidos
+
+<span class="hljs-keyword">while</span> cap.isOpened():    # Enquanto a câmera estiver funcionando corretamente
+    ret, frame = cap.<span class="hljs-built_in">read</span>()    # Captura um frame da câmera. 'ret' indica sucesso, 'frame' é a imagem
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> ret:    # Se não conseguir capturar (ex: câmera desconectada)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">"Can't receive frame (stream end?). Exiting ..."</span>)    # Exibe mensagem de erro
+        <span class="hljs-built_in">break</span>        # Encerra o loop
+    frame = <span class="hljs-built_in">cv</span>.flip(frame, <span class="hljs-number">0</span>)    # Inverte o frame verticalmente (espelhamento no eixo Y)
+    out.write(frame)      # Escreve (grava) o frame invertido no arquivo de vídeo 'saida.avi'
+    <span class="hljs-built_in">cv</span>.imshow('frame', frame)    # Mostra o frame atual na janela chamada 'frame'
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">cv</span>.waitKey(<span class="hljs-number">1</span>) == ord('q'):    # Se a tecla 'q' for pressionada:
+        <span class="hljs-built_in">break</span>         encerra o loop
+
+cap.release()                          # Libera a câmera
+out.release()                          # Finaliza e salva o arquivo de vídeo
+<span class="hljs-built_in">cv</span>.destroyAllWindows()                 # Fecha todas as janelas do OpenCV
+</code></pre>
     
 <h2 id="an-lise-e-discuss-o">Análises e discussões</h2>
 
