@@ -146,27 +146,11 @@ out.release()                          # Finaliza e salva o arquivo de vídeo
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   O script acima realiza a leitura de imagens da câmera e exibe a sequência de imagens numa janela do linux. Ao digitar a tecla 'q' salva toda a sequência de imagens num arquivo "saida.avi" no formato AVI de vídeo. O resultado da execução do script é mostrado a seguir:
 </p>
- 
-<style>
-    .video-container {
-      display: inline-block;
-      position: relative;
-      width: 640px;
-      height: 360px;
-      overflow: hidden;
-    }
-
-    .video-container video {
-      transform: rotate(180deg);
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  </style>
 <figure style="text-align: center;">
-<div class="video-container">
-    <video src="video_pessoa_rapido.mp4" controls></video>
-</div>
+<video width="640" height="360" controls autoplay loop muted>
+  <source src="video_pessoa_rapido.mp4" type="video/mp4">
+</video>
+  <figcaption>Video XX - Vídeo de movimentos lentos</figcaption>
 </figure>
 <h2 id="procedimentos-experimentais">Procedimentos Experimentais - Parte 2</h2>
 <h3 id="-a-leitura-de-imagem-em-arquivo">(A) Foto geral</h3>
