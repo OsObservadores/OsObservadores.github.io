@@ -448,12 +448,32 @@ cv.destroyAllWindows()
 </figure>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+ A seguir mostramos outra gravação com os parâmetro FPS ajustado para 30.0 e a linha que aplica o método flip() comentada.
+</p>
+
+<figure style="text-align: center;">
+  <img src="correcao_video_D.png" alt="Figura 9 - Método flip()." width="800" height="500">
+  <figcaption>Figura 9 - Correção do script.</figcaption>
+</figure>
+
+<figure style="text-align: center;">
+<video width="640" height="360" controls autoplay loop muted>
+  <source src="saida_D_corrigido.mp4" type="video/mp4">
+</video>
+</figure>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     Caso seja necessário inserir algum processamento na imagem, o método deve ser aplicado na variável frame no momento de sua exibição, ou seja, no comando <strong>cv.imshow('frame',frame).</strong>. Por exemplo, para utilizar o comando <strong>Canny</strong> para detecção de bordas, o comando deve ser aplicado da seguinte forma: <strong>cv.imshow('frame',cv.Canny(frame,100,100)).</strong>
 </p>
 
 <figure style="text-align: center;">
   <img src="canny.png" alt="Figura 10 - Canny() aplicado ao frame." width="800" height="500">
   <figcaption>Figura 10 - Canny() aplicado ao frame.</figcaption>
+</figure>
+
+<figure style="text-align: center;">
+  <img src="canny.jpg" alt="Figura 11 - Canny() aplicado ao frame script." width="800" height="500">
+  <figcaption>Figura 11 - Canny() aplicado ao frame no script.</figcaption>
 </figure>
 
 <h2 id="conclus-o">Conclusão</h2>
