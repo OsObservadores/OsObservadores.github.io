@@ -72,12 +72,13 @@ cv.destroyAllWindows()    # Fecha todas as janelas abertas pelo OpenCV
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   O código acima realiza a leitura de um vídeo gravado em um arquivo e o exibe em uma janela do linux. O vídeo exibido é mostrado a seguir:
 </p>
+
 <figure style="text-align: center;">
 <video width="640" height="360" controls autoplay loop muted>
   <source src="big_buck_bunny.mp4" type="video/mp4">
 </video>
+<figcaption>Vídeo 1 - Resultado código L1_2.</figcaption>
 </figure>
-  <figcaption>Video 1 - Resultado código L1_2.</figcaption>
 
 <h3 id="-c-leitura-de-imagem-de-c-mera">(C) Leitura de imagem de câmera</h3>
 <pre><code>import numpy <span class="hljs-keyword">as</span> np            # Importa a biblioteca NumPy, útil para lidar com arrays e operações numéricas
@@ -109,8 +110,8 @@ cv.destroyAllWindows()           # Fecha todas as janelas abertas pelo OpenCV
 </p>
 
 <figure style="text-align: center;">
-  <img src="foto1.png" alt="Figura 3 - Captura webcam." width="600" height="400">
-  <figcaption>Figura 4 - Captura webcam.</figcaption>
+  <img src="foto1.png" alt="Figura 2 - Captura webcam." width="600" height="400">
+  <figcaption>Figura 2 - Captura webcam.</figcaption>
 </figure>
 
 <h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Gravação de vídeo da câmera</h3>
@@ -146,12 +147,14 @@ out.release()                          # Finaliza e salva o arquivo de vídeo
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   O script acima realiza a leitura de imagens da câmera e exibe a sequência de imagens numa janela do linux. Ao digitar a tecla 'q' salva toda a sequência de imagens num arquivo "saida.avi" no formato AVI de vídeo. O resultado da execução do script é mostrado a seguir:
 </p>
+
 <figure style="text-align: center;">
 <video width="640" height="360" controls autoplay loop muted>
   <source src="saida_D.mp4" type="video/mp4">
 </video>
-  <figcaption>Video XX - Vídeo de movimentos lentos</figcaption>
+<figcaption>Video XX - Vídeo de movimentos lentos</figcaption>
 </figure>
+
 <h2 id="procedimentos-experimentais">Procedimentos Experimentais - Parte 2</h2>
 <h3 id="-a-leitura-de-imagem-em-arquivo">(A) Foto geral</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
@@ -159,8 +162,8 @@ out.release()                          # Finaliza e salva o arquivo de vídeo
 </p>
 
 <figure style="text-align: center;">
-  <img src="foto grupo.png" alt="Figura 1 - Resultado código L1_1" width="600" height="400">
-  <figcaption>Figura X - foto em grupo</figcaption>
+  <img src="foto grupo.png" alt="Figura 3 - Foto grupo" width="600" height="400">
+  <figcaption>Figura 3 - Foto em grupo.</figcaption>
 </figure>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   À esquerda da imagem, está de verde o Marcos Baldrigue (CFO), no meio de azul está Jorge Pinto (CEO) e de vermelho Guilherme (CPO). Para salvar a imagem da webcam foi utilizado o código L1_3_webcam a seguir:
@@ -196,8 +199,8 @@ cv.destroyAllWindows()           # Fecha todas as janelas abertas pelo OpenCV
   A imagem a seguir mostra o a imagem com os avatares dos membros da equipe:
 </p>
 <figure style="text-align: center;">
-  <img src="foto_grupo_avatar.png" alt="Figura 1 - Resultado código L1_1" width="1093" height="485">
-  <figcaption>Figura X - foto dos avatares em grupo</figcaption>
+  <img src="foto_grupo_avatar.png" alt="Figura 4 - avatares" width="1093" height="485">
+  <figcaption>Figura 4 - Foto dos avatares em grupo.</figcaption>
 </figure>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   Seguindo a ordem da foto em grupo, à esquerda da imagem, está Arthur Morgan, avatar de Marcos Baldrigue (CFO), no meio está o Homem de Ferro, avatar de Jorge Pinto (CEO) e de à direita da imagem está Relâmpago MQueen representando Guilherme (CPO). Para salvar a imagem foi utilizado o Paint.
@@ -244,8 +247,9 @@ cv.destroyAllWindows()           # Fecha todas as janelas abertas pelo OpenCV
 <video width="640" height="360" controls autoplay loop muted>
   <source src="video_objeto_rapido.mp4" type="video/mp4">
 </video>
+<figcaption>Video XX - Vídeo de movimentos rápidos</figcaption>
 </figure>
-  <figcaption>Video XX - Vídeo de movimentos rápidos</figcaption>
+
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   Para os quatro vídeos apresentados anteriormente foram realizados com o código L1_4, que é ultilizado para gravar vários frames em sequencia, formando um vídeo.
@@ -295,8 +299,8 @@ out.release()                          # Finaliza e salva o arquivo de vídeo
 </p>
 
 <figure style="text-align: center;">
-  <img src="L1_1_img_pq_preto_e_branco.jpg" alt="Figura 2 - Parâmetro imreadModes" width="400" height="450">
-  <figcaption>Figura 2 - Parâmetro imreadModes.</figcaption>
+  <img src="L1_1_img_pq_preto_e_branco.jpg" alt="Figura 5 - Parâmetro imreadModes" width="400" height="450">
+  <figcaption>Figura 5 - Parâmetro imreadModes.</figcaption>
 </figure>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
@@ -304,8 +308,8 @@ out.release()                          # Finaliza e salva o arquivo de vídeo
 </p>
 
 <figure style="text-align: center;">
-  <img src="imreadModes_256.jpg" alt="Figura 3 - imreadModes = 256." width="400" height="500">
-  <figcaption>Figura 3 - imreadModes = 256.</figcaption>
+  <img src="imreadModes_256.jpg" alt="Figura 6 - imreadModes = 256." width="400" height="500">
+  <figcaption>Figura 6 - imreadModes = 256.</figcaption>
 </figure>
 
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Leitura de vídeo em arquivo</h3>
@@ -349,6 +353,7 @@ cv.destroyAllWindows()
 <video id='meuVideo' width="640" height="360" controls autoplay loop muted>
   <source src="big_buck_bunny.mp4" type="video/mp4">
 </video>
+<figcaption>Video XX - Vídeo de movimentos rápidos</figcaption>
 </figure>
 <script>
     // Define a velocidade de reprodução (por exemplo, 2.0x)
@@ -388,6 +393,7 @@ cv.destroyAllWindows()
 <video id='meuVideo2' width="640" height="360" controls autoplay loop muted>
   <source src="big_buck_bunny.mp4" type="video/mp4">
 </video>
+<figcaption>Video XX - Vídeo de movimentos rápidos</figcaption>
 </figure>
 <script>
     // Define a velocidade de reprodução (por exemplo, 2.0x)
@@ -400,8 +406,8 @@ cv.destroyAllWindows()
 </p>
 
 <figure style="text-align: center;">
-  <img src="captura_tecla_x.jpg" alt="Figura 5 - Ajuste do script para captura." width="450" height="550">
-  <figcaption>Figura 5 - Ajuste do script para captura de imagem com tecla x.</figcaption>
+  <img src="captura_tecla_x.jpg" alt="Figura 7 - Ajuste do script para captura." width="450" height="550">
+  <figcaption>Figura 7 - Ajuste do script para captura de imagem com tecla x.</figcaption>
 </figure>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
@@ -409,8 +415,8 @@ cv.destroyAllWindows()
 </p>
 
 <figure style="text-align: center;">
-  <img src="diretorio_foto_1.jpg" alt="Figura 6 - Diretório foto 1." width="500" height="350">
-  <figcaption>Figura 6 - Diretório do arquivo foto1.png.</figcaption>
+  <img src="diretorio_foto_1.jpg" alt="Figura 8 - Diretório foto 1." width="500" height="350">
+  <figcaption>Figura 8 - Diretório do arquivo foto1.png.</figcaption>
 </figure>
 
 
@@ -425,8 +431,8 @@ cv.destroyAllWindows()
 </p>
 
 <figure style="text-align: center;">
-  <img src="lentidao.jpg" alt="Figura 7 - Variável FPS." width="500" height="350">
-  <figcaption>Figura 7 - Escolha de FPS.</figcaption>
+  <img src="lentidao.jpg" alt="Figura 9 - Variável FPS." width="500" height="350">
+  <figcaption>Figura 9 - Escolha de FPS.</figcaption>
 </figure>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
@@ -434,8 +440,8 @@ cv.destroyAllWindows()
 </p>
 
 <figure style="text-align: center;">
-  <img src="frame_invertido.jpg" alt="Figura 8 - Inversão de frame." width="500" height="350">
-  <figcaption>Figura 8 - Inversão de frame.</figcaption>
+  <img src="frame_invertido.jpg" alt="Figura 10 - Inversão de frame." width="500" height="350">
+  <figcaption>Figura 10 - Inversão de frame.</figcaption>
 </figure>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
@@ -443,8 +449,8 @@ cv.destroyAllWindows()
 </p>
 
 <figure style="text-align: center;">
-  <img src="flip.jpg" alt="Figura 9 - Método flip()." width="800" height="500">
-  <figcaption>Figura 8 - Método flip().</figcaption>
+  <img src="flip.jpg" alt="Figura 11 - Método flip()." width="800" height="500">
+  <figcaption>Figura 11 - Método flip().</figcaption>
 </figure>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
@@ -452,14 +458,15 @@ cv.destroyAllWindows()
 </p>
 
 <figure style="text-align: center;">
-  <img src="correcao_video_D.png" alt="Figura 9 - Método flip()." width="800" height="500">
-  <figcaption>Figura 9 - Correção do script.</figcaption>
+  <img src="correcao_video_D.png" alt="Figura 12 - Método flip()." width="800" height="500">
+  <figcaption>Figura 12 - Correção do script.</figcaption>
 </figure>
 
 <figure style="text-align: center;">
 <video width="640" height="360" controls autoplay loop muted>
   <source src="saida_D_corrigido.mp4" type="video/mp4">
 </video>
+<figcaption>Video XX - Vídeo de movimentos rápidos</figcaption>
 </figure>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
@@ -467,13 +474,13 @@ cv.destroyAllWindows()
 </p>
 
 <figure style="text-align: center;">
-  <img src="canny.png" alt="Figura 10 - Canny() aplicado ao frame." width="800" height="500">
-  <figcaption>Figura 10 - Canny() aplicado ao frame.</figcaption>
+  <img src="canny.png" alt="Figura 13 - Canny() aplicado ao frame." width="800" height="500">
+  <figcaption>Figura 13 - Canny() aplicado ao frame.</figcaption>
 </figure>
 
 <figure style="text-align: center;">
-  <img src="canny.jpg" alt="Figura 11 - Canny() aplicado ao frame script." width="800" height="500">
-  <figcaption>Figura 11 - Canny() aplicado ao frame no script.</figcaption>
+  <img src="canny.jpg" alt="Figura 14 - Canny() aplicado ao frame script." width="800" height="500">
+  <figcaption>Figura 14 - Canny() aplicado ao frame no script.</figcaption>
 </figure>
 
 <h2 id="conclus-o">Conclusão</h2>
