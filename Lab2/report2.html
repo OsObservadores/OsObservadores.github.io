@@ -1,47 +1,91 @@
-<h1 id="relat-rio-laborat-rio-1">Relatório Laboratório 1 - Captura de Imagem e Vídeo</h1>
+<h1 id="relat-rio-laborat-rio-1">Relatório Laboratório 2 - Calibração de Câmeras</h1>
 <p>Jorge Luiz Pinto Junior  - RA: 11058715 - CEO</p>
 <p>Marcos Baldrigue Andrade - RA: 11201921777 - CFO - Financeiro</p>
 <p>Guilherme Eduardo Pereira - RA: 11201720498 - CPO - Desenvolvimento</p>
-<p>Data de realização do experimento: 16/06/2025</p>
-<p>Data de publicação do relatório: 25/06/2025</p>
+<p>Data de realização do experimento: 25/06/2025</p>
+<p>Data de publicação do relatório: 02/07/2025</p>
 <h2 id="introdu-o">Introdução</h2>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-    O presente relatório tem como objetivo descrever e analisar as atividades desenvolvidas durante o Laboratório 1 da disciplina de Visão Computacional, cujo foco principal é a familiarização com técnicas básicas de captura, exibição e gravação de imagens e vídeos utilizando a biblioteca OpenCV em Python. O Python é uma linguagem de programação de alto nível, interpretada, criada por Guido van Rossum e lançada oficialmente em 1991. É amplamente utilizada por sua simplicidade sintática e grande quantidade de bibliotecas, o que a torna ideal para aplicações nas áreas de ciência de dados, automação, inteligência artificial e visão computacional.
-    Nesse contexto, destaca-se a biblioteca OpenCV (Open Source Computer Vision Library), um dos principais frameworks para o desenvolvimento de aplicações de visão computacional. A OpenCV foi criada pela Intel em 1999, com o objetivo inicial de acelerar a aplicação da visão computacional em tempo real. Desde então, tornou-se uma biblioteca open-source, mantida por uma comunidade ativa e utilizada amplamente em projetos acadêmicos e industriais. A versão para Python permite o uso de funções otimizadas para leitura, escrita, modificação e análise de imagens e vídeos, sendo uma ferramenta poderosa e acessível para iniciantes e profissionais da área.
-</p>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-    Ao longo das atividades propostas, os alunos aplicaram comandos fundamentais para manipulação de arquivos de imagem e vídeo, explorando o funcionamento de programas específicos voltados à leitura de imagens estáticas, vídeos previamente gravados e transmissão em tempo real por meio da webcam. Além da execução e modificação dos programas fornecidos, também foram realizados experimentos práticos de captura de fotos e vídeos, visando compreender o comportamento do processamento de imagem em diferentes condições de movimento e iluminação. O relatório apresenta detalhadamente os procedimentos experimentais, as modificações realizadas nos códigos, as soluções encontradas e os arquivos gerados pela equipe, servindo como material didático completo e reprodutível para outros estudantes da disciplina.
-</p>
-
+    Entender os conceitos básicos essenciais de parametros intrinsicos e extrinsicos de câmeras.
+    Realizar um experimento de calibração de câmeras.
+    Elaborar o relatório em equipe de alunos.
+</p> 
 <h2 id="procedimentos-experimentais">Procedimentos Experimentais</h2>
-<h3 id="-a-leitura-de-imagem-em-arquivo">(A) Leitura de imagem em arquivo</h3>
+<h3 id="-a-leitura-de-imagem-em-arquivo">(A) Calibração de câmera com imagens fornecidas.</h3>
 <pre><code>import numpy as <span class="hljs-built_in">np</span>         # Importa a biblioteca NumPy, usada para trabalhar com arrays e operações numéricas
 import cv2 as <span class="hljs-built_in">cv</span>           # Importa a biblioteca OpenCV, usada para processamento de imagens e visão computacional
 
-img = <span class="hljs-built_in">cv</span>.imread('messi5.jpg',<span class="hljs-number">0</span>)      # Lê a imagem 'messi5.jpg' em escala de cinza (0 indica tons de cinza)
-<span class="hljs-built_in">cv</span>.imshow('<span class="hljs-built_in">image</span>',img)               # Exibe a imagem em uma janela chamada 'image'
-k = <span class="hljs-built_in">cv</span>.waitKey(<span class="hljs-number">0</span>)                    # Espera o usuário pressionar uma tecla (tempo 0 = espera indefinidamente)
-<span class="hljs-keyword">if</span> k == <span class="hljs-number">27</span>:                          # Se a tecla pressionada for ESC (a tecla ESC em código ASCII é o número 27), então:
-    <span class="hljs-built_in">cv</span>.destroyAllWindows()           # Fecha todas as janelas criadas pelo OpenCV
-elif k == ord('s'): # wait <span class="hljs-keyword">for</span> 's' <span class="hljs-built_in">key</span> to <span class="hljs-built_in">save</span> <span class="hljs-keyword">and</span> exit      # Se a tecla 's' for pressionada:
-    <span class="hljs-built_in">cv</span>.imwrite('messigray.png',img)          # Salva a imagem em tons de cinza com o nome 'messigray.png'
-    <span class="hljs-built_in">cv</span>.destroyAllWindows()</code>           # Fecha todas as janelas após salvar a imagem </pre>
-
-
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  O código acima realiza a leitura de uma imagem gravada em um arquivo e a mostra em uma janela do linux. Além disso, o programa permite salvar a imagem em arquivo .png pressionando uma tecla do teclado. Executamos o código e obtivemos o seguinte resultado:
-</p>
+    Camera matrix : 
 
+[[536.07345295   0.         342.37047283]
+ [  0.         536.01636331 235.53687701]
+ [  0.           0.           1.        ]]
+dist : 
 
-<figure style="text-align: center;">
-  <img src="L1_1_img.jpg" alt="Figura 1 - Resultado código L1_1" width="600" height="400">
-  <figcaption>Figura 1 - Resultado código L1_1.</figcaption>
-</figure>
+[[-0.26509044 -0.04674186  0.00183301 -0.00031469  0.25231154]]
+rvecs : 
 
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-    Como é possível ver na Figura 1, a imagem foi salva com tons de cinza. Sendo assim o programa cumpruiu o seu propósito de salvar a imagem 'messi5.jpg' com tons de cinza e com o nome 'messigray.png'. Para executar o processo foi necessário clicar na tecla 's' para executar a parte do programa que salva a imagem, se utilizar a tecla 'ESC' o programa fecha e nada acontece, ao usar as outras teclas nada acontece.
-</p>
+(array([[-0.08398729],
+       [ 0.34802798],
+       [-1.54244125]]), array([[-0.27527313],
+       [ 0.10123349],
+       [-1.56296568]]), array([[-0.22584613],
+       [ 1.0155115 ],
+       [-2.79470623]]), array([[ 0.05280128],
+       [-0.60171832],
+       [-0.18453815]]), array([[-0.10141629],
+       [ 0.32034812],
+       [ 0.3147293 ]]), array([[-0.34698232],
+       [-0.06738512],
+       [-1.20088998]]), array([[0.06525918],
+       [0.44701842],
+       [0.10800013]]), array([[ 0.49542336],
+       [ 0.11948808],
+       [-0.29675958]]), array([[-0.37463355],
+       [ 0.06982818],
+       [-0.01937111]]), array([[-0.35339067],
+       [ 0.24071863],
+       [ 0.20970027]]), array([[-0.4735952 ],
+       [ 0.08970834],
+       [-0.22605981]]), array([[ 0.19721096],
+       [-0.42009963],
+       [-0.1949708 ]]), array([[ 0.48287277],
+       [-0.17037078],
+       [-1.40740327]]))
+tvecs : 
+
+(array([[-2.96218417],
+       [ 0.57158932],
+       [16.83013775]]), array([[-3.99388098],
+       [ 2.27704343],
+       [12.68878108]]), array([[ 2.53399419],
+       [ 4.31999128],
+       [13.71919122]]), array([[-2.16838794],
+       [-3.50011196],
+       [10.73694991]]), array([[-3.72585434],
+       [-4.3108485 ],
+       [17.20439703]]), array([[-3.427436  ],
+       [ 0.4873819 ],
+       [11.56153507]]), array([[ 2.20741839],
+       [-3.21446613],
+       [15.60125394]]), array([[-3.40557514],
+       [-2.41042315],
+       [12.58706804]]), array([[-2.95848731],
+       [-3.94417974],
+       [13.21423743]]), array([[-1.59004095],
+       [-4.31771235],
+       [14.01040668]]), array([[-2.51791826],
+       [-3.43069105],
+       [12.85702135]]), array([[-2.67642941],
+       [-3.18945602],
+       [10.58262241]]), array([[-3.50264637],
+       [ 1.61595404],
+       [11.97222152]]))
+
+</p> 
+
 
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Leitura de vídeo em arquivo</h3>
 <pre><code><span class="hljs-keyword">import</span> time            # Importa a biblioteca time para usar pausas (como o sleep entre frames)
