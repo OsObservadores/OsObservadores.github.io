@@ -86,118 +86,20 @@ tvecs :
 
 </p> 
 
-
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Leitura de vídeo em arquivo</h3>
-<pre><code><span class="hljs-keyword">import</span> time            # Importa a biblioteca time para usar pausas (como o sleep entre frames)
-<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np     # Importa a biblioteca NumPy, usada para trabalhar com arrays numéricos
-<span class="hljs-keyword">import</span> cv2 <span class="hljs-keyword">as</span> cv       # Importa a biblioteca OpenCV para processamento de vídeo e imagem
-
-cap = cv.VideoCapture(<span class="hljs-string">'big_buck_bunny.mp4'</span>)    # Abre o arquivo de vídeo 'big_buck_bunny.mp4'
-
-<span class="hljs-keyword">while</span>(cap.isOpened()):        #Enquanto o vídeo estiver aberto e disponível:
-    ret, frame = cap.read()    # Lê o próximo frame do vídeo. 'ret' indica se a leitura foi bem-sucedida, 'frame' é a imagem
-
-    <span class="hljs-keyword">if</span> ret==<span class="hljs-keyword">True</span>:         # Se o frame foi lido com sucesso
-    
-        cv.imshow(<span class="hljs-string">'frame'</span>,frame)     # Exibe o frame na janela chamada 'frame'
-
-  
-        time.sleep(<span class="hljs-number">1</span>/<span class="hljs-number">25.0</span>)  # Espera 1/25 segundos para simular 25 frames por segundo (fps)
-
-        <span class="hljs-keyword">if</span> cv.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == ord(<span class="hljs-string">'q'</span>):    # Se a tecla 'q' for pressionada, sai do loop
-            <span class="hljs-keyword">break</span>        
-    <span class="hljs-keyword">else</span>:
-        <span class="hljs-keyword">break</span>        # Se não conseguir ler o frame (fim do vídeo, erro, etc.), sai do loop
-
-cap.release()             # Libera o arquivo de vídeo e os recursos associados
-cv.destroyAllWindows()    # Fecha todas as janelas abertas pelo OpenCV
-</code></pre>
-
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  O código acima realiza a leitura de um vídeo gravado em um arquivo e o exibe em uma janela do linux. O vídeo exibido é mostrado a seguir:
-</p>
+    Liste todos os parametros obtidos, colocando-os nas formas de matrizes e vetores
+    (Matriz K, matriz R, vetor t, e dist ).
+    Explique o significado de K, R, t, e dist.
+</p> 
 
-<figure style="text-align: center;">
-<video width="640" height="360" controls autoplay loop muted>
-  <source src="big_buck_bunny.mp4" type="video/mp4">
-</video>
-<figcaption>Vídeo 1 - Resultado código L1_2.</figcaption>
-</figure>
-
-<h3 id="-c-leitura-de-imagem-de-c-mera">(C) Leitura de imagem de câmera</h3>
-<pre><code>import numpy <span class="hljs-keyword">as</span> np            # Importa a biblioteca NumPy, útil para lidar com arrays e operações numéricas
-import cv2 <span class="hljs-keyword">as</span> cv              # Importa a biblioteca OpenCV, usada para capturar e processar imagens/vídeo
-
-<span class="hljs-keyword">cap</span> = cv.VideoCapture(0)     # Abre a câmera padrão (geralmente a webcam). O argumento '0' representa a câmera principal
-
-<span class="hljs-keyword">if</span> not <span class="hljs-keyword">cap</span>.isOpened():        # Verifica se a câmera foi aberta corretamente
-    <span class="hljs-keyword">print</span>(<span class="hljs-string">"Cannot open camera"</span>)    # Se não abrir, imprime erro
-    <span class="hljs-keyword">exit</span>()    # Sai do programa imediatamente
-
-<span class="hljs-keyword">while</span> True:        # Loop infinito para capturar os frames da câmera em tempo real
-    <span class="hljs-keyword">ret</span>, frame = <span class="hljs-keyword">cap</span>.<span class="hljs-keyword">read</span>()    # Lê um frame da câmera. 'ret' é True se a leitura foi bem-sucedida, 'frame' é a imagem capturada
-    <span class="hljs-keyword">if</span> not <span class="hljs-keyword">ret</span>:    # Se não conseguir ler um frame (problema na câmera, desconexão, etc.)
-    <span class="hljs-keyword">print</span>(<span class="hljs-string">"Can't receive frame (stream end?). Exiting ..."</span>)    # Mostra mensagem de erro
-    <span class="hljs-keyword">break</span>    # Encerra o loop
-
-    cv.imshow('frame', frame)    # Exibe o frame atual em uma janela chamada 'frame'
-
-    <span class="hljs-keyword">if</span> cv.waitKey(1) == ord('q'):    # Espera 1 milissegundo por uma tecla. Se for 'q', sai do loop
-        <span class="hljs-keyword">break</span>
-
-<span class="hljs-keyword">cap</span>.release()                    # Libera a câmera para outros programas/sistemas
-cv.destroyAllWindows()           # Fecha todas as janelas abertas pelo OpenCV
-</code></pre>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  O código acima realiza a leitura de imagens de uma câmera instalada no computador (webcam) e exibe a sequência das imagens amostradas em uma janela do linux. Ao rodar o programa obtivemos o seguinte resultado:
-</p>
-
-<figure style="text-align: center;">
-  <img src="foto1.png" alt="Figura 2 - Captura webcam." width="600" height="400">
-  <figcaption>Figura 2 - Captura webcam.</figcaption>
-</figure>
-
-<h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Gravação de vídeo da câmera</h3>
-<pre><code>import numpy as <span class="hljs-built_in">np</span>                  # Importa a biblioteca NumPy, usada para manipulação de arrays numéricos
-import cv2 as <span class="hljs-built_in">cv</span>                    # Importa a biblioteca OpenCV, usada para captura, processamento e gravação de vídeo
-cap = <span class="hljs-built_in">cv</span>.VideoCapture(<span class="hljs-number">0</span>)           # Abre a câmera padrão (webcam). O argumento 0 indica a câmera principal
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Calibração da sua webcam com a captura de suas próprias imagens.</h3>
 
 
-<span class="hljs-built_in">width</span> = cap.<span class="hljs-built_in">get</span>(<span class="hljs-built_in">cv</span>.CAP_PROP_FRAME_WIDTH)   # <span class="hljs-built_in">float</span>    # Obtém a largura atual dos frames da câmera (retorna float)
-<span class="hljs-built_in">height</span> = cap.<span class="hljs-built_in">get</span>(<span class="hljs-built_in">cv</span>.CAP_PROP_FRAME_HEIGHT) # <span class="hljs-built_in">float</span>    # Obtém a altura atual dos frames da câmera (retorna float)
-fps = <span class="hljs-number">10.0</span>        # Define a taxa de quadros por segundo (frames per second) do vídeo de saída
-
-fourcc = <span class="hljs-built_in">cv</span>.VideoWriter_fourcc(*'XVID')    # Define o codec de vídeo (XVID é um dos formatos AVI mais comuns)
-out = <span class="hljs-built_in">cv</span>.VideoWriter('saida.avi', fourcc, fps, (int(<span class="hljs-built_in">width</span>),int(<span class="hljs-built_in">height</span>)) )    # Cria o objeto VideoWriter para salvar o vídeo em 'saida.avi' com o codec, fps e tamanho definidos
-
-<span class="hljs-keyword">while</span> cap.isOpened():    # Enquanto a câmera estiver funcionando corretamente
-    ret, frame = cap.<span class="hljs-built_in">read</span>()    # Captura um frame da câmera. 'ret' indica sucesso, 'frame' é a imagem
-    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> ret:    # Se não conseguir capturar (ex: câmera desconectada)
-        <span class="hljs-built_in">print</span>(<span class="hljs-string">"Can't receive frame (stream end?). Exiting ..."</span>)    # Exibe mensagem de erro
-        <span class="hljs-built_in">break</span>        # Encerra o loop
-    frame = <span class="hljs-built_in">cv</span>.flip(frame, <span class="hljs-number">0</span>)    # Inverte o frame verticalmente (espelhamento no eixo Y)
-    out.write(frame)      # Escreve (grava) o frame invertido no arquivo de vídeo 'saida.avi'
-    <span class="hljs-built_in">cv</span>.imshow('frame', frame)    # Mostra o frame atual na janela chamada 'frame'
-    <span class="hljs-keyword">if</span> <span class="hljs-built_in">cv</span>.waitKey(<span class="hljs-number">1</span>) == ord('q'):    # Se a tecla 'q' for pressionada:
-        <span class="hljs-built_in">break</span>         encerra o loop
-
-cap.release()                          # Libera a câmera
-out.release()                          # Finaliza e salva o arquivo de vídeo
-<span class="hljs-built_in">cv</span>.destroyAllWindows()                 # Fecha todas as janelas do OpenCV
-</code></pre>
+<h3 id="-c-leitura-de-imagem-de-c-mera">(C) Calibração de outra câmera do laboratório</h3>
 
 
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  O script acima realiza a leitura de imagens da câmera e exibe a sequência de imagens numa janela do linux. Ao digitar a tecla 'q' salva toda a sequência de imagens num arquivo "saida.avi" no formato AVI de vídeo. O resultado da execução do script é mostrado a seguir:
-</p>
+<h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Correção de distorção de imagens.</h3>
 
-<figure style="text-align: center;">
-<video width="640" height="360" controls autoplay loop muted>
-  <source src="saida_D.mp4" type="video/mp4">
-</video>
-<figcaption>Vídeo 2 - Resultado script L1_4_webcap.py.</figcaption>
-</figure>
 
 <h2 id="procedimentos-experimentais">Procedimentos Experimentais - Parte 2</h2>
 <h3 id="-a-leitura-de-imagem-em-arquivo">(A) Foto geral</h3>
