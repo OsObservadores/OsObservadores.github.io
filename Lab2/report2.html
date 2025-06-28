@@ -88,10 +88,22 @@ tvecs :
 
 </p> 
 </code></pre>
+
+<h3> Explicando os significados de K, R, t, e dist.</h3>
+
+<!-- explicando a matriz k-->
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-    Liste todos os parametros obtidos, colocando-os nas formas de matrizes e vetores
-    (Matriz K, matriz R, vetor t, e dist ).
-    Explique o significado de K, R, t, e dist.
+    A matriz de parâmetros intrínsecos da câmera chamada de K tem esse padrão:
+</p> 
+<code>
+    [[fx    0.    cx]
+    [0.    fy    cy]
+    [0.    0.    1.]]
+    
+</code>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    Onde f_x, f_y representam o foco da câmera em pixels (relacionado à distância focal real e tamanho dos pixels), 
+    c_x e c_y o centro óptico (geralmente o centro da imagem) e is zeros e o 1 na terceira linha são convenções da forma homogênea.
 </p> 
 
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Calibração da sua webcam com a captura de suas próprias imagens.</h3>
