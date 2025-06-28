@@ -1,103 +1,146 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Equipe Os Observadores - Visão Computacional 2025.2</title>
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin-left: 10px;
-            padding: 0px;
-            background-color: #ffffff;
-            color:black;
-        }
-        
-        header {
-            background-color: #666;
-            padding: 20px;
-            text-align: center;
-            color: white;
-        }
-        
-        h1 {
-            margin: 0;
-        }
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: "base", // mais neutro
+    themeVariables: {
+      primaryColor: "#ffffff",
+      primaryTextColor: "#000000",
+      primaryBorderColor: "#cccccc",
+      lineColor: "#666666",
+      textColor: "#000000",
+      fontSize: "16px",
+      fontFamily: "Arial, sans-serif"
+    }
+  });
+</script>
 
-        h2, h3, h4 {
-            font-size: 1.2em;
-        }
+<h1 id="etapa-2-modelagem-funcional-do-sistema">Etapa 2: Modelagem Funcional do Sistema</h1>
 
-        footer {
-            background-color: #666;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
+<p>Jorge Luiz Pinto Junior  - RA: 11058715 - CEO</p>
+<p>Marcos Baldrigue Andrade - RA: 11201921777 - CFO - Financeiro</p>
+<p>Guilherme Eduardo Pereira - RA: 11201720498 - CPO - Desenvolvimento</p>
+<p>27/06/2025</p>
 
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 20px auto;
-        }
+<h2 id="descricao-geral">Descrição Geral</h2>
+<p>
+  Este documento apresenta a modelagem funcional do sistema de monitoramento por visão computacional,
+  desenvolvido com o objetivo de identificar quando um idoso com Alzheimer se levanta da cama e notificar
+  um cuidador de forma automática. A modelagem contempla a decomposição funcional do sistema em blocos
+  e seus fluxos de dados, com uso de diagrama de blocos (Mermaid), bem como a descrição individual de
+  cada componente funcional.
+</p>
 
-        audio, video {
-            display: block;
-            margin: 10px auto;
-            max-width: 100%;
-        }
+<h2 id="diagrama-de-blocos-modelagem-funcional">Diagrama de Blocos - Modelagem Funcional</h2>
 
-        iframe {
-            display: block;
-            margin: 20px auto;
-            max-width: 100%;
-        }
+  <div class="mermaid">
+    flowchart TD
 
-        a {
-            color: #0077b6;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    A[Captura de Imagem<br>Câmera] --> B[Transmissão de Imagem<br>Streaming em Tempo Real]
+    B --> C[Processamento de Imagem<br>Visão Computacional]
+    C --> D[Detecção de Pessoa<br>Localização no Móvel]
+    D --> E[Análise de Postura<br>Sentado, Deitado, Em Pé]
+    E --> F{Pessoa se Levantou?}
+    F -- Sim --> G[Geração de Evento<br>Evento de Levantamento]
+    G --> H[Envio de Notificação<br>App, SMS, Painel]
+    F -- Não --> I[Fim do Ciclo<br>Aguardando Novo Quadro]
+    H --> J[Registro de Evento<br>Banco de Dados / Logs]
 
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-<header><h1>Equipe Os Observadores - Visão Computacional 2025.2</h1></header>
-<h2>Integrantes da equipe</h2>
-<p>Guilherme Eduardo Pereira 11201720498</p>
-<p>Marcos Baldrigue 11201921777</p>
-<p>Jorge Pinto 11058715</p>
-<h3>Tema: Monitoramento de idosos com câmeras para prevenção de acidentes</h3>
-<details>
-  <summary><strong>Relatório Lab 1</strong></summary>
-  <ul>
-    <p><a href="/Lab1/report1.html">Relatório 1</a></p>
-  </ul>
-</details>
-    
-<details>
-  <summary><strong>ETAPA 1: Contexto e Cenário de Aplicação (CA)</strong></summary>
-  <ul>
-    <p><a href="/T1/contextoCA.html">ETAPA 1</a></p>
-  </ul>
-</details>
+    subgraph Personalização e Configuração
+      K[Configuração de Perfil<br>Horários, Sensibilidade]
+      K --> C
+    end
 
-    
-<details>
-  <summary><strong>ETAPA 2: Modelagem Funcional do Sistema (MF)</strong></summary>
-  <ul>
-    <p><a href="/T2/modelagemMF.html">ETAPA 2</a></p>
-  </ul>
-</details>
-   <footer><p>Estamos observando 👀</p></footer>
-</body>
-</html>
+    subgraph Interface do Cuidador
+      H --> L[Aplicativo ou Painel<br>Recebimento da Notificação]
+    end
+  </div>
+
+<h2 id="descricao-dos-blocos-funcionais">Descrição dos Blocos Funcionais</h2>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Bloco</th>
+      <th>Entrada</th>
+      <th>Saída</th>
+      <th>Processamento</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Captura de Imagem</td>
+      <td>Ambiente monitorado</td>
+      <td>Quadros de vídeo</td>
+      <td>Captura contínua de imagens via câmera instalada.</td>
+    </tr>
+    <tr>
+      <td>Transmissão de Imagem</td>
+      <td>Quadros de vídeo</td>
+      <td>Imagens em tempo real</td>
+      <td>Envia os quadros para o módulo de processamento.</td>
+    </tr>
+    <tr>
+      <td>Processamento de Imagem</td>
+      <td>Imagem ao vivo</td>
+      <td>Mapeamento corporal</td>
+      <td>Identifica a silhueta e a posição da pessoa.</td>
+    </tr>
+    <tr>
+      <td>Detecção de Pessoa</td>
+      <td>Dados da imagem processada</td>
+      <td>Localização em relação à cama</td>
+      <td>Determina se a pessoa está sobre o móvel (cama).</td>
+    </tr>
+    <tr>
+      <td>Análise de Postura</td>
+      <td>Mapa corporal</td>
+      <td>Estado postural</td>
+      <td>Identifica se a pessoa está deitada, sentada ou em pé.</td>
+    </tr>
+    <tr>
+      <td>Verificação de Levantamento</td>
+      <td>Estados anteriores e atuais</td>
+      <td>Sim / Não</td>
+      <td>Compara o estado anterior e atual para detectar mudança.</td>
+    </tr>
+    <tr>
+      <td>Geração de Evento</td>
+      <td>Confirmação de levantamento</td>
+      <td>Evento de alerta</td>
+      <td>Cria um evento interno a ser comunicado ao cuidador.</td>
+    </tr>
+    <tr>
+      <td>Envio de Notificação</td>
+      <td>Evento gerado</td>
+      <td>Notificação</td>
+      <td>Dispara uma notificação via app, SMS ou painel local.</td>
+    </tr>
+    <tr>
+      <td>Registro de Evento</td>
+      <td>Evento e horário</td>
+      <td>Log no sistema</td>
+      <td>Registra a ocorrência no banco de dados.</td>
+    </tr>
+    <tr>
+      <td>Configuração de Perfil</td>
+      <td>Preferências do usuário</td>
+      <td>Parâmetros de operação</td>
+      <td>Define regras de sensibilidade, prioridade e horários.</td>
+    </tr>
+    <tr>
+      <td>Aplicativo ou Painel</td>
+      <td>Notificação recebida</td>
+      <td>Exibição visual</td>
+      <td>Mostra o alerta de forma compreensível para o cuidador.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="conclusao">Conclusão</h2>
+<p>
+  A modelagem funcional apresentada permite compreender claramente os fluxos de dados e as responsabilidades
+  de cada módulo do sistema. Essa estrutura guiará o desenvolvimento dos algoritmos de visão computacional,
+  a integração com o sistema de notificação e a interface com o usuário, garantindo um produto final alinhado
+  com as necessidades reais do público-alvo.
+</p>
