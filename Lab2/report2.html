@@ -106,6 +106,40 @@ tvecs :
     c_x e c_y o centro óptico (geralmente o centro da imagem) e is zeros e o 1 na terceira linha são convenções da forma homogênea.
 </p> 
 
+
+<!-- explicando o vetor R-->
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    Cada vetor r representa a rotação da câmera em relação ao mundo 3D (o tabuleiro de xadrez), para cada imagem usada na calibração.
+    Esses vetores são em forma de rotação de Rodrigues, que é uma forma compacta de representar uma matriz de rotação 3x3.
+</p> 
+
+
+<!-- explicando o vetor d-->
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    São os coeficientes de distorção da lente (termo dist):
+</p> 
+<code>
+    [[ k1 k2  p1  p2  k3]]    
+</code>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    Onde k1, k2 e k3 representam a distorção radial (faz as linhas retas parecerem curvas); 
+    p1 e p2 a Distorção tangencial (causada por desalinhamento da lente com o sensor).
+    Esses valores são usados para corrigir as distorções da imagem, muito comum em lentes baratas ou câmeras tipo webcam.
+</p> 
+
+<!-- explicando o vetor d-->
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    São os coeficientes de distorção da lente:
+</p> 
+<code>
+    [[ k1 k2  p1  p2  k3]]    
+</code>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    Onde k1, k2 e k3 representam a distorção radial (faz as linhas retas parecerem curvas); 
+    p1 e p2 a Distorção tangencial (causada por desalinhamento da lente com o sensor).
+    Esses valores são usados para corrigir as distorções da imagem, muito comum em lentes baratas ou câmeras tipo webcam.
+</p> 
+
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Calibração da sua webcam com a captura de suas próprias imagens.</h3>
 Camera matrix : 
 <pre><code>
