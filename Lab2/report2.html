@@ -14,6 +14,17 @@ Este laboratório experimental tem como objetivo proporcionar aos alunos a compr
 
 <h3 id="-a-leitura-de-imagem-em-arquivo">(A) Calibração de câmera com imagens fornecidas.</h3>
 
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Calibração da sua webcam com a captura de suas próprias imagens.</h3>
+
+<h3 id="-c-leitura-de-imagem-de-c-mera">(C) Calibração de outra câmera do laboratório</h3>
+
+<h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Correção de distorção de imagens.</h3>
+
+
+<h2 id="analise-dos-resultados">Análise dos Resultados</h2>
+
+<h3 id="-a-leitura-de-imagem-em-arquivo">(A) Calibração de câmera com imagens fornecidas.</h3>
+
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 <pre><code>
@@ -216,27 +227,6 @@ focal length, aspect ratio, skew, principal point, e comente esse resultado obti
 Qual o motivo de resultar um conjunto R e t para cada imagem usada na calibração? O que estas
 variáveis R e t significam perante os sistemas de coordenadas envolvidos?
 </p> 
-
-<h3 id="-c-leitura-de-imagem-de-c-mera">(C) Calibração de outra câmera do laboratório</h3>
-
-
-<h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Correção de distorção de imagens.</h3>
-
-
-<h2 id="procedimentos-experimentais">Procedimentos Experimentais - Parte 2</h2>
-<h3 id="-a-leitura-de-imagem-em-arquivo">(A) Foto geral</h3>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  A imagem a seguir mostra o a imagem com todos os membros da equipe:
-</p>
-
-<figure style="text-align: center;">
-  <img src="foto grupo.png" alt="Figura 3 - Foto grupo" width="600" height="400">
-  <figcaption>Figura 3 - Foto em grupo.</figcaption>
-</figure>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  À esquerda da imagem, está de verde o Marcos Baldrigue (CFO), no meio de azul está Jorge Pinto (CEO) e de vermelho Guilherme (CPO). Para salvar a imagem da webcam foi utilizado o código L1_3_webcam a seguir:
-</p>
-
     
 <pre style = "text-align: left;"><code>import numpy <span class="hljs-keyword">as</span> np            # Importa a biblioteca NumPy, útil para lidar com arrays e operações numéricas
 import cv2 <span class="hljs-keyword">as</span> cv              # Importa a biblioteca OpenCV, usada para capturar e processar imagens/vídeo
@@ -262,216 +252,29 @@ import cv2 <span class="hljs-keyword">as</span> cv              # Importa a bibl
 cv.destroyAllWindows()           # Fecha todas as janelas abertas pelo OpenCV
 </code></pre>
 
-<h3 id="-a-leitura-de-imagem-em-arquivo">(B) Foto dos avatares</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   A imagem a seguir mostra o a imagem com os avatares dos membros da equipe:
 </p>
+
 <figure style="text-align: center;">
   <img src="foto_grupo_avatar.png" alt="Figura 4 - avatares" width="1093" height="485">
   <figcaption>Figura 4 - Foto dos avatares em grupo.</figcaption>
 </figure>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Seguindo a ordem da foto em grupo, à esquerda da imagem, está Arthur Morgan, avatar de Marcos Baldrigue (CFO), no meio está o Homem de Ferro, avatar de Jorge Pinto (CEO) e de à direita da imagem está Relâmpago MQueen representando Guilherme (CPO). Para salvar a imagem foi utilizado o Paint.
-</p>
-
-<h3 id="-a-leitura-de-imagem-em-arquivo">(C) Vídeos da webcam</h3>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  A seguir esstá o vídeo sem objeto com mudanças lentas de movimento:
-</p>
-
-<figure style="text-align: center;">
-<video width="640" height="360" controls autoplay loop muted>
-  <source src="video_pessoa_lento.mp4" type="video/mp4">
-</video>
-  <figcaption>Vídeo 3 - Vídeo de movimentos lentos</figcaption>
-</figure>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  A seguir esstá o vídeo sem objeto com mudanças rápidas de movimento:
-</p>
-
-<figure style="text-align: center;">
-<video width="640" height="360" controls autoplay loop muted>
-  <source src="video_pessoa_rapido.mp4" type="video/mp4">
-</video>
-  <figcaption>Vídeo 4 - Vídeo de movimentos rápidos</figcaption>
-</figure>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  A seguir esstá o vídeo com objeto mudanças lentas de movimento:
+  Parágrafo.
 </p>
-
-<figure style="text-align: center;">
-<video width="640" height="360" controls autoplay loop muted>
-  <source src="video_objeto_lento.mp4" type="video/mp4">
-</video>
-  <figcaption>Vídeo 5 - Vídeo de movimentos lentos</figcaption>
-</figure>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  A seguir esstá o vídeo com objeto com mudanças rápidas de movimento:
-</p>
-
-<figure style="text-align: center;">
-<video width="640" height="360" controls autoplay loop muted>
-  <source src="video_objeto_rapido.mp4" type="video/mp4">
-</video>
-<figcaption>Vídeo 6 - Vídeo de movimentos rápidos</figcaption>
-</figure>
-
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Para os quatro vídeos apresentados anteriormente foram realizados com o código L1_4, que é ultilizado para gravar vários frames em sequencia, formando um vídeo.
-</p>
-
-<pre><code>import numpy as <span class="hljs-built_in">np</span>                  # Importa a biblioteca NumPy, usada para manipulação de arrays numéricos
-import cv2 as <span class="hljs-built_in">cv</span>                    # Importa a biblioteca OpenCV, usada para captura, processamento e gravação de vídeo
-cap = <span class="hljs-built_in">cv</span>.VideoCapture(<span class="hljs-number">0</span>)           # Abre a câmera padrão (webcam). O argumento 0 indica a câmera principal
-
-
-<span class="hljs-built_in">width</span> = cap.<span class="hljs-built_in">get</span>(<span class="hljs-built_in">cv</span>.CAP_PROP_FRAME_WIDTH)   # <span class="hljs-built_in">float</span>    # Obtém a largura atual dos frames da câmera (retorna float)
-<span class="hljs-built_in">height</span> = cap.<span class="hljs-built_in">get</span>(<span class="hljs-built_in">cv</span>.CAP_PROP_FRAME_HEIGHT) # <span class="hljs-built_in">float</span>    # Obtém a altura atual dos frames da câmera (retorna float)
-fps = <span class="hljs-number">10.0</span>        # Define a taxa de quadros por segundo (frames per second) do vídeo de saída
-
-fourcc = <span class="hljs-built_in">cv</span>.VideoWriter_fourcc(*'XVID')    # Define o codec de vídeo (XVID é um dos formatos AVI mais comuns)
-out = <span class="hljs-built_in">cv</span>.VideoWriter('saida.avi', fourcc, fps, (int(<span class="hljs-built_in">width</span>),int(<span class="hljs-built_in">height</span>)) )    # Cria o objeto VideoWriter para salvar o vídeo em 'saida.avi' com o codec, fps e tamanho definidos
-
-<span class="hljs-keyword">while</span> cap.isOpened():    # Enquanto a câmera estiver funcionando corretamente
-    ret, frame = cap.<span class="hljs-built_in">read</span>()    # Captura um frame da câmera. 'ret' indica sucesso, 'frame' é a imagem
-    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> ret:    # Se não conseguir capturar (ex: câmera desconectada)
-        <span class="hljs-built_in">print</span>(<span class="hljs-string">"Can't receive frame (stream end?). Exiting ..."</span>)    # Exibe mensagem de erro
-        <span class="hljs-built_in">break</span>        # Encerra o loop
-    frame = <span class="hljs-built_in">cv</span>.flip(frame, <span class="hljs-number">0</span>)    # Inverte o frame verticalmente (espelhamento no eixo Y)
-    out.write(frame)      # Escreve (grava) o frame invertido no arquivo de vídeo 'saida.avi'
-    <span class="hljs-built_in">cv</span>.imshow('frame', frame)    # Mostra o frame atual na janela chamada 'frame'
-    <span class="hljs-keyword">if</span> <span class="hljs-built_in">cv</span>.waitKey(<span class="hljs-number">1</span>) == ord('q'):    # Se a tecla 'q' for pressionada:
-        <span class="hljs-built_in">break</span>         encerra o loop
-
-cap.release()                          # Libera a câmera
-out.release()                          # Finaliza e salva o arquivo de vídeo
-<span class="hljs-built_in">cv</span>.destroyAllWindows()                 # Fecha todas as janelas do OpenCV
-</code></pre>
-    
-<h2 id="an-lise-e-discuss-o">Análises e discussões</h2>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  A seguir, são descritas as modificações e testes solicitados em cada um dos quatro códigos.
-</p>
-
-
-
-<h3 id="-a-leitura-de-imagem-em-arquivo">(A) Leitura de imagem em arquivo</h3>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Mediante os resultados, foi proposta a seguinte pergunta: <strong>Por que a janela não mostra a imagem colorida?</strong>
-  A imagem foi exibida em preto e branco devido ao parâmetro "imreadModes" que está setado com valor zero. Como mostra a imagem abaixo, podemos setar este parâmetro para diferentes resultados desejados:
-</p>
-
-<figure style="text-align: center;">
-  <img src="L1_1_img_pq_preto_e_branco.jpg" alt="Figura 5 - Parâmetro imreadModes" width="400" height="450">
-  <figcaption>Figura 5 - Parâmetro imreadModes.</figcaption>
-</figure>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  A seguir modificamos o parâmetro "imreadModes" para 256 e obtivemos o seguinte resultado:
-</p>
-
-<figure style="text-align: center;">
-  <img src="imreadModes_256.jpg" alt="Figura 6 - imreadModes = 256." width="400" height="500">
-  <figcaption>Figura 6 - imreadModes = 256.</figcaption>
-</figure>
-
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Leitura de vídeo em arquivo</h3>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  As seguintes alterações foram prospostas: Modifique o programa para que as imagens sejam exibidas <strong>mais rápidamente</strong> e depois para que seja exibidas <strong>mais lentamente</strong>. Responda: Qual a explicação de alteração de velocidade de exibição e apresente suas conclusões detalhadamente:
-</p>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Verificamos que o comando que controla a velocidade de exibição é o comando: <strong>time.sleep(1/25.0)</strong>. Este comando divide 1 segundo de vídeo por 25 quadros (FPS), então um novo frame é exibido a cada 40 milisegundos.
-</p>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Então para alterarmos a velocidade de exibição basta alteramos o valor de FPS. O vídeo a seguir executa o comando com a seguinte configuração <strong>time.sleep(1/60)</strong>, ou seja, em 60 quadros por segundo, portanto um novo frame é exibido a cada 1 milisegundo.
-</p>
-
-<pre><code><span class="hljs-keyword">import</span> time
-<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
-<span class="hljs-keyword">import</span> cv2 <span class="hljs-keyword">as</span> cv
-
-cap = cv.VideoCapture(<span class="hljs-string">'big_buck_bunny.mp4'</span>)
-
-<span class="hljs-keyword">while</span>(cap.isOpened()):
-    ret, frame = cap.read()
-
-    <span class="hljs-keyword">if</span> ret==<span class="hljs-keyword">True</span>:
-        <span class="hljs-comment"># show the frame</span>
-        cv.imshow(<span class="hljs-string">'frame'</span>,frame)
-
-        <span class="hljs-comment">#wait next frame by 1ms - 60fps</span>
-        time.sleep(<span class="hljs-number">1</span>/<span class="hljs-number">60.0</span>) 
-
-        <span class="hljs-keyword">if</span> cv.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == ord(<span class="hljs-string">'q'</span>):
-            <span class="hljs-keyword">break</span>
-    <span class="hljs-keyword">else</span>:
-        <span class="hljs-keyword">break</span>
-
-cap.release()
-cv.destroyAllWindows()
-</code></pre>
-<script>
-    // Define a velocidade de reprodução (por exemplo, 2.0x)
-    document.getElementById('meuVideo').playbackRate = 2.0;
-</script>
-
-
-<pre><code><span class="hljs-keyword">import</span> time
-<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
-<span class="hljs-keyword">import</span> cv2 <span class="hljs-keyword">as</span> cv
-
-cap = cv.VideoCapture(<span class="hljs-string">'big_buck_bunny.mp4'</span>)
-
-<span class="hljs-keyword">while</span>(cap.isOpened()):
-    ret, frame = cap.read()
-
-    <span class="hljs-keyword">if</span> ret==<span class="hljs-keyword">True</span>:
-        <span class="hljs-comment"># show the frame</span>
-        cv.imshow(<span class="hljs-string">'frame'</span>,frame)
-
-        <span class="hljs-comment">#wait next frame by 0.5ms - 120fps</span>
-        time.sleep(<span class="hljs-number">1</span>/<span class="hljs-number">120.0</span>) 
-
-        <span class="hljs-keyword">if</span> cv.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFF</span> == ord(<span class="hljs-string">'q'</span>):
-            <span class="hljs-keyword">break</span>
-    <span class="hljs-keyword">else</span>:
-        <span class="hljs-keyword">break</span>
-
-cap.release()
-cv.destroyAllWindows()
-</code></pre>
-
-<h3 id="-c-leitura-de-imagem-de-c-mera">(C) Leitura de imagem de câmera</h3>
-
-
-
-
-<h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Gravação de vídeo da câmera</h3>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  
-</p>
-
-
-<figure style="text-align: center;">
-  <img src="lentidao.jpg" alt="Figura 9 - Variável FPS." width="500" height="350">
-  <figcaption>Figura 9 - Escolha de FPS.</figcaption>
-</figure>
-
 
 <figure style="text-align: center;">
   <video width="640" height="360" controls autoplay loop muted>
-    <source src="saida_D_corrigido.mp4" type="video/mp4">
+    <source src="video_pessoa_lento.mp4" type="video/mp4">
   </video>
-  <figcaption>Vídeo 9 - Vídeo com script corrigido flip() e FPS.</figcaption>
+  <figcaption>Vídeo 3 - Vídeo de movimentos lentos</figcaption>
 </figure>
 
+<h3 id="-c-leitura-de-imagem-de-c-mera">(C) Calibração de outra câmera do laboratório</h3>
+
+<h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Correção de distorção de imagens.</h3>
 
 
 <h2 id="conclus-o">Conclusão</h2>
