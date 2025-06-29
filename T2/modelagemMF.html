@@ -137,27 +137,11 @@ Este documento apresenta a modelagem funcional de um sistema de monitoramento ba
 <h2 id="ferramentas-utilizadas">Estimativa de ferramentas utilizadas</h2>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  O processo de monitoramento automático por visão computacional fundamenta-se em uma sequência estruturada de etapas que permitem identificar a posição de um indivíduo em tempo real, com base na análise comparativa entre imagens capturadas e modelos previamente definidos. Inicialmente, o sistema realiza a captura da imagem, obtendo quadros contínuos a partir de uma câmera posicionada no ambiente de vigilância. Esses quadros são processados em tempo real e servem como entrada para as etapas subsequentes de análise.
-</p>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Em seguida, aplica-se um filtro de acentuação de bordas, com o objetivo de destacar as características estruturais mais relevantes da cena, como cantos e contornos. Técnicas como o detector de Canny são utilizadas para detectar as bordas e melhorar a segmentação dos elementos presentes na imagem. Essa etapa é essencial para garantir a nitidez dos limites dos objetos e para facilitar a identificação do indivíduo monitorado.
+  O processo de monitoramento automático por visão computacional fundamenta-se em uma sequência estruturada de etapas que permitem identificar a posição de um indivíduo em tempo real, com base na análise comparativa entre imagens capturadas e modelos previamente definidos. Inicialmente, o sistema realiza a captura da imagem, obtendo quadros contínuos a partir de uma câmera posicionada no ambiente de vigilância. Esses quadros são processados em tempo real e servem como entrada para as etapas subsequentes de análise. Em seguida, aplica-se um filtro de acentuação de bordas, com o objetivo de destacar as características estruturais mais relevantes da cena, como cantos e contornos. Técnicas como o detector de Canny são utilizadas para detectar as bordas e melhorar a segmentação dos elementos presentes na imagem. Essa etapa é essencial para garantir a nitidez dos limites dos objetos e para facilitar a identificação do indivíduo monitorado.
 </p>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 Com as bordas realçadas, o sistema parte para a detecção do indivíduo, extraindo informações específicas relacionadas à silhueta e à postura corporal. Essa análise é feita por meio de métodos de extração de características visuais, como o descritor SIFT (Scale Invariant Feature Transform), que permite identificar pontos-chave da imagem independentemente de escala, rotação ou variações de intensidade luminosa. Tais características são cruciais para a robustez do sistema diante de alterações na posição da câmera ou na iluminação do ambiente.
-</p>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Na etapa seguinte, ocorre a comparação com imagens modelo, que consistem em representações prévias do indivíduo monitorado em diferentes posições — sentado, deitado e em pé. Essas imagens modelo são utilizadas como referência para o processo de matching. Para garantir uma correspondência precisa entre o quadro atual e os modelos, o sistema pode aplicar transformações geométricas, como rotações, mudanças de escala e ajustes de brilho, assegurando que variações naturais na cena não comprometam a identificação correta da postura.
-</p>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Por fim, com base nas correspondências extraídas entre os pontos-chave da imagem atual e os modelos, o sistema gera um resultado indicando a posição mais provável do indivíduo naquele momento. Essa inferência permite acionar, quando necessário, notificações automatizadas ao cuidador responsável, assegurando uma resposta rápida em situações de risco, como quando o indivíduo tenta se levantar ou abandonar a cama sem supervisão. O uso dessa abordagem integrada, baseada em técnicas de processamento de imagem e reconhecimento de padrões, proporciona uma solução robusta e eficaz para o monitoramento contínuo de pessoas incapazes.
-</p>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-As imagens apresentadas a seguir possuem caráter ilustrativo, mas representam de forma adequada o resultado esperado durante o processo de detecção da postura do indivíduo. A partir da identificação do contorno, torna-se possível realizar a comparação com imagens modelo previamente definidas. As técnicas propostas para o desenvolvimento do projeto baseiam-se nos conceitos teóricos abordados em aula até o momento, sendo que a inclusão ou exclusão de novos recursos poderá ocorrer de acordo com a evolução do conteúdo ao longo do curso.
 </p>
 
 <div style="display: flex; justify-content: center; gap: 10px;">
@@ -171,6 +155,15 @@ As imagens apresentadas a seguir possuem caráter ilustrativo, mas representam d
     <figcaption>Figura 2 - Detecção do contorno do indivíduo.</figcaption>
   </figure>
 </div>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Na etapa seguinte, ocorre a comparação com imagens modelo, que consistem em representações prévias do indivíduo monitorado em diferentes posições — sentado, deitado e em pé. Essas imagens modelo são utilizadas como referência para o processo de matching. Para garantir uma correspondência precisa entre o quadro atual e os modelos, o sistema pode aplicar transformações geométricas, como rotações, mudanças de escala e ajustes de brilho, assegurando que variações naturais na cena não comprometam a identificação correta da postura.
+</p>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Por fim, com base nas correspondências extraídas entre os pontos-chave da imagem atual e os modelos, o sistema gera um resultado indicando a posição mais provável do indivíduo naquele momento. Essa inferência permite acionar, quando necessário, notificações automatizadas ao cuidador responsável, assegurando uma resposta rápida em situações de risco, como quando o indivíduo tenta se levantar ou abandonar a cama sem supervisão. O uso dessa abordagem integrada, baseada em técnicas de processamento de imagem e reconhecimento de padrões, proporciona uma solução robusta e eficaz para o monitoramento contínuo de pessoas incapazes. As imagens apresentadas a seguir possuem caráter ilustrativo, mas representam de forma adequada o resultado esperado durante o processo de detecção da postura do indivíduo. A partir da identificação do contorno, torna-se possível realizar a comparação com imagens modelo previamente definidas.
+</p>
+
 
 <div style="display: flex; justify-content: center; gap: 10px;">
   <figure style="text-align: center;">
@@ -187,5 +180,5 @@ As imagens apresentadas a seguir possuem caráter ilustrativo, mas representam d
 <h2 id="conclusao">Conclusão</h2>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-A modelagem funcional apresentada permite a compreensão clara dos fluxos de dados e das responsabilidades atribuídas a cada módulo do sistema. Essa estrutura orienta o desenvolvimento dos algoritmos de visão computacional, a integração com o sistema de notificação e a interface com o usuário, assegurando que o produto final esteja alinhado às necessidades reais do público-alvo.
+A modelagem funcional apresentada permite a compreensão clara dos fluxos de dados e das responsabilidades atribuídas a cada módulo do sistema. Essa estrutura orienta o desenvolvimento dos algoritmos de visão computacional, a integração com o sistema de notificação e a interface com o usuário, assegurando que o produto final esteja alinhado às necessidades reais do público-alvo. As técnicas propostas para o desenvolvimento do projeto baseiam-se nos conceitos teóricos abordados em aula até o momento, sendo que a inclusão ou exclusão de novos recursos poderá ocorrer de acordo com a evolução do conteúdo ao longo do curso.
 </p>
