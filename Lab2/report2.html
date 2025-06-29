@@ -406,54 +406,6 @@ Qual o motivo de resultar um conjunto R e t para cada imagem usada na calibraç�
 variáveis R e t significam perante os sistemas de coordenadas envolvidos?
 </p> 
     
-<pre style = "text-align: left;"><code>import numpy <span class="hljs-keyword">as</span> np            # Importa a biblioteca NumPy, útil para lidar com arrays e operações numéricas
-import cv2 <span class="hljs-keyword">as</span> cv              # Importa a biblioteca OpenCV, usada para capturar e processar imagens/vídeo
-
-<span class="hljs-keyword">cap</span> = cv.VideoCapture(0)     # Abre a câmera padrão (geralmente a webcam). O argumento '0' representa a câmera principal
-
-<span class="hljs-keyword">if</span> not <span class="hljs-keyword">cap</span>.isOpened():        # Verifica se a câmera foi aberta corretamente
-    <span class="hljs-keyword">print</span>(<span class="hljs-string">"Cannot open camera"</span>)    # Se não abrir, imprime erro
-    <span class="hljs-keyword">exit</span>()    # Sai do programa imediatamente
-
-<span class="hljs-keyword">while</span> True:        # Loop infinito para capturar os frames da câmera em tempo real
-    <span class="hljs-keyword">ret</span>, frame = <span class="hljs-keyword">cap</span>.<span class="hljs-keyword">read</span>()    # Lê um frame da câmera. 'ret' é True se a leitura foi bem-sucedida, 'frame' é a imagem capturada
-    <span class="hljs-keyword">if</span> not <span class="hljs-keyword">ret</span>:    # Se não conseguir ler um frame (problema na câmera, desconexão, etc.)
-    <span class="hljs-keyword">print</span>(<span class="hljs-string">"Can't receive frame (stream end?). Exiting ..."</span>)    # Mostra mensagem de erro
-    <span class="hljs-keyword">break</span>    # Encerra o loop
-
-    cv.imshow('frame', frame)    # Exibe o frame atual em uma janela chamada 'frame'
-
-    <span class="hljs-keyword">if</span> cv.waitKey(1) == ord('q'):    # Espera 1 milissegundo por uma tecla. Se for 'q', sai do loop
-        <span class="hljs-keyword">break</span>
-
-<span class="hljs-keyword">cap</span>.release()                    # Libera a câmera para outros programas/sistemas
-cv.destroyAllWindows()           # Fecha todas as janelas abertas pelo OpenCV
-</code></pre>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  A imagem a seguir mostra o a imagem com os avatares dos membros da equipe:
-</p>
-
-<figure style="text-align: center;">
-  <img src="foto_grupo_avatar.png" alt="Figura 4 - avatares" width="1093" height="485">
-  <figcaption>Figura 4 - Foto dos avatares em grupo.</figcaption>
-</figure>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Parágrafo.
-</p>
-
-<figure style="text-align: center;">
-  <video width="640" height="360" controls autoplay loop muted>
-    <source src="video_pessoa_lento.mp4" type="video/mp4">
-  </video>
-  <figcaption>Vídeo 3 - Vídeo de movimentos lentos</figcaption>
-</figure>
-
-<h3 id="-c-leitura-de-imagem-de-c-mera">(C) Calibração de outra câmera do laboratório</h3>
-
-<h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Correção de distorção de imagens.</h3>
-
 
 <h2 id="conclus-o">Conclusão</h2>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
