@@ -134,14 +134,14 @@ Este documento apresenta a modelagem funcional de um sistema de monitoramento ba
   </tbody>
 </table>
 
-<h2 id="ferramentas-utilizadas">Estimativa de ferramentas utilizadas</h2>
+<h2 id="ferramentas-utilizadas">Estimativa do uso de técnicas para o projeto</h2>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  O processo de monitoramento automático por visão computacional fundamenta-se em uma sequência estruturada de etapas que permitem identificar a posição de um indivíduo em tempo real, com base na análise comparativa entre imagens capturadas e modelos previamente definidos. Inicialmente, o sistema realiza a captura da imagem, obtendo quadros contínuos a partir de uma câmera posicionada no ambiente de vigilância. Esses quadros são processados em tempo real e servem como entrada para as etapas subsequentes de análise. Em seguida, aplica-se um filtro de acentuação de bordas, com o objetivo de destacar as características estruturais mais relevantes da cena, como cantos e contornos. Técnicas como o detector de Canny são utilizadas para detectar as bordas e melhorar a segmentação dos elementos presentes na imagem. Essa etapa é essencial para garantir a nitidez dos limites dos objetos e para facilitar a identificação do indivíduo monitorado.
+  O processo de monitoramento automático por visão computacional fundamenta-se em uma sequência estruturada de etapas que permitem identificar a posição de um indivíduo em tempo real, com base na análise comparativa entre imagens capturadas e modelos previamente definidos. Inicialmente, o sistema realiza a captura da imagem, obtendo quadros contínuos a partir de uma câmera posicionada no ambiente de vigilância. Esses quadros são processados em tempo real e servem como entrada para as etapas subsequentes de análise. Em seguida, aplica-se um <strong>filtro de acentuação de bordas</strong>, com o objetivo de destacar as características estruturais mais relevantes da cena, como <strong>cantos e contornos</strong>. Técnicas como o <strong>detector de Canny</strong> são utilizadas para detectar as bordas e melhorar a segmentação dos elementos presentes na imagem. Essa etapa é essencial para garantir a nitidez dos limites dos objetos e para facilitar a identificação do indivíduo monitorado.
 </p>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Com as bordas realçadas, o sistema parte para a detecção do indivíduo, extraindo informações específicas relacionadas à silhueta e à postura corporal. Essa análise é feita por meio de métodos de extração de características visuais, como o descritor SIFT (Scale Invariant Feature Transform), que permite identificar pontos-chave da imagem independentemente de escala, rotação ou variações de intensidade luminosa. Tais características são cruciais para a robustez do sistema diante de alterações na posição da câmera ou na iluminação do ambiente.
+Com as bordas realçadas, o sistema parte para a detecção do indivíduo, extraindo informações específicas relacionadas à silhueta e à postura corporal. Essa análise é feita por meio de métodos de extração de características visuais, como o <strong>descritor SIFT (Scale Invariant Feature Transform)</strong>, que permite identificar pontos-chave da imagem independentemente de <strong>escala, rotação ou variações de intensidade luminosa</strong>. Tais características são cruciais para a robustez do sistema diante de alterações na posição da câmera ou na iluminação do ambiente.
 </p>
 
 <div style="display: flex; justify-content: center; gap: 10px;">
