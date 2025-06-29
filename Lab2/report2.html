@@ -416,21 +416,11 @@ cap = cv.VideoCapture(<span class="hljs-string">'big_buck_bunny.mp4'</span>)
 cap.release()
 cv.destroyAllWindows()
 </code></pre>
-
-<figure style="text-align: center;">
-<video id='meuVideo' width="640" height="360" controls autoplay loop muted>
-  <source src="big_buck_bunny.mp4" type="video/mp4">
-</video>
-<figcaption>Video 7 - Vídeo de movimentos rápidos</figcaption>
-</figure>
 <script>
     // Define a velocidade de reprodução (por exemplo, 2.0x)
     document.getElementById('meuVideo').playbackRate = 2.0;
 </script>
 
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  A seguir, alteramos o comando da seguinte forma: <strong>time.sleep(1/120)</strong>, ou seja, 120 quadros por segundo, portanto, um novo quadro é exibido a cada 0,5 milisegundos.
-</p>
 
 <pre><code><span class="hljs-keyword">import</span> time
 <span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
@@ -457,105 +447,36 @@ cap.release()
 cv.destroyAllWindows()
 </code></pre>
 
-<figure style="text-align: center;">
-<video id='meuVideo2' width="640" height="360" controls autoplay loop muted>
-  <source src="big_buck_bunny.mp4" type="video/mp4">
-</video>
-<figcaption>Video 8 - Vídeo de movimentos rápidos</figcaption>
-</figure>
-<script>
-    // Define a velocidade de reprodução (por exemplo, 2.0x)
-    document.getElementById('meuVideo2').playbackRate = 4.0;
-</script>
 <h3 id="-c-leitura-de-imagem-de-c-mera">(C) Leitura de imagem de câmera</h3>
 
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Foi proposto que se alterasse o código fornecido para que uma imagem da câmera fosse salva ao pressionar a tecla <strong>"x"</strong> do teclado. A seguir, o detalhamento das ações tomadas: 
-</p>
 
-<figure style="text-align: center;">
-  <img src="captura_tecla_x.jpg" alt="Figura 7 - Ajuste do script para captura." width="450" height="550">
-  <figcaption>Figura 7 - Ajuste do script para captura de imagem com tecla x.</figcaption>
-</figure>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  O ajuste realizado foi inserir a condição destacada na imagem, ou seja, o comando <strong>cv.waitKey(1) == ord('x')</strong> serve para verificar se foi pressionada a tecla x em algum momento e se esta condição for verdadeira o seguinte comando é executado: <strong>cv.imwrite('foto1.png',frame)</strong>. Este comando salva em um arquivo de imagem o frame no momento em que a tecla foi pressionada. Como o terminal foi executado na pasta do laboratório 1, não foi preciso indicar um diretório de saída pois a imagem é salva onde o programa foi executado.
-</p>
-
-<figure style="text-align: center;">
-  <img src="diretorio_foto_1.jpg" alt="Figura 8 - Diretório foto 1." width="500" height="350">
-  <figcaption>Figura 8 - Diretório do arquivo foto1.png.</figcaption>
-</figure>
 
 
 <h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Gravação de vídeo da câmera</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Foi solicitada a modificação do programa de captura de vídeo com o objetivo de assegurar que as imagens gravadas no arquivo de saída mantivessem sua orientação original (sem rotação), ou seja, “normais”, independentemente da forma como são exibidas ao usuário durante a execução do programa. Além disso, exigiu-se que o vídeo gerado apresentasse uma taxa de exibição condizente com o tempo real, de modo a preservar a fluidez da reprodução e evitar distorções temporais, como aceleração ou lentidão no vídeo final.
+  
 </p>
 
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  A lentidão apresentada no vídeo "saida.avi" é causada pelo seguinte trecho do código:
-</p>
 
 <figure style="text-align: center;">
   <img src="lentidao.jpg" alt="Figura 9 - Variável FPS." width="500" height="350">
   <figcaption>Figura 9 - Escolha de FPS.</figcaption>
 </figure>
 
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Foi setada uma variável chamada de "fps" com valor igual à "10.0" e depois esta variável foi passada como parâmetro de FPS (Frames por segundo) no comando <strong>cv.VideoWriter</strong>. Ou seja, o vídeo de saída estava exibindo um novo frame a cada 100 milisegundos. O vídeo foi exibido de ponta cabeça devido o seguinte comando:
-</p>
 
 <figure style="text-align: center;">
-  <img src="frame_invertido.jpg" alt="Figura 10 - Inversão de frame." width="500" height="350">
-  <figcaption>Figura 10 - Inversão de frame.</figcaption>
+  <video width="640" height="360" controls autoplay loop muted>
+    <source src="saida_D_corrigido.mp4" type="video/mp4">
+  </video>
+  <figcaption>Vídeo 9 - Vídeo com script corrigido flip() e FPS.</figcaption>
 </figure>
 
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
- O parâmetro 0 no comando <strong>cv.flip(frame,0)</strong> indica em qual eixo deve ocorrer a inversão, no caso do valor igual a zero a inversão é realizada no eixo vertical.
-</p>
 
-<figure style="text-align: center;">
-  <img src="flip.jpg" alt="Figura 11 - Método flip()." width="800" height="500">
-  <figcaption>Figura 11 - Método flip().</figcaption>
-</figure>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
- A seguir mostramos outra gravação com os parâmetro FPS ajustado para 30.0 e a linha que aplica o método flip() comentada.
-</p>
-
-<figure style="text-align: center;">
-  <img src="correcao_video_D.png" alt="Figura 12 - Método flip()." width="800" height="500">
-  <figcaption>Figura 12 - Correção do script.</figcaption>
-</figure>
-
-<figure style="text-align: center;">
-<video width="640" height="360" controls autoplay loop muted>
-  <source src="saida_D_corrigido.mp4" type="video/mp4">
-</video>
-<figcaption>Vídeo 9 - Vídeo com script corrigido flip() e FPS.</figcaption>
-</figure>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-    Caso seja necessário inserir algum processamento na imagem, o método deve ser aplicado na variável frame no momento de sua exibição, ou seja, no comando <strong>cv.imshow('frame',frame).</strong>. Por exemplo, para utilizar o comando <strong>Canny</strong> para detecção de bordas, o comando deve ser aplicado da seguinte forma: <strong>cv.imshow('frame',cv.Canny(frame,100,100)).</strong>
-</p>
-
-<figure style="text-align: center;">
-  <img src="canny.png" alt="Figura 13 - Canny() aplicado ao frame." width="800" height="500">
-  <figcaption>Figura 13 - Canny() aplicado ao frame.</figcaption>
-</figure>
-
-<figure style="text-align: center;">
-  <img src="canny.jpg" alt="Figura 14 - Canny() aplicado ao frame script." width="800" height="500">
-  <figcaption>Figura 14 - Canny() aplicado ao frame no script.</figcaption>
-</figure>
 
 <h2 id="conclus-o">Conclusão</h2>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Através desse laboratório, foi possível aprender e praticar várias ferramentas básicas da biblioteca python opencv em processamento básico nas imagens e vídeos, tanto a como procurar funções da bliblioteca como praticando os conceitos, como exibição e alteração da cor de imagem alterando o  <strong>GRAYSCALE</strong> em <strong>cv.imread</strong> e salvar com <strong>cv.imwrite</strong>, reprodução de video com <strong>cv.VideoCapture</strong> e alteração da velocidade de reprodução com alteração do <strong>time.sleep</strong> (FPS), leitura de imagem por webcam com <strong>cv.VideoCapture(0).read()</strong>, gravação de video webcam com <strong>cv.VideoWriter</strong>, orientação de reprodução de video com <strong>cv.flip</strong>, processamento de imagem usando o <strong>cv.Canny</strong> para detecção de bordas. 
-É possivel concluir que o objetivo dos exercícios foram cumpridos da forma esperada e sem grande dificuldades.
-Com esse conhecimento adquirido, será possível gerar, carregar, processar e editar com mais facilidade fotos e vídeos com python durante as aulas, afim de melhorar as análises em visão computacional.
+
 </p>
 <h2 id="Ref-s">Referências</h2>
 
