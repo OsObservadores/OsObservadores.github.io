@@ -310,7 +310,7 @@ tvecs :
     Onde fx e fy são as distâncias focais x e y, ou seja, representam o foco da câmera. Os parâmetros cx e cy representam o centro óptico do plano da imagem (geralmente o centro da imagem). O valor zero na primeira linha e segunda coluna da matriz representa a inclinação entre os eixos x e y, geralmente é atribuído o valor zero. Os zeros e o um na terceira linha são convenções da forma homogênea.
 </p> 
 
-<h4>A matriz <strong>R</strong></h4> e o vetor <strong>t</strong>
+<h4>A matriz <strong>R</strong> e o vetor <strong>t</strong></h4>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     Para encontrar a projeção de um ponto 3D no plano da imagem, são necessários os parâmetros extrínsecos (Rotação <strong>R</strong> 3X1 e Translação <strong>t</strong> 3X1). A matriz de rotação <strong>R</strong> representa a rotação do ponto 3D do sistema de coordenadas do mundo (tabuleiro) para o sistema de coordenadas da câmera. O vetor <strong>t</strong> é o vetor translação do sistema de coordenadas do mundo para o sistema de coordenadas da câmera. A rotação no script é especificada como um vetor <strong>r</strong> de 3x1 para cada imagem usada na calibração. Esses vetores são em forma de rotação de Rodrigues, que é uma forma compacta de representar uma matriz de rotação 3x3.
@@ -333,12 +333,6 @@ tvecs :
     p1 e p2 a Distorção tangencial (causada por desalinhamento da lente com o sensor).
     Esses valores são usados para corrigir as distorções da imagem, muito comum em lentes baratas ou câmeras tipo webcam.
 </p> 
-
-<h4>O vetor <strong>t</strong></h4>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-    Cada vetor t representa a translação do pixel da imagem da câmera em relação ao sistema de coordenadas do tabuleiro de xadrez. Também é calculado para cada imagem de calibração.
-</p>
-
 
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Calibração da sua webcam com a captura de suas próprias imagens.</h3>
 
