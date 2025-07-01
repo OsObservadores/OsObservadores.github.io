@@ -296,24 +296,6 @@ tvecs :
     A matriz de parâmetros intrínsecos da câmera chamada de K tem esse padrão:
 </p> 
 
-<div id="matriz"></div>
-
-<script>
-  const matriz = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-  ];
-
-  let html = "<pre><b>A</b> = [<br>";
-  for (let i = 0; i < matriz.length; i++) {
-    html += "     [" + matriz[i].join(", ") + "]";
-    html += (i < matriz.length - 1) ? ",<br>" : "<br>";
-  }
-  html += "]</pre>";
-
-  document.getElementById("matriz").innerHTML = html;
-</script>
 
 <p style="text-align: center; line-height: 1.5;">
 <code>
