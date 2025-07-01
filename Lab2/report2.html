@@ -289,12 +289,30 @@ tvecs :
 </p> 
 </code></pre>
 
-<h3> Explicando os significados de K, R, t, e dist.</h3>
+<h3>Significados de K, R, t, e dist.</h3>
 
-<h4> Explicando a matriz k</h4>
+<h4>A matriz K</h4>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     A matriz de parâmetros intrínsecos da câmera chamada de K tem esse padrão:
 </p> 
+
+<div id="matriz"></div>
+
+<script>
+  const matriz = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+  ];
+
+  let html = "<pre>";
+  for (let i = 0; i < matriz.length; i++) {
+    html += matriz[i].join(" ") + "\n";
+  }
+  html += "</pre>";
+
+  document.getElementById("matriz").innerHTML = html;
+</script>
 
 <p style="text-align: center; line-height: 1.5;">
 <code>
