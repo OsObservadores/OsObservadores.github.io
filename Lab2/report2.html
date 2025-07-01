@@ -574,6 +574,55 @@ tvecs :
 <h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Correção de distorção de imagens.</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Para correções de distorções nas imagens utilizamos o seguinte script:
+</p>
+
+<pre>
+<code class="language-python">
+
+import cv2
+import numpy as np
+import glob
+
+# === PARÂMETROS DA CÂMERA COM DISTORÇÃO ===
+K = np.array([[588.061213, 0., 322.57638831],
+              [0., 588.20498337, 247.43327418],
+              [0., 0., 1.]])
+
+dist = np.array([[-0.39463915, 0.38850557, -0.00091135, 0.00028816, -0.61571148]])
+
+# === OPÇÃO: caminho para as imagens capturadas com essa câmera ===
+image_files = glob.glob("distorcida/*.jpg")  # coloque suas imagens na pasta "distorcida/"
+
+# === CRIA A PASTA DE SAÍDA SE NÃO EXISTIR ===
+import os
+os.makedirs("corrigida", exist_ok=True)
+
+for fname in image_files:
+    img = cv2.imread(fname)
+    h, w = img.shape[:2]
+
+    # Cálculo da nova matriz da câmera (corrigida)
+    new_K, roi = cv2.getOptimalNewCameraMatrix(K, dist, (w,h), alpha=1, centerPrincipalPoint=True)
+
+    # Corrige a distorção
+    undistorted = cv2.undistort(img, K, dist, None, new_K)
+
+    # (Opcional) Recorte para remover áreas pretas
+    x, y, w, h = roi
+    undistorted = undistorted[y:y+h, x:x+w]
+
+    # Salvar imagem corrigida
+    name = os.path.basename(fname)
+    cv2.imwrite(f"corrigida/corrigida_{name}", undistorted)
+    print(f"Corrigida: {name}")
+
+print("\n✅ Todas as imagens foram corrigidas e salvas na pasta 'corrigida/'")
+</code>
+</pre>
+
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   As imagens a seguir foram geradas para posterior processamento de distorções.
 </p>
 
