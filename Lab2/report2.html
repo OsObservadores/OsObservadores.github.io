@@ -680,27 +680,27 @@ print("\n✅ Todas as imagens foram corrigidas e salvas na pasta 'corrigida/'")
 <section>
   <h2>Processo de Calibração da Câmera</h2>
 
-  <p>
+  <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     A calibração de câmera é uma etapa fundamental em aplicações de Visão Computacional, como reconstrução 3D,
     realidade aumentada e medição de distâncias. Seu principal objetivo é encontrar os parâmetros que descrevem
     matematicamente como a câmera transforma pontos do mundo real (3D) em pontos na imagem (2D).
   </p>
 
   <h3>1. Captura das Imagens com Tabuleiro de Xadrez</h3>
-  <p>
+  <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     Foram capturadas diversas imagens de um padrão conhecido — um tabuleiro de xadrez — posicionadas sob diferentes
     ângulos e distâncias em relação à câmera. Esse padrão foi escolhido por apresentar cantos bem definidos e regularmente espaçados, ideais para detecção automática.
   </p>
 
   <h3>2. Detecção de Cantos</h3>
-  <p>
+ <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     Em cada imagem, foi utilizado o algoritmo <code>cv2.findChessboardCorners()</code> para localizar automaticamente
     os cantos internos do tabuleiro. Em seguida, a função <code>cv2.cornerSubPix()</code> foi aplicada para refinar a posição desses
     cantos com precisão subpixel.
   </p>
 
   <h3>3. Associação de Pontos 3D ↔ 2D</h3>
-  <p>
+  <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     Para cada imagem foram associados:
     <ul>
       <li><strong>Pontos 3D:</strong> Coordenadas reais dos cantos no plano do tabuleiro (com Z = 0), definidas em um sistema de coordenadas arbitrário.</li>
@@ -710,7 +710,7 @@ print("\n✅ Todas as imagens foram corrigidas e salvas na pasta 'corrigida/'")
   </p>
 
   <h3>4. Cálculo dos Parâmetros com <code>cv2.calibrateCamera()</code></h3>
-  <p>
+  <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     A função <code>cv2.calibrateCamera()</code> foi utilizada para estimar os seguintes parâmetros:
   </p>
 
@@ -744,13 +744,13 @@ dist = [k1, k2, p1, p2, k3]
   </ul>
 
   <h3>5. Correção da Distorção (Undistortion)</h3>
-  <p>
+  <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     Após a calibração, foi possível corrigir as distorções nas imagens aplicando a função <code>cv2.undistort()</code>.
     Essa etapa remove os efeitos ópticos indesejados e aproxima a imagem da sua geometria real.
   </p>
 
   <h3>6. Aplicações Práticas</h3>
-  <p>
+  <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     A calibração permite:
     <ul>
       <li>Corrigir distorções em imagens capturadas</li>
