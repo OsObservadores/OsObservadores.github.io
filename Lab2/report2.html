@@ -447,14 +447,37 @@ tvecs :
 </p>
 </code></pre>
 
+
+<h4>Comparação com os resultados obtidos no item anterior</h4>
+
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Responda: liste todos os parametros obtidos, colocando-os nas formas de matrizes e vetores
-(Matriz K, matriz R, vetor t, vetor dos coeficientes de distorção). Compare e analise as
-diferenças com o obtido no item anterior.
-Apresente o valor númérico obtido pela calibração de sua câmera dos seguintes parâmetros:
-focal length, aspect ratio, skew, principal point, e comente esse resultado obtido.
-Qual o motivo de resultar um conjunto R e t para cada imagem usada na calibração? O que estas
-variáveis R e t significam perante os sistemas de coordenadas envolvidos?
+Ao comparar as distâncias focais estimadas (fx, fy) nas matrizes intrínsecas obtidas, observa-se que a amostra 2 apresenta valores aproximadamente 27% superiores em relação à amostra 1 (Amostra 1: fx = 536,07 e fy = 536,02; Amostra 2: fx = 681,31 e fy = 680,28). Tal discrepância não é esperada para uma mesma câmera, exceto nos casos em que as imagens utilizadas na calibração estejam mais próximas da lente, o que reduz o campo de visão aparente e, consequentemente, superestima a distância focal. Este é precisamente o cenário observado: as imagens da segunda amostra, geradas pelo grupo, encontram-se posicionadas a uma distância significativamente menor em relação à câmera.
+Em relação ao vetor de distorção, verifica-se uma mudança de sinal no coeficiente radial k1, indicando uma transição do tipo de distorção de barril (amostra 1) para almofada (amostra 2). Essa inversão representa uma inconsistência no modelo, geralmente associada a dados mal distribuídos ou à presença de ruído significativo nas detecções. Como a distorção radial é uma característica física da lente, a ocorrência de perfis opostos de distorção em amostras da mesma câmera não é fisicamente plausível. Portanto, conclui-se que o modelo obtido na segunda amostra apresenta-se distorcido ou mal condicionado, ao passo que o modelo da primeira amostra sugere uma distorção do tipo barril leve, compatível com o comportamento típico de câmeras não profissionais.
+No que se refere aos vetores de rotação e translação, verifica-se que ambas as amostras possuem boa cobertura espacial, com número de imagens similar e distribuição das translações (tvecs) ao longo de um intervalo adequado de distâncias. Observa-se, ainda, uma variação nas orientações dos vetores de rotação (rvecs), o que indica que os planos dos padrões de calibração foram dispostos com diferentes ângulos em relação à câmera. Tal variação é considerada aceitável e até desejável desde que haja uma distribuição angular equilibrada, contribuindo para a robustez do processo de calibração.
+</p>
+
+<h4>Apresente o valor númérico obtido pela calibração de sua câmera dos seguintes parâmetros: focal length, aspect ratio, skew, principal point, e comente esse resultado obtido.</h4>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+<strong>Focal lenght:</strong> fx = 681,31313572 e fy = 680.28102571.
+A distância focal é a distância entre o plano da imagem e o centro ópico.
+
+<strong>aspect ratio??</strong>
+
+<strong>Skew:</strong> 0. O valor igual a zero indica que não existe inclinação entre os eixos x e y do sensor da câmera.
+<strong>Principal point (Centro óptico):</strong> cx = 338,83438339; cy = 237,97905977. O centro óptico da câmera não coincide com o centro do sistema de coordenadas da imagem, ou seja, o centro óptico no plano da imagem está deslocado de cx em x e de cy em y em relação ao centro óptico da câmera.
+</p>
+
+<h4>Qual o motivo de resultar um conjunto R e t para cada imagem usada na calibração?</h4>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O motivo é a orientação do tabuleiro de xadrez que é diferente em cada imagem. Desta forma, para cada imagem é calculada a rotação e translação dos pontos 3D no sistema de coordenadas do mundo em relação ao sistema de coordenadas da câmera. 
+</p>
+
+<h4>O que estas variáveis R e t significam perante os sistemas de coordenadas envolvidos?</h4>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O que ocorre no processo de captura da imagem pela câmera é que é calculada uma projeção de um ponto 3D no plano da imagem. Para isso é necessário transformar o ponto do sistema de coordenadas do mundo para o sistema de coordenadas da câmera. Neste contexto temos os parâmetro extrínsecos rotação R e translação t. O sistema de coordenadas do Mundo (tabuleiro de xadrez) está relacionado com o sistema de coordenadas da câmera por uma rotação e uma translação. A rotação é dada por 3 parâmetros, ou seja, deveria ser um vetor de 3 elementos: guinada, inclinação e rotação, porém, é utilizada uma matriz 3x3 para facilitar a matemática da relação entre um ponto no sistema de coordenadas do mundo e o mesmo ponto representado no sistema de coordenadas da câmera. Ao representar a rotação como uma matriz, podemos encontrar a rotação através de uma multiplicação simples de matrizes. Uma vez que obtemos um ponto no sistema de coordenadas 3D da câmera, aplicando uma rotação e translação às coordenadas do mundo dos pontos, estamos em posição de projetar o ponto no plano da imagem para obter uma localização do ponto na imagem.
 </p> 
 
 <h3 id="-c-leitura-de-imagem-de-c-mera">(C) Calibração de outra câmera do laboratório</h3>
