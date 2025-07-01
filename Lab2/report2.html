@@ -305,11 +305,12 @@ tvecs :
     [7, 8, 9]
   ];
 
-  let html = "<pre>";
+  let html = "<pre><b>A</b> = [<br>";
   for (let i = 0; i < matriz.length; i++) {
-    html += matriz[i].join(" ") + "\n";
+    html += "     [" + matriz[i].join(", ") + "]";
+    html += (i < matriz.length - 1) ? ",<br>" : "<br>";
   }
-  html += "</pre>";
+  html += "]</pre>";
 
   document.getElementById("matriz").innerHTML = html;
 </script>
