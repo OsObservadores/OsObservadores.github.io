@@ -293,7 +293,7 @@ tvecs :
 
 <h4>A matriz <strong>K</strong></h4>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-    A matriz de parâmetros intrínsecos da câmera chamada de K tem esse padrão:
+    A matriz <strong>K</strong> de parâmetros intrínsecos da câmera tem o seguinte padrão:
 </p> 
 
 
@@ -307,15 +307,13 @@ tvecs :
 </p>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-    Onde f_x, f_y representam o foco da câmera em pixels (relacionado à distância focal real e tamanho dos pixels), 
-    c_x e c_y o centro óptico (geralmente o centro da imagem) e is zeros e o 1 na terceira linha são convenções da forma homogênea.
+    Onde fx e fy são as distâncias focais x e y, ou seja, representam o foco da câmera. Os parâmetros cx e cy representam o centro óptico do plano da imagem (geralmente o centro da imagem). O valor zero na primeira linha e segunda coluna da matriz representa a inclinação entre os eixos x e y, geralmente é atribuído o valor zero. Os zeros e o um na terceira linha são convenções da forma homogênea.
 </p> 
 
+<h4>A matriz <strong>R</strong></h4> e o vetor <strong>t</strong>
 
-<h4>O vetor <strong>R</strong></h4>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-    Cada vetor r representa a rotação da câmera em relação ao mundo 3D (o tabuleiro de xadrez), para cada imagem usada na calibração.
-    Esses vetores são em forma de rotação de Rodrigues, que é uma forma compacta de representar uma matriz de rotação 3x3.
+    Para encontrar a projeção de um ponto 3D no plano da imagem, são necessários os parâmetros extrínsecos (Rotação <strong>R</strong> 3X1 e Translação <strong>t</strong> 3X1). A matriz de rotação <strong>R</strong> representa a rotação do ponto 3D do sistema de coordenadas do mundo (tabuleiro) para o sistema de coordenadas da câmera. O vetor <strong>t</strong> é o vetor translação do sistema de coordenadas do mundo para o sistema de coordenadas da câmera. A rotação no script é especificada como um vetor <strong>r</strong> de 3x1 para cada imagem usada na calibração. Esses vetores são em forma de rotação de Rodrigues, que é uma forma compacta de representar uma matriz de rotação 3x3.
 </p> 
 
 
@@ -762,26 +760,16 @@ dist = [k1, k2, p1, p2, k3]
     </ul>
   </p>
 
-  <h3>Referências</h3>
-  <p>
-    O procedimento segue o algoritmo de Zhang para calibração de câmeras, conforme implementado na biblioteca OpenCV.
-    <a href="https://docs.opencv.org/4.x/dc/dbb/tutorial_py_calibration.html" target="_blank">Documentação oficial do OpenCV</a>.
-  </p>
-</section>
-
 
 <h2 id="conclus-o">Conclusão</h2>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 
 </p>
-<h2 id="Ref-s">Referências</h2>
 
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  https://docs.opencv.org/4.11.0/d8/d6a/group__imgcodecs__flags.html#gga61d9b0126a3e57d9277ac48327799c80ab6573b69300c092b61800222fe555953
-</p>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  https://docs.opencv.org/4.11.0/d2/de8/group__core__array.html#ga6c7adcc7771b452141c8f9a22a54bcf5
-</p>
-
-
+<h3>Referências</h3>
+  <p>
+    O procedimento segue o algoritmo de Zhang para calibração de câmeras, conforme implementado na biblioteca OpenCV.
+    <a href="https://docs.opencv.org/4.x/dc/dbb/tutorial_py_calibration.html" target="_blank">Documentação oficial do OpenCV</a>.
+  </p>
+</section>
   
