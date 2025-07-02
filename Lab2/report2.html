@@ -452,8 +452,11 @@ tvecs :
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 Realiza-se a calibração de duas câmeras com o objetivo de extrair seus parâmetros intrínsecos e extrínsecos, além de avaliar as distorções ópticas associadas a cada dispositivo. A comparação considera a matriz intrínseca (K), o vetor de distorção (dist), os vetores de rotação (rvecs) e os vetores de translação (tvecs), obtidos por meio de um processo de calibração com imagens de padrão conhecido.
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 A matriz intrínseca da Câmera 1 apresenta distância focal estimada de aproximadamente 536 unidades em ambos os eixos (fx = 536.07, fy = 536.01). Já a Câmera 2 apresenta valores mais elevados (fx = 681.31, fy = 680.28), representando um aumento de cerca de 27%. Essa diferença indica que a Câmera 2 possui um campo de visão mais estreito e, portanto, uma capacidade de aproximação maior. Os valores do centro óptico (cx, cy) mantêm-se similares entre as duas câmeras, com pequenas variações (cerca de 1%), indicando boa centralização da imagem em ambos os sensores.
 A comparação dos vetores de distorção revela características ópticas distintas. A Câmera 1 apresenta uma distorção radial negativa (k₁ = -0.265), característica do tipo barril, enquanto a Câmera 2 exibe uma distorção radial positiva mais branda (k₁ = +0.055), compatível com o tipo almofada. Além disso, o coeficiente de terceira ordem k₃ é significativamente maior na Câmera 2 (k₃ = +0.624), o que indica a presença de distorções de ordem superior mais acentuadas nesse dispositivo. Os coeficientes tangenciais (p₁, p₂) permanecem baixos em ambas as câmeras, sugerindo que a principal distorção ocorre na forma radial.
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;"></p>
 Os vetores de rotação (rvecs) demonstram que ambas as câmeras capturam o padrão de calibração sob diferentes orientações espaciais. A Câmera 1 exibe rotações com maior predominância no eixo z, enquanto a Câmera 2 distribui suas rotações de maneira mais equilibrada entre os três eixos, o que reflete abordagens distintas na aquisição das imagens utilizadas na calibração.
 Em relação aos vetores de translação (tvecs), observa-se que ambas as câmeras operam com distâncias semelhantes em relação ao padrão de calibração, variando principalmente entre 10 e 17 unidades no eixo z. No entanto, a Câmera 2 apresenta maior variação nas componentes dos eixos x e y, o que sugere maior diversidade nos ângulos de captura e maior riqueza de pontos de vista.
 Conclui-se que, apesar de ambas as câmeras fornecerem resultados consistentes dentro de seus respectivos contextos ópticos, os parâmetros calibrados refletem diferenças significativas em suas características físicas e ópticas. A Câmera 2 evidencia uma lente com maior aproximação (menor campo de visão), maior distorção radial de ordem elevada e variedade de poses de calibração. Já a Câmera 1 apresenta uma distorção mais típica do tipo barril e padrão de aquisição com rotação mais pronunciada sobre um único eixo. Essas diferenças destacam a importância de considerar as particularidades de cada dispositivo óptico na etapa de calibração para garantir precisão na reconstrução tridimensional ou na correção de imagens.
@@ -461,14 +464,32 @@ Conclui-se que, apesar de ambas as câmeras fornecerem resultados consistentes d
 
 <h4>Apresente o valor númérico obtido pela calibração de sua câmera dos seguintes parâmetros: focal length, aspect ratio, skew, principal point, e comente esse resultado obtido.</h4>
 
+<h4>Focal lenght</h4>
+
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-<strong>Focal lenght:</strong> fx = 681,31313572 e fy = 680.28102571.
-A distância focal é a distância entre o plano da imagem e o centro ópico.
+fx = 681,31313572 e fy = 680.28102571.
+A distância focal representa a relação entre as dimensões físicas da lente e o tamanho dos pixels no sensor, expressa aqui em pixels. Esses valores mostram que a câmera possui resolução uniforme nos eixos horizontal e vertical, com pequena diferença entre fx e fy, o que indica que os pixels são praticamente quadrados. Uma distância focal alta como essa também sugere um campo de visão mais estreito (zoom maior), típico de câmeras com lentes mais fechadas ou com padrão de calibração mais próximo.
+</p>
 
-<strong>aspect ratio??</strong>
+<h4>Aspect ratio</h4>
 
-<strong>Skew:</strong> 0. O valor igual a zero indica que não existe inclinação entre os eixos x e y do sensor da câmera.
-<strong>Principal point (Centro óptico):</strong> cx = 338,83438339; cy = 237,97905977. O centro óptico da câmera não coincide com o centro do sistema de coordenadas da imagem, ou seja, o centro óptico no plano da imagem está deslocado de cx em x e de cy em y em relação ao centro óptico da câmera.
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+aspect_ratio = fx / fy = 681.31313572 / 680.28102571 ≈ 1.0015.
+Esse valor está muito próximo de 1, o que indica que o tamanho dos pixels nos eixos x e y é praticamente o mesmo — ou seja, a imagem não sofre distorção por alongamento ou achatamento em nenhum dos eixos. Um aspect ratio diferente de 1 indicaria distorção geométrica intrínseca da imagem.
+</p>
+
+<h4>Skew</h4>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+skew = 0.
+Esse valor representa o grau de inclinação entre os eixos x e y do sensor. Um skew diferente de zero indicaria que os eixos não são ortogonais (formam um ângulo diferente de 90°), o que poderia ocorrer por imperfeições na montagem do sensor. O valor zero indica que os eixos da imagem estão corretamente perpendiculares, o que é esperado na maioria dos sensores modernos.  
+</p>
+
+<h4>Principal point (Centro óptico)</h4>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+cx = 338,83438339, cy = 237,97905977.
+Esses valores representam a posição do centro da imagem em coordenadas de pixel. Idealmente, esse ponto coincidiria com o centro geométrico da imagem (largura/2, altura/2), mas na prática há um pequeno deslocamento, o que é comum. Esse deslocamento pode ser causado por leve descentralização da lente em relação ao sensor. A interpretação correta é que o centro óptico projetado no plano da imagem está deslocado de (cx, cy) em relação à origem do sistema de coordenadas da imagem (que geralmente é o canto superior esquerdo). Não se deve dizer que ele está “deslocado do centro óptico da câmera”, pois isso confundiria os conceitos físicos (lente) e projetivos (imagem).
 </p>
 
 <h4>Qual o motivo de resultar um conjunto R e t para cada imagem usada na calibração?</h4>
@@ -783,7 +804,7 @@ dist = [k1, k2, p1, p2, k3]
 
 <h2 id="conclus-o">Conclusão</h2>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-
+A respeito da parte A e da parte B e suas comparações conclui-se que os parâmetros obtidos indicam uma calibração consistente e compatível com sensores de qualidade. O valor do aspect ratio próximo de 1 confirma que os pixels do sensor possuem proporções praticamente quadradas, o que garante uniformidade na escala dos eixos e favorece aplicações que assumem simetria na resolução. O valor nulo do skew revela que os eixos da imagem são ortogonais, o que é desejável e caracteriza uma montagem precisa do sensor da câmera. Além disso, o pequeno deslocamento do principal point em relação ao centro da imagem é esperado na prática e não compromete os resultados da calibração. A proximidade entre os valores de fx e fy também sugere uma boa uniformidade entre os eixos horizontal e vertical, o que simplifica o uso desses parâmetros em aplicações como reconstrução tridimensional, visão estéreo e correção de distorção.
 </p>
 
 <h3>Referências</h3>
