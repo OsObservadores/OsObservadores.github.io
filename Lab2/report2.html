@@ -637,27 +637,44 @@ tvecs :
 </code></pre>
 <section id="parte-c">
 
-  <p>As imagens capturadas pela câmera C foram processadas pelo programa <code>L2_cal.py</code>, gerando a seguinte matriz intrínseca:</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  As imagens capturadas pela câmera C foram processadas pelo programa <code>L2_cal.py</code>, gerando a seguinte matriz intrínseca:
+</p>
   <pre>
 K_C = [[588.0841,   0.0000, 322.3735],
        [ 0.0000, 588.3452, 247.2104],
        [ 0.0000,   0.0000,   1.0000]]
   </pre>
 
-  <p>Os coeficientes de distorção radial e tangencial encontrados foram:</p>
+ <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Os coeficientes de distorção radial e tangencial encontrados foram:
+</p>
+
   <pre>
 dist_C = [k₁ = –0.3954, k₂ = +0.3892, k₃ = –0.6167, p₁ = +0.0041, p₂ = –0.0011]
   </pre>
 
-  <p>Em comparação à Parte A (onde fx ≈ 536 e k₁ ≈ –0.265) e à Parte B (fx ≈ 681 e k₁ ≈ +0.055), nota‑se que a câmera C apresenta um foco intermediário (fx ≈ 588), resultando num campo de visão mais fechado que A, porém mais amplo que B. O centro óptico deslocou‑se de (342, 236) em A e de (338, 237) em B para (322, 247) em C, indicando um alinhamento mais centralizado nesta câmera.</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Em comparação à Parte A (onde fx ≈ 536 e k₁ ≈ –0.265) e à Parte B (fx ≈ 681 e k₁ ≈ +0.055), nota‑se que a câmera C apresenta um foco intermediário (fx ≈ 588), resultando num campo de visão mais fechado que A, porém mais amplo que B. O centro óptico deslocou‑se de (342, 236) em A e de (338, 237) em B para (322, 247) em C, indicando um alinhamento mais centralizado nesta câmera.
+</p>
 
-  <p>Quanto aos coeficientes de distorção, k₁ = –0.395 evidencia uma forte distorção de barril, superior àquela observada em A e oposta à suavização de almofada em B. Os sinais alternados de k₂ e k₃ confirmam uma curvatura radial mais complexa nas bordas da imagem, enquanto os valores muito próximos de zero para p₁ e p₂ demonstram que não há distorção tangencial relevante.</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Quanto aos coeficientes de distorção, k₁ = –0.395 evidencia uma forte distorção de barril, superior àquela observada em A e oposta à suavização de almofada em B. Os sinais alternados de k₂ e k₃ confirmam uma curvatura radial mais complexa nas bordas da imagem, enquanto os valores muito próximos de zero para p₁ e p₂ demonstram que não há distorção tangencial relevante.
+</p>
 
-  <p>Os vetores de rotação (rvecs) e translação (tvecs) para cada uma das 12 imagens mostram uma distribuição de poses mais heterogênea do que em A e B, refletindo ângulos e distâncias de captura variados. Isso reforça a importância de utilizar múltiplas visadas do padrão para obter uma calibração robusta.</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Os vetores de rotação (rvecs) e translação (tvecs) para cada uma das 12 imagens mostram uma distribuição de poses mais heterogênea do que em A e B, refletindo ângulos e distâncias de captura variados. Isso reforça a importância de utilizar múltiplas visadas do padrão para obter uma calibração robusta.
+</p>
 
-  <p>O aspect ratio calculado (fx/fy ≈ 588.08/588.35 ≈ 0.9995) permanece muito próximo de 1, e o skew é exatamente 0, indicando que os pixels são praticamente quadrados e os eixos x e y permanecem ortogonais. Esse comportamento ideal facilita a aplicação direta da matriz de calibração em projetos de visão computacional sem necessidade de correções adicionais.</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  O aspect ratio calculado (fx/fy ≈ 588.08/588.35 ≈ 0.9995) permanece muito próximo de 1, e o skew é exatamente 0, indicando que os pixels são praticamente quadrados e os eixos x e y permanecem ortogonais. Esse comportamento ideal facilita a aplicação direta da matriz de calibração em projetos de visão computacional sem necessidade de correções adicionais.
+</p>
 
-  <p>Em suma, a calibração da câmera C confirma a necessidade de tratar cada dispositivo isoladamente. Apesar de apresentar boa simetria interna, a lente desta câmera impõe uma distorção radial de ordem superior significativamente mais intensa do que as anteriores. Para aplicações como reconstrução 3D ou realidade aumentada, é fundamental aplicar a retificação adequada a fim de garantir a precisão geométrica desejada.</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Em suma, a calibração da câmera C confirma a necessidade de tratar cada dispositivo isoladamente. Apesar de apresentar boa simetria interna, a lente desta câmera impõe uma distorção radial de ordem superior significativamente mais intensa do que as anteriores. Para aplicações como reconstrução 3D ou realidade aumentada, é fundamental aplicar a retificação adequada a fim de garantir a precisão geométrica desejada.
+</p>
+
+
 </section>
 
 
