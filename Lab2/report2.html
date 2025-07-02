@@ -847,13 +847,13 @@ dist = [k1, k2, p1, p2, k3]
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     Para melhorar o desempenho em aplicações com múltiplas imagens ou processamento em tempo real, pode-se utilizar o
-    método de <strong>remapeamento</strong> com as funções <code>cv2.initUndistortRectifyMap()</code> e <code>cv2.remap()</code>.
+    método de remapeamento com as funções <code>cv2.initUndistortRectifyMap()</code> e <code>cv2.remap()</code>.
     Esse processo é dividido em duas etapas:
   </p>
-  <ol>
+  <ul>
     <li>Geração de mapas de mapeamento de pixels entre imagem distorcida e corrigida</li>
     <li>Aplicação desse mapeamento para corrigir a imagem</li>
-  </ol>
+  </ul>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     O código abaixo mostra como aplicar essa técnica em Python:
@@ -935,9 +935,9 @@ cv.imwrite("imagem_corrigida.png", imagem_corrigida)
 
   <h3>Vantagens do Remapeamento</h3>
   <ul>
-    <li><strong>Maior eficiência:</strong> os mapas <code>mapx</code> e <code>mapy</code> podem ser pré-calculados e reutilizados para várias imagens.</li>
-    <li><strong>Indicado para vídeos e tempo real:</strong> evita o recalculo da calibração a cada quadro.</li>
-    <li><strong>Maior controle:</strong> permite escolha de interpolação, ajuste de ROI e precisão subpixel.</li>
+    <li>Maior eficiência: os mapas <code>mapx</code> e <code>mapy</code> podem ser pré-calculados e reutilizados para várias imagens.</li>
+    <li>Indicado para vídeos e tempo real: evita o recalculo da calibração a cada quadro.</li>
+    <li>Maior controle: permite escolha de interpolação, ajuste de ROI e precisão subpixel.</li>
   </ul>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
