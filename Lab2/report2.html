@@ -669,7 +669,6 @@ dist_C = [k₁ = –0.3954, k₂ = +0.3892, k₃ = –0.6167, p₁ = +0.0041, p�
 
 <pre>
 <code class="language-python">
-
 import cv2
 import numpy as np
 import glob
@@ -886,6 +885,53 @@ imagem_corrigida = imagem_corrigida[y:y+h, x:x+w]
 
 cv.imwrite("imagem_corrigida.png", imagem_corrigida)
   </code></pre>
+<section>
+  <h2>Correção de Distorção com Remapeamento</h2>
+
+  <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    Uma alternativa mais flexível e eficiente à função <code>cv2.undistort()</code> é a utilização do processo de 
+    remapeamento, que consiste na separação entre a geração do mapeamento geométrico e a aplicação da transformação 
+    nos pixels da imagem. Esse método é particularmente indicado para aplicações com múltiplos quadros ou processamento 
+    em tempo real.
+  </p>
+
+  <h3>1. Geração dos Mapas de Remapeamento</h3>
+  <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    A função <code>cv2.initUndistortRectifyMap()</code> é utilizada para calcular dois mapas:
+    <ul>
+      <li><strong>mapx:</strong> contém as coordenadas horizontais de onde cada pixel corrigido deve buscar seu valor na imagem original.</li>
+      <li><strong>mapy:</strong> contém as coordenadas verticais correspondentes.</li>
+    </ul>
+    Esses mapas são calculados com base na matriz intrínseca da câmera, nos coeficientes de distorção e em uma matriz de câmera ajustada.
+  </p>
+
+  <h3>2. Aplicação do Remapeamento</h3>
+  <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    Após a criação dos mapas, a função <code>cv2.remap()</code> é responsável por aplicar a transformação à imagem original,
+    utilizando interpolação bilinear para gerar uma imagem corrigida geometricamente.
+  </p>
+
+  <h3>3. Recorte da Imagem Corrigida</h3>
+  <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    Como resultado da correção, podem surgir regiões pretas nas bordas da imagem. A função 
+    <code>cv2.getOptimalNewCameraMatrix()</code> fornece uma <code>ROI</code> (Região de Interesse), que pode ser utilizada 
+    para recortar apenas a área útil da imagem corrigida.
+  </p>
+
+
+  <h3>Vantagens do Método de Remapeamento</h3>
+  <ul>
+    <li>Maior eficiência computacional em aplicações com vídeo ou múltiplas imagens.</li>
+    <li>Separação clara entre cálculo geométrico e transformação da imagem.</li>
+    <li>Mapas de remapeamento podem ser reutilizados, economizando tempo de processamento.</li>
+    <li>Permite controle mais preciso sobre interpolação e ajuste do campo de visão.</li>
+  </ul>
+
+  <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    Dessa forma, o uso de remapeamento é especialmente indicado em sistemas de visão computacional embarcados,
+    processamento em tempo real, robótica e realidade aumentada, onde eficiência e precisão são fatores cruciais.
+  </p>
+</section>
 
   <h3>Vantagens do Remapeamento</h3>
   <ul>
