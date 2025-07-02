@@ -467,28 +467,40 @@ Conclui-se que, apesar de ambas as câmeras fornecerem resultados consistentes d
 <h4>Focal lenght</h4>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-fx = 681,31313572 e fy = 680.28102571.
+<strong>Resultados:</strong> fx = 681,31313572 e fy = 680.28102571.
+</p>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 A distância focal representa a relação entre as dimensões físicas da lente e o tamanho dos pixels no sensor, expressa aqui em pixels. Esses valores mostram que a câmera possui resolução uniforme nos eixos horizontal e vertical, com pequena diferença entre fx e fy, o que indica que os pixels são praticamente quadrados. Uma distância focal alta como essa também sugere um campo de visão mais estreito (zoom maior), típico de câmeras com lentes mais fechadas ou com padrão de calibração mais próximo.
 </p>
 
 <h4>Aspect ratio</h4>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-aspect_ratio = fx / fy = 681.31313572 / 680.28102571 ≈ 1.0015.
+<strong>Resultados:</strong> aspect_ratio = fx / fy = 681.31313572 / 680.28102571 ≈ 1.0015.
+</p>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 Esse valor está muito próximo de 1, o que indica que o tamanho dos pixels nos eixos x e y é praticamente o mesmo — ou seja, a imagem não sofre distorção por alongamento ou achatamento em nenhum dos eixos. Um aspect ratio diferente de 1 indicaria distorção geométrica intrínseca da imagem.
 </p>
 
 <h4>Skew</h4>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-skew = 0.
+<strong>Resultados:</strong> skew = 0.
+</p>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;"></p>
 Esse valor representa o grau de inclinação entre os eixos x e y do sensor. Um skew diferente de zero indicaria que os eixos não são ortogonais (formam um ângulo diferente de 90°), o que poderia ocorrer por imperfeições na montagem do sensor. O valor zero indica que os eixos da imagem estão corretamente perpendiculares, o que é esperado na maioria dos sensores modernos.  
 </p>
 
 <h4>Principal point (Centro óptico)</h4>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-cx = 338,83438339, cy = 237,97905977.
+<strong>Resultados:</strong> cx = 338,83438339, cy = 237,97905977.
+</p>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 Esses valores representam a posição do centro da imagem em coordenadas de pixel. Idealmente, esse ponto coincidiria com o centro geométrico da imagem (largura/2, altura/2), mas na prática há um pequeno deslocamento, o que é comum. Esse deslocamento pode ser causado por leve descentralização da lente em relação ao sensor. A interpretação correta é que o centro óptico projetado no plano da imagem está deslocado de (cx, cy) em relação à origem do sistema de coordenadas da imagem (que geralmente é o canto superior esquerdo). Não se deve dizer que ele está “deslocado do centro óptico da câmera”, pois isso confundiria os conceitos físicos (lente) e projetivos (imagem).
 </p>
 
