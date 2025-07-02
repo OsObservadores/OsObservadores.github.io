@@ -846,7 +846,7 @@ dist = [k1, k2, p1, p2, k3]
 <section>
   <h2>Correção de Distorção com Remapeamento</h2>
 
-  <p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     Para melhorar o desempenho em aplicações com múltiplas imagens ou processamento em tempo real, pode-se utilizar o
     método de <strong>remapeamento</strong> com as funções <code>cv2.initUndistortRectifyMap()</code> e <code>cv2.remap()</code>.
     Esse processo é dividido em duas etapas:
@@ -856,7 +856,7 @@ dist = [k1, k2, p1, p2, k3]
     <li>Aplicação desse mapeamento para corrigir a imagem</li>
   </ol>
 
-  <p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     O código abaixo mostra como aplicar essa técnica em Python:
   </p>
 
@@ -894,7 +894,7 @@ cv.imwrite("imagem_corrigida.png", imagem_corrigida)
     <li><strong>Maior controle:</strong> permite escolha de interpolação, ajuste de ROI e precisão subpixel.</li>
   </ul>
 
-  <p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     Por essas razões, o uso de remapeamento é preferido em sistemas que exigem alto desempenho ou precisão contínua,
     como sistemas de visão computacional embarcados ou aplicações de realidade aumentada.
   </p>
