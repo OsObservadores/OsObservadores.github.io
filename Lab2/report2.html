@@ -846,18 +846,7 @@ dist = [k1, k2, p1, p2, k3]
   <h2>Correção de Distorção com Remapeamento</h2>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-    Para melhorar o desempenho em aplicações com múltiplas imagens ou processamento em tempo real, pode-se utilizar o
-    método de remapeamento com as funções <code>cv2.initUndistortRectifyMap()</code> e <code>cv2.remap()</code>.
-    Esse processo é dividido em duas etapas:
-  </p>
-  <ul>
-    <li>Geração de mapas de mapeamento de pixels entre imagem distorcida e corrigida</li>
-    <li>Aplicação desse mapeamento para corrigir a imagem</li>
-  </ul>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-    O código abaixo mostra como aplicar essa técnica em Python:
-  </p>
+    Para correções de distorções nas imagens utilizando o remaeamento, tem-se o seguinte código em Python:
 
   <pre><code class="language-python">
 import cv2 as cv
@@ -886,6 +875,51 @@ imagem_corrigida = imagem_corrigida[y:y+h, x:x+w]
 cv.imwrite("imagem_corrigida.png", imagem_corrigida)
   </code></pre>
 <section>
+
+  <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  As imagens a seguir mostram os resultados das correções das distorções utilizando remapping. Do lado esquerdo as imagens originais e do lado direito as imagens corrigidas.
+</p>
+
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab2/ParteD/Jorge16.jpg" alt="letf01" width="600" height="300"> 
+  <img src="/Lab2/corrigida_remap/corrigida_Jorge16.jpg" alt="letf01" width="600" height="300">
+</div>
+
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab2/ParteD/Jorge17.jpg" alt="letf01" width="600" height="300">
+<img src="/Lab2/corrigida_remap/corrigida_Jorge17.jpg" alt="letf01" width="600" height="300">
+</div>
+
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab2/ParteD/Jorge18.jpg" alt="letf01" width="600" height="300">
+  <img src="/Lab2/corrigida_remap/corrigida_Jorge18.jpg" alt="letf01" width="600" height="300">
+</div>
+
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab2/ParteD/Jorge19.jpg" alt="letf01" width="600" height="300">
+  <img src="/Lab2/corrigida_remap/corrigida_Jorge19.jpg" alt="letf01" width="600" height="300">
+</div>
+
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab2/ParteD/Jorge20.jpg" alt="letf01" width="600" height="300">
+  <img src="/Lab2/corrigida_remap/corrigida_Jorge20.jpg" alt="letf01" width="600" height="300">
+</div>
+
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab2/ParteD/Jorge21.jpg" alt="letf01" width="600" height="300">
+  <img src="/Lab2/corrigida_remap/corrigida_Jorge21.jpg" alt="letf01" width="600" height="300">
+</div>
+
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab2/ParteD/Jorge22.jpg" alt="letf01" width="600" height="300">
+  <img src="/Lab2/corrigida_remap/corrigida_Jorge22.jpg" alt="letf01" width="600" height="300">
+</div>
+
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab2/ParteD/Jorge23.jpg" alt="letf01" width="600" height="300">
+  <img src="/Lab2/corrigida_remap/corrigida_Jorge23.jpg" alt="letf01" width="600" height="300">
+</div>
+  
   <h2>Correção de Distorção com Remapeamento</h2>
 
   <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
