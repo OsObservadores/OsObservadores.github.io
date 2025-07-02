@@ -919,7 +919,10 @@ cv.imwrite("imagem_corrigida.png", imagem_corrigida)
   <img src="/Lab2/ParteD/Jorge23.jpg" alt="letf01" width="600" height="300">
   <img src="/Lab2/corrigida_remap/corrigida_Jorge23.jpg" alt="letf01" width="600" height="300">
 </div>
-  
+<div style="display: flex; justify-content: center">
+  <figcaption>Figura X - Resultados parte D. utilizando remapeamento</figcaption>
+</div>
+    
   <h2>Correção de Distorção com Remapeamento</h2>
 
   <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
@@ -974,13 +977,36 @@ cv.imwrite("imagem_corrigida.png", imagem_corrigida)
     <li>Maior controle: permite escolha de interpolação, ajuste de ROI e precisão subpixel.</li>
   </ul>
 
+  <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  As imagens a seguir servem para comparar os ajustes utilizando remmaping à esquerda e undistort à disreita.
+</p>
+  <div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab2/corrigida_remap/corrigida_Jorge23.jpg" alt="letf01" width="600" height="300">
+  <img src="/Lab2/ParteD/corrigida/corrigida_Jorge23.jpg" alt="letf01" width="600" height="300">
+</div>
+  <div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab2/corrigida_remap/corrigida_Jorge21.jpg" alt="letf01" width="600" height="300">
+  <img src="/Lab2/ParteD/corrigida/corrigida_Jorge21.jpg" alt="letf01" width="600" height="300">
+</div>
+    <div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab2/corrigida_remap/corrigida_Jorge22.jpg" alt="letf01" width="600" height="300">
+  <img src="/Lab2/ParteD/corrigida/corrigida_Jorge22.jpg" alt="letf01" width="600" height="300">
+</div>
+<div style="display: flex; justify-content: center">
+  <figcaption>Figura X+1 - Comparação entre os ajustes</figcaption>
+</div>
+  
+  <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Vale notar nas regiões radiais (isto é, próximo às margens da imagem) como existe a diferença
+</p>
+
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
     Por essas razões, o uso de remapeamento é preferido em sistemas que exigem alto desempenho ou precisão contínua,
     como sistemas de visão computacional embarcados ou aplicações de realidade aumentada.
   </p>
 </section>
 
-  
+
 
 <h2 id="conclus-o">Conclusão</h2>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
