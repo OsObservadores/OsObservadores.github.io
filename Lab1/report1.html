@@ -483,6 +483,65 @@ cv.destroyAllWindows()
   <figcaption>Figura 14 - Canny() aplicado ao frame no script.</figcaption>
 </figure>
 
+<section>
+  <h2>Correção de Distorção com Remapeamento</h2>
+
+  <p>
+    Para melhorar o desempenho em aplicações com múltiplas imagens ou processamento em tempo real, pode-se utilizar o
+    método de <strong>remapeamento</strong> com as funções <code>cv2.initUndistortRectifyMap()</code> e <code>cv2.remap()</code>.
+    Esse processo é dividido em duas etapas:
+  </p>
+  <ol>
+    <li>Geração de mapas de mapeamento de pixels entre imagem distorcida e corrigida</li>
+    <li>Aplicação desse mapeamento para corrigir a imagem</li>
+  </ol>
+
+  <p>
+    O código abaixo mostra como aplicar essa técnica em Python:
+  </p>
+
+  <pre><code class="language-python">
+import cv2 as cv
+import numpy as np
+
+# Parâmetros calibrados da câmera
+mtx = ... # Matriz intrínseca
+dist = ... # Coeficientes de distorção
+
+img = cv.imread("imagem_distorcida.jpg")
+h, w = img.shape[:2]
+
+# Calcula nova matriz de câmera e ROI
+nova_mtx, roi = cv.getOptimalNewCameraMatrix(mtx, dist, (w, h), 1, (w, h))
+
+# Gera os mapas de remapeamento
+mapx, mapy = cv.initUndistortRectifyMap(mtx, dist, None, nova_mtx, (w, h), cv.CV_32FC1)
+
+# Aplica remapeamento para corrigir a imagem
+imagem_corrigida = cv.remap(img, mapx, mapy, cv.INTER_LINEAR)
+
+# Recorte da imagem final (opcional)
+x, y, w, h = roi
+imagem_corrigida = imagem_corrigida[y:y+h, x:x+w]
+
+cv.imwrite("imagem_corrigida.png", imagem_corrigida)
+  </code></pre>
+
+  <h3>Vantagens do Remapeamento</h3>
+  <ul>
+    <li><strong>Maior eficiência:</strong> os mapas <code>mapx</code> e <code>mapy</code> podem ser pré-calculados e reutilizados para várias imagens.</li>
+    <li><strong>Indicado para vídeos e tempo real:</strong> evita o recalculo da calibração a cada quadro.</li>
+    <li><strong>Maior controle:</strong> permite escolha de interpolação, ajuste de ROI e precisão subpixel.</li>
+  </ul>
+
+  <p>
+    Por essas razões, o uso de remapeamento é preferido em sistemas que exigem alto desempenho ou precisão contínua,
+    como sistemas de visão computacional embarcados ou aplicações de realidade aumentada.
+  </p>
+</section>
+
+
+
 <h2 id="conclus-o">Conclusão</h2>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 Através desse laboratório, foi possível aprender e praticar várias ferramentas básicas da biblioteca python opencv em processamento básico nas imagens e vídeos, tanto a como procurar funções da bliblioteca como praticando os conceitos, como exibição e alteração da cor de imagem alterando o  <strong>GRAYSCALE</strong> em <strong>cv.imread</strong> e salvar com <strong>cv.imwrite</strong>, reprodução de video com <strong>cv.VideoCapture</strong> e alteração da velocidade de reprodução com alteração do <strong>time.sleep</strong> (FPS), leitura de imagem por webcam com <strong>cv.VideoCapture(0).read()</strong>, gravação de video webcam com <strong>cv.VideoWriter</strong>, orientação de reprodução de video com <strong>cv.flip</strong>, processamento de imagem usando o <strong>cv.Canny</strong> para detecção de bordas. 
