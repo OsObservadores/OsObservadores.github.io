@@ -970,13 +970,6 @@ cv.imwrite("imagem_corrigida.png", imagem_corrigida)
   </p>
 </section>
 
-  <h3>Vantagens do Remapeamento</h3>
-  <ul>
-    <li>Maior eficiência: os mapas <code>mapx</code> e <code>mapy</code> podem ser pré-calculados e reutilizados para várias imagens.</li>
-    <li>Indicado para vídeos e tempo real: evita o recalculo da calibração a cada quadro.</li>
-    <li>Maior controle: permite escolha de interpolação, ajuste de ROI e precisão subpixel.</li>
-  </ul>
-
   <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   As imagens a seguir servem para comparar os ajustes utilizando remmaping à esquerda e undistort à disreita.
 </p>
@@ -997,7 +990,7 @@ cv.imwrite("imagem_corrigida.png", imagem_corrigida)
 </div>
   
   <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Vale notar nas regiões radiais (isto é, próximo às margens da imagem) como existe a diferença
+  Vale notar nas regiões centreais é perceptível uma leve melhora na qualidade das imagens, isso se deve porque o remapeamento permite uma interpolação mais controlada, preservando a qualidade das imagens originais e ajustando a distorção.
 </p>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
@@ -1006,6 +999,9 @@ cv.imwrite("imagem_corrigida.png", imagem_corrigida)
   </p>
 </section>
 
+  <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    E possível notar grandes melhorias com relação às distorções, em ambas as correções nota-se que as janelas tortas foram alinhadas, canos nos tetos e barras de metal que antes faziam curvas na câmera com distorção se tornaram retos com a correção das imagens. Quanto mais radial está o objeto na imagem original, mais torto (distorcido) ele estava, porém ao corrigir a distorção, tanto com undistort quanto remapping os objetos se tornam retos novamente mesmo estando na parte radial (próximo à margem) da imagem. 
+  </p>
 
 
 <h2 id="conclus-o">Conclusão</h2>
