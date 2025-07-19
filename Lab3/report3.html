@@ -45,7 +45,6 @@ Os códigos utilizados para o experimento foram retirados do seguinte repositór
   </a>
 </p> 
 
-
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Exemplo com imagens fornecidas.</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
@@ -171,7 +170,7 @@ Os códigos utilizados para o experimento foram retirados do seguinte repositór
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 Inicialmente, realiza-se a calibração individual de cada câmera por meio do método de calibração OpenCV. Em seguida, determina-se a transformação entre as duas câmeras configuradas no sistema estéreo. Com os parâmetros obtidos, emprega-se o método <strong>stereoCalibrate</strong> para calcular as transformações necessárias à retificação estéreo. A partir disso, utiliza-se o método <strong>initUndistortRectifyMap</strong> para gerar o mapeamento que corrige distorções e prepara as imagens para retificação. Por fim, aplica-se esse mapeamento às imagens originais, obtendo-se um par estéreo retificado e livre de distorções.
 </p>
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(1) Método para obter o par de imagens estéreo:</h3>
+<h3 id="-b-leitura-de-v-deo-em-arquivo">Método para obter o par de imagens estéreo:</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   O script a seguir realiza as quatro etapas descritas acima: calibração das câmeras individuais, calibração estéreo com parâmetros intrínsecos fixos, retificação estéreo e por fim o mapeamento que obtém o par de imagens estéreo retificadas e sem distorções.</p>
@@ -288,7 +287,18 @@ cv_file.release()
 </p>
 
 
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(2) Criação de vídeo 3D personalizado.</h3>
+
+<h3 id="-c-leitura-de-imagem-de-c-mera">(C) Execute a calibração da sua câmera estéreo (contruída com as webcams) pela captura de suas próprias imagens de calibração e imagens de teste:</h3>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Alterar o programa. Obter 10 a 15 imagens do padrão de calibração: python3 capture_imagens_abc.py
+  Com as imagens obtidas, calibrar a câmera estéreo: python3 calibrate_abc.py
+  Alterar o programa para apresentar as imagens da sua câmera estéreo ao vivo: python3 movie3d.py
+</p>
+
+
+<h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Realize a gravação de um vídeo 3D com sua câmera estéreo.</h3>
+
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   Para criar um vídeo em 3D, primeiramente foi feita a captura dos vídeos utilizando o script abaixo:
@@ -441,19 +451,21 @@ cv2.destroyAllWindows()
   Os resultados da execução dos dois scripts acima são apresentados na sessão <strong>"Análise dos Resultados"</strong>.
 </p>
 
+
+<h2 id="analise-dos-resultados">Análise dos Resultados</h2>
+
+<h3 id="-parte-3">PARTE 3 - Calibração de uma câmera estereoscópica e geração de imagem 3D.</h3>
+
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Resultados do exemplo com as imagens fornecidas.</h3>
+
+
 <h3 id="-c-leitura-de-imagem-de-c-mera">(C) Execute a calibração da sua câmera estéreo (contruída com as webcams) pela captura de suas próprias imagens de calibração e imagens de teste:</h3>
 
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Alterar o programa. Obter 10 a 15 imagens do padrão de calibração: python3 capture_imagens_abc.py
-  Com as imagens obtidas, calibrar a câmera estéreo: python3 calibrate_abc.py
-  Alterar o programa para apresentar as imagens da sua câmera estéreo ao vivo: python3 movie3d.py
-</p>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   Responda: liste todos os parâmetros e valores obtidos para sua câmera estéreo,
 colocando-os nas formas de matrizes e vetores. Quais destes parâmetros forma
 salvos no arquivo de parâmetros de calibração (xml)?
 </p>
-
 
 <h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Realize a gravação de um vídeo 3D com sua câmera estéreo.</h3>
 
@@ -461,14 +473,6 @@ salvos no arquivo de parâmetros de calibração (xml)?
  Responda: a percepção individual de todos integrantes da equipe. Compare e
 analise as diferenças com os resultados ao vivo e gravado.
 </p>
-
-<h2 id="analise-dos-resultados">Análise dos Resultados</h2>
-
-<h3 id="-a-leitura-de-imagem-em-arquivo">(A) Obtenção dos códigos do exemplo da câmera estéreo com OpenCV.</h3>
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Execute o exemplo com as imagens fornecidas.</h3>
-<h3 id="-c-leitura-de-imagem-de-c-mera">(C) Execute a calibração da sua câmera estéreo (contruída com as webcams) pela captura de suas próprias imagens de calibração e imagens de teste:</h3>
-<h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Realize a gravação de um vídeo 3D com sua câmera estéreo.</h3>
-
 
 <h2 id="conclus-o">Conclusão</h2>
 
