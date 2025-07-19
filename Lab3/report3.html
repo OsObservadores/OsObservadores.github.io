@@ -458,11 +458,58 @@ cv2.destroyAllWindows()
 
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Resultados do exemplo com as imagens fornecidas.</h3>
 
+
+<h4>Parâmetros Necessários para a Câmera Estéreo</h4>
+
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Responda: consulte a teoria da calibração e correção de distorção e o exemplo
-executado, e com isso descreva todos os parametros necessários para a camera
-estéreo.
-</p>
+A calibração de uma câmera estéreo envolve determinar um conjunto de parâmetros que descrevem tanto as características internas de cada câmera quanto a relação geométrica entre elas. Esses parâmetros são essenciais para corrigir distorções e possibilitar a reconstrução 3D a partir das imagens capturadas.</p>
+
+<h5>1. Parâmetros Intrínsecos</h5>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Descrevem as características internas de cada câmera individualmente:</p>
+<ul>
+  <li><strong>Matriz de Câmera (K):</strong> matriz 3×3 que inclui a distância focal (fx, fy) e o centro óptico (cx, cy).</li>
+  <li><strong>Coeficientes de Distorção (D):</strong> vetor com 5 ou mais coeficientes que modelam a distorção radial e tangencial da lente (k1, k2, p1, p2, k3...).</li>
+</ul>
+
+<h3>2. Parâmetros Extrínsecos</h3>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Descrevem a posição e orientação relativa entre as duas câmeras:</p>
+<ul>
+  <li><strong>R (Rotação):</strong> matriz 3×3 que representa a rotação da câmera direita em relação à esquerda.</li>
+  <li><strong>T (Translação):</strong> vetor 3×1 que representa o deslocamento da câmera direita em relação à esquerda (em milímetros ou unidades arbitrárias).</li>
+</ul>
+
+<h3>3. Parâmetros de Retificação</h3>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+	Usados para alinhar as imagens da esquerda e direita horizontalmente, o que simplifica a correspondência entre pixels:</p>
+<ul>
+  <li><strong>R1 e R2:</strong> matrizes de rotação para retificar a imagem da câmera esquerda e da direita.</li>
+  <li><strong>P1 e P2:</strong> matrizes de projeção para as duas câmeras retificadas.</li>
+  <li><strong>Q:</strong> matriz de reprojeção 4×4 usada para converter coordenadas de disparidade em coordenadas 3D (x, y, z).</li>
+</ul>
+
+<h5>4. Mapas de Remapeamento</h5>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+	Utilizados para aplicar as correções nas imagens reais:</p>
+<ul>
+  <li><strong>mapx e mapy:</strong> mapas obtidos pela função <code>cv2.initUndistortRectifyMap()</code>, que permitem a correção de distorção e a retificação das imagens.</li>
+</ul>
+
+<h5>5. Arquivo de Parâmetros Salvos</h5>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+	Durante a calibração com OpenCV, os seguintes parâmetros são salvos no arquivo XML/YAML (por exemplo, <code>calibration_joao.xml</code>):</p>
+<ul>
+  <li>Matrizes de câmera (K1 e K2)</li>
+  <li>Coeficientes de distorção (D1 e D2)</li>
+  <li>R e T</li>
+  <li>R1, R2, P1, P2 e Q</li>
+</ul>
+
+<h5>Resumo</h5>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">Esses parâmetros são fundamentais para garantir que as imagens estejam geometricamente alinhadas, livres de distorções e preparadas para reconstrução 3D. Com eles, é possível calcular mapas de disparidade e extrair a profundidade das cenas.</p>
+
+
 
 <h3 id="-c-leitura-de-imagem-de-c-mera">(C) Execute a calibração da sua câmera estéreo (contruída com as webcams) pela captura de suas próprias imagens de calibração e imagens de teste:</h3>
 
