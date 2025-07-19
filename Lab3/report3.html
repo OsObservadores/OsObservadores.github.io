@@ -174,7 +174,7 @@ Inicialmente, realiza-se a calibração individual de cada câmera por meio do m
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(1) Calibração das câmeras individuais utilizando o método de calibração OpenCV.</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  O script a seguir foi utilizado para a calibração das duas câmeras que compoe a câmera estereoscópica:
+  O script a seguir foi utilizado para a calibração das duas câmeras que compoe a câmera estereoscópica. Foi aberto um terminal do linux na pasta que contém as imagens fornecidas e o programa abaixo foi executado.
 </p>
 
 <pre><code class="language-python">
@@ -283,6 +283,10 @@ cv_file.write("Right_Stereo_Map_x",Right_Stereo_Map[0])
 cv_file.write("Right_Stereo_Map_y",Right_Stereo_Map[1])
 cv_file.release()
 </code></pre>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  O resultado da execução do script acima é mostrado na sessão <strong>"Análise dos resultados"</strong>.
+</p>
 
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(2) Determinação da transformação entre as duas câmeras usadas na configuração da câmera estéreo.</h3>
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(3) Utilização dos parâmetros obtidos nas etapas 1 e 2 e o método stereoCalibrate para determinar as transformações aplicadas a ambas as imagens para retificação estéreo.</h3>
