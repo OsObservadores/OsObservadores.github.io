@@ -169,7 +169,7 @@ Os códigos utilizados para o experimento foram retirados do seguinte repositór
   
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Inicialmente, realiza-se a calibração individual de cada câmera por meio do método de calibração OpenCV. Em seguida, determina-se a transformação entre as duas câmeras configuradas no sistema estéreo. Com os parâmetros obtidos, emprega-se o método stereoCalibrate para calcular as transformações necessárias à retificação estéreo. A partir disso, utiliza-se o método initUndistortRectifyMap para gerar o mapeamento que corrige distorções e prepara as imagens para retificação. Por fim, aplica-se esse mapeamento às imagens originais, obtendo-se um par estéreo retificado e livre de distorções.
+Inicialmente, realiza-se a calibração individual de cada câmera por meio do método de calibração OpenCV. Em seguida, determina-se a transformação entre as duas câmeras configuradas no sistema estéreo. Com os parâmetros obtidos, emprega-se o método <strong>stereoCalibrate</strong> para calcular as transformações necessárias à retificação estéreo. A partir disso, utiliza-se o método <strong>initUndistortRectifyMap</strong> para gerar o mapeamento que corrige distorções e prepara as imagens para retificação. Por fim, aplica-se esse mapeamento às imagens originais, obtendo-se um par estéreo retificado e livre de distorções.
 </p>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
