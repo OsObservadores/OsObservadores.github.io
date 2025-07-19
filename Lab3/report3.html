@@ -171,15 +171,11 @@ Os códigos utilizados para o experimento foram retirados do seguinte repositór
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 Inicialmente, realiza-se a calibração individual de cada câmera por meio do método de calibração OpenCV. Em seguida, determina-se a transformação entre as duas câmeras configuradas no sistema estéreo. Com os parâmetros obtidos, emprega-se o método <strong>stereoCalibrate</strong> para calcular as transformações necessárias à retificação estéreo. A partir disso, utiliza-se o método <strong>initUndistortRectifyMap</strong> para gerar o mapeamento que corrige distorções e prepara as imagens para retificação. Por fim, aplica-se esse mapeamento às imagens originais, obtendo-se um par estéreo retificado e livre de distorções.
 </p>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  
-  1 - Calibrar câmeras individuais utilizando o método de calibração OpenCV.<br>
-  2 - Determinar a transformação entre as duas câmeras usadas na configuração da câmera estéreo.<br>
-  3 - Usando os parâmetros obtidos nas etapas 1 e 2 e o método stereoCalibrate, determinamos as transformações aplicadas a ambas as imagens para retificação estéreo.<br>
-  4 - Um mapeamento necessário para encontrar o par de imagens estéreo sem distorção e retificado é obtido usando o método initUndistortRectifyMap.<br>
-  5 - Este mapeamento da etapa 4 é aplicado às imagens originais para obter um par de imagens estéreo retificadas e sem distorções.
-</p>
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(1) Calibração das câmeras individuais utilizando o método de calibração OpenCV.</h3>
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(2) Determinação da transformação entre as duas câmeras usadas na configuração da câmera estéreo.</h3>
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(3) Utilização dos parâmetros obtidos nas etapas 1 e 2 e o método stereoCalibrate para determinar as transformações aplicadas a ambas as imagens para retificação estéreo.</h3>
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(4) Mapeamento para encontrar o par de imagens estéreo sem distorção e retificado através do método initUndistortRectifyMap.</h3>
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(5) Utilização do mapeamento da etapa 4 para aplicar às imagens originais a fim de obter um par de imagens estéreo retificadas e sem distorções</h3>
  
 <h3 id="-c-leitura-de-imagem-de-c-mera">(C) Execute a calibração da sua câmera estéreo (contruída com as webcams) pela captura de suas próprias imagens de calibração e imagens de teste:</h3>
 
