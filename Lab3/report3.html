@@ -49,6 +49,16 @@ Os códigos utilizados para o experimento foram retirados do seguinte repositór
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Exemplo com imagens fornecidas.</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Para realização desta etapa, foram fornecidas imagens tiradas de uma câmera estereoscópica (junção de duas câmeras iguais) desconhecida. As imagens para cada câmera foram geradas ao mesmo tempo. E através destas, foram calibradas as duas câmeras (lado direito e lado esquerdo). A seguir são apresentadas as imagens fornecidas, onde a imagem a esquerda provém da primeira câmera e a imagem a direita da segunda câmera.
+</p>
+
+
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Inicialmente, realiza-se a calibração individual de cada câmera por meio do método de calibração OpenCV. Em seguida, determina-se a transformação entre as duas câmeras configuradas no sistema estéreo. Com os parâmetros obtidos, emprega-se o método stereoCalibrate para calcular as transformações necessárias à retificação estéreo. A partir disso, utiliza-se o método initUndistortRectifyMap para gerar o mapeamento que corrige distorções e prepara as imagens para retificação. Por fim, aplica-se esse mapeamento às imagens originais, obtendo-se um par estéreo retificado e livre de distorções.
+</p>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   
   1 - Calibrar câmeras individuais utilizando o método de calibração OpenCV.<br>
   2 - Determinar a transformação entre as duas câmeras usadas na configuração da câmera estéreo.<br>
