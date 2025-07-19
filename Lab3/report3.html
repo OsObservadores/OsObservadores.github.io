@@ -629,6 +629,58 @@ salvos no arquivo de parâmetros de calibração (xml)?
 </div>
 
 
+<h3>Parâmetros Obtidos da Calibração da Câmera Estéreo</h3>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Durante o processo de calibração das câmeras estéreo, diversos parâmetros foram estimados. Alguns desses foram armazenados no arquivo <code>params_py.xml</code>, gerado pelo script de calibração. A seguir, listam-se os parâmetros obtidos e os que foram salvos.
+</p>
+
+<h4>1. Parâmetros Salvos no Arquivo XML</h4>
+<ul>
+  <li><strong>Left_Stereo_Map_x</strong> – mapa de remapeamento no eixo X da câmera esquerda.</li>
+  <li><strong>Left_Stereo_Map_y</strong> – mapa de remapeamento no eixo Y da câmera esquerda.</li>
+  <li><strong>Right_Stereo_Map_x</strong> – mapa de remapeamento no eixo X da câmera direita.</li>
+  <li><strong>Right_Stereo_Map_y</strong> – mapa de remapeamento no eixo Y da câmera direita.</li>
+</ul>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Esses mapas são matrizes que indicam como cada pixel da imagem original deve ser deslocado para corrigir distorções e alinhar as imagens. Eles são gerados pela função <code>cv2.initUndistortRectifyMap()</code> e utilizados posteriormente na função <code>cv2.remap()</code>.
+</p>
+
+<h4>2. Parâmetros Calculados (não salvos no XML)</h4>
+<ul>
+  <li><strong>K1 e K2:</strong> Matrizes intrínsecas das câmeras (esquerda e direita) com o formato:
+    <pre>
+[ fx   0   cx ]
+[  0  fy   cy ]
+[  0   0    1 ]
+    </pre>
+  </li>
+  <li><strong>D1 e D2:</strong> Vetores de coeficientes de distorção das lentes (k₁, k₂, p₁, p₂, k₃...)</li>
+  <li><strong>R:</strong> Matriz de rotação (3x3), representando a orientação relativa entre as câmeras.</li>
+  <li><strong>T:</strong> Vetor de translação (3x1), indicando o deslocamento entre as câmeras.</li>
+  <li><strong>R1 e R2:</strong> Matrizes de rotação para retificar as imagens.</li>
+  <li><strong>P1 e P2:</strong> Matrizes de projeção das imagens retificadas.</li>
+  <li><strong>Q:</strong> Matriz de reprojeção 4x4, usada para conversão de coordenadas de disparidade em pontos 3D.</li>
+</ul>
+
+<h4>3. Observações</h4>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Apesar de todos os parâmetros serem calculados pelo OpenCV durante o processo de calibração e retificação estéreo, apenas os mapas de remapeamento foram efetivamente salvos no arquivo XML no experimento atual. Caso desejado, os demais parâmetros também podem ser salvos com comandos adicionais no script Python, como:
+</p>
+<pre><code class="language-python">
+cv_file.write("K1", mtxL)
+cv_file.write("D1", distL)
+cv_file.write("R", Rot)
+cv_file.write("T", Trns)
+</code></pre>
+
+<h4>4. Conclusão</h4>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Os parâmetros armazenados no XML são essenciais para corrigir a distorção das lentes e alinhar as imagens da câmera estéreo. Já os parâmetros intrínsecos, extrínsecos e de retificação permitem a reconstrução da cena em 3D e podem ser adicionados ao arquivo XML caso seja necessário utilizá-los posteriormente em outros scripts.
+</p>
+
+
 
 <h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Realize a gravação de um vídeo 3D com sua câmera estéreo.</h3>
 
