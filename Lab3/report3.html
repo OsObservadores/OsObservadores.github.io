@@ -52,7 +52,14 @@ Os códigos utilizados para o experimento foram retirados do seguinte repositór
   Para realização desta etapa, foram fornecidas imagens tiradas de uma câmera estereoscópica (junção de duas câmeras iguais) desconhecida. As imagens para cada câmera foram geradas ao mesmo tempo. E através destas, foram calibradas as duas câmeras (lado direito e lado esquerdo). A seguir são apresentadas as imagens fornecidas, onde a imagem a esquerda provém da primeira câmera e a imagem a direita da segunda câmera.
 </p>
 
-
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab3/data/stereoL/img1.png" alt="letf01" width="400" height="200">
+  <img src="/Lab3/data/stereoR/img1.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab3/data/stereoL/img2.png" alt="letf02" width="400" height="200">
+  <img src="/Lab3/data/stereoR/img2.png" alt="right02" width="400" height="200">
+</div>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 Inicialmente, realiza-se a calibração individual de cada câmera por meio do método de calibração OpenCV. Em seguida, determina-se a transformação entre as duas câmeras configuradas no sistema estéreo. Com os parâmetros obtidos, emprega-se o método stereoCalibrate para calcular as transformações necessárias à retificação estéreo. A partir disso, utiliza-se o método initUndistortRectifyMap para gerar o mapeamento que corrige distorções e prepara as imagens para retificação. Por fim, aplica-se esse mapeamento às imagens originais, obtendo-se um par estéreo retificado e livre de distorções.
