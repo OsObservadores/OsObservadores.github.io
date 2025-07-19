@@ -171,11 +171,10 @@ Os códigos utilizados para o experimento foram retirados do seguinte repositór
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 Inicialmente, realiza-se a calibração individual de cada câmera por meio do método de calibração OpenCV. Em seguida, determina-se a transformação entre as duas câmeras configuradas no sistema estéreo. Com os parâmetros obtidos, emprega-se o método <strong>stereoCalibrate</strong> para calcular as transformações necessárias à retificação estéreo. A partir disso, utiliza-se o método <strong>initUndistortRectifyMap</strong> para gerar o mapeamento que corrige distorções e prepara as imagens para retificação. Por fim, aplica-se esse mapeamento às imagens originais, obtendo-se um par estéreo retificado e livre de distorções.
 </p>
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(1) Calibração das câmeras individuais utilizando o método de calibração OpenCV.</h3>
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(1) Método para obter o par de imagens estéreo:</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  O script a seguir foi utilizado para a calibração das duas câmeras que compoe a câmera estereoscópica. Foi aberto um terminal do linux na pasta que contém as imagens fornecidas e o programa abaixo foi executado.
-</p>
+  O script a seguir realiza as quatro etapas descritas acima: calibração das câmeras individuais, calibração estéreo com parâmetros intrínsecos fixos, retificação estéreo e por fim o mapeamento que obtem o par de imagens estéreo retificadas e sem distorções.</p>
 
 <pre><code class="language-python">
 import numpy as np 
@@ -288,10 +287,155 @@ cv_file.release()
   O resultado da execução do script acima é mostrado na sessão <strong>"Análise dos resultados"</strong>.
 </p>
 
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(2) Determinação da transformação entre as duas câmeras usadas na configuração da câmera estéreo.</h3>
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(3) Utilização dos parâmetros obtidos nas etapas 1 e 2 e o método stereoCalibrate para determinar as transformações aplicadas a ambas as imagens para retificação estéreo.</h3>
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(4) Mapeamento para encontrar o par de imagens estéreo sem distorção e retificado através do método initUndistortRectifyMap.</h3>
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(5) Utilização do mapeamento da etapa 4 para aplicar às imagens originais a fim de obter um par de imagens estéreo retificadas e sem distorções</h3>
+
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(2) Criação de vídeo 3D personalizado.</h3>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Para criar um vídeo em 3D, primeiramente foi feita a captura dos vídeos utilizando o script abaixo:
+</p>
+
+<pre><code class="language-python">
+Captura de videos:
+
+import numpy as np
+import cv2 as cv
+import os
+
+# Certifique-se de que o diretório existe
+output_dir = os.path.expanduser('~/data_you/')
+os.makedirs(output_dir, exist_ok=True)
+
+# Inicializa as câmeras
+capL = cv.VideoCapture(0)
+capR = cv.VideoCapture(2)
+
+# Verifica se ambas as câmeras foram abertas com sucesso
+if not capL.isOpened():
+    print("Não foi possível abrir a câmera esquerda (capL)")
+    exit()
+
+if not capR.isOpened():
+    print("Não foi possível abrir a câmera direita (capR)")
+    exit()
+
+# Obtém as propriedades das câmeras (usa a da esquerda como base)
+width = int(capL.get(cv.CAP_PROP_FRAME_WIDTH))
+height = int(capL.get(cv.CAP_PROP_FRAME_HEIGHT))
+fps = 20.0
+
+while True:
+    # Captura os frames de ambas as câmeras
+    retL, frameL = capL.read()
+    retR, frameR = capR.read()
+
+    if not retL or not retR:
+        print("Erro ao capturar frames. Encerrando...")
+        break
+
+
+    # Exibe os vídeos em janelas separadas
+    cv.imshow('frameL', frameL)
+    cv.imshow('frameR', frameR)
+
+    # Sai com 'q'
+    if cv.waitKey(1) == ord('q'):
+        break
+
+# Libera tudo
+#capL.release()
+#capR.release()
+#cv.destroyAllWindows()
+
+fourcc = cv.VideoWriter_fourcc(*'XVID')
+outL = cv.VideoWriter('stereoL.avi', fourcc, fps, (width, height))
+outR = cv.VideoWriter('stereoR.avi', fourcc, fps, (width, height))
+
+while capL.isOpened():
+    retL, frameL = capL.read()
+    retR, frameR = capR.read()
+    if not retL:
+        print("Can't receive frame (stream end?). Exiting ...")
+        break
+    # write the flipped frame
+    outL.write(frameL)
+    outR.write(frameR)
+    cv.imshow('frameL', frameL)
+    cv.imshow('frameR', frameR)
+    if cv.waitKey(1) == ord('q'):
+        break
+
+# Release everything if job is finished
+capL.release()
+capR.release()
+outL.release()
+outR.release()
+cv.destroyAllWindows()
+</code></pre>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Após a captura dos vídeos, o script abaixo foi executado para gerar o vídeo em 3D:
+</p>
+
+<pre><code class="language-python">
+criar video 3d:
+
+import numpy as np 
+import cv2
+
+
+CamL_id = "data_you/stereoL.mp4"
+CamR_id = "data_you/stereoR.mp4"
+
+CamL= cv2.VideoCapture(CamL_id)
+CamR= cv2.VideoCapture(CamR_id)
+
+print("Reading parameters ......")
+cv_file = cv2.FileStorage("data_you/params_py.xml", cv2.FILE_STORAGE_READ)
+
+Left_Stereo_Map_x = cv_file.getNode("Left_Stereo_Map_x").mat()
+Left_Stereo_Map_y = cv_file.getNode("Left_Stereo_Map_y").mat()
+Right_Stereo_Map_x = cv_file.getNode("Right_Stereo_Map_x").mat()
+Right_Stereo_Map_y = cv_file.getNode("Right_Stereo_Map_y").mat()
+cv_file.release()
+
+print("Starting while ......")
+
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
+fps = 20.0
+out = cv2.VideoWriter('movie3d_1.avi', fourcc, fps, (700, 700))
+
+
+while True:
+	retR, imgR= CamR.read()
+	retL, imgL= CamL.read()
+	
+	if retL and retR:
+		imgR_gray = cv2.cvtColor(imgR,cv2.COLOR_BGR2GRAY)
+		imgL_gray = cv2.cvtColor(imgL,cv2.COLOR_BGR2GRAY)
+
+		Left_nice= cv2.remap(imgL,Left_Stereo_Map_x,Left_Stereo_Map_y, cv2.INTER_LANCZOS4, cv2.BORDER_CONSTANT, 0)
+		Right_nice= cv2.remap(imgR,Right_Stereo_Map_x,Right_Stereo_Map_y, cv2.INTER_LANCZOS4, cv2.BORDER_CONSTANT, 0)
+
+		output = Right_nice.copy()
+		output[:,:,0] = Right_nice[:,:,0]
+		output[:,:,1] = Right_nice[:,:,1]
+		output[:,:,2] = Left_nice[:,:,2]
+
+		# output = Left_nice+Right_nice
+		output = cv2.resize(output,(700,700))
+		cv2.namedWindow("3D movie",cv2.WINDOW_NORMAL)
+		cv2.resizeWindow("3D movie",700,700)
+		out.write(output)
+		cv2.imshow("3D movie",output)
+
+		cv2.waitKey(1)
+	
+	else:
+		break
+
+out.release()
+cv2.destroyAllWindows()
+</code></pre>
  
 <h3 id="-c-leitura-de-imagem-de-c-mera">(C) Execute a calibração da sua câmera estéreo (contruída com as webcams) pela captura de suas próprias imagens de calibração e imagens de teste:</h3>
 
