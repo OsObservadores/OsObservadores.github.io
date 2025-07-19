@@ -46,11 +46,15 @@ Os códigos utilizados para o experimento foram retirados do seguinte repositór
 </p> 
 
 
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Execute o exemplo com as imagens fornecidas.</h3>
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Exemplo com imagens fornecidas.</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Calibração estéreo: python3 calibrate.py
-  Geração e apresentação de imagem 3D: python3 movie3d.py
+  
+  1 - Calibrar câmeras individuais utilizando o método de calibração OpenCV.<br>
+  2 - Determinar a transformação entre as duas câmeras usadas na configuração da câmera estéreo.<br>
+  3 - Usando os parâmetros obtidos nas etapas 1 e 2 e o método stereoCalibrate, determinamos as transformações aplicadas a ambas as imagens para retificação estéreo.<br>
+  4 - Um mapeamento necessário para encontrar o par de imagens estéreo sem distorção e retificado é obtido usando o método initUndistortRectifyMap.<br>
+  5 - Este mapeamento da etapa 4 é aplicado às imagens originais para obter um par de imagens estéreo retificadas e sem distorções.
 </p>
  
 <h3 id="-c-leitura-de-imagem-de-c-mera">(C) Execute a calibração da sua câmera estéreo (contruída com as webcams) pela captura de suas próprias imagens de calibração e imagens de teste:</h3>
