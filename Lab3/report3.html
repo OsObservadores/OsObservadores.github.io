@@ -286,14 +286,10 @@ cv_file.release()
   O resultado da execução do script acima é mostrado na sessão <strong>"Análise dos resultados"</strong>.
 </p>
 
-
-
 <h3 id="-c-leitura-de-imagem-de-c-mera">(C) Execute a calibração da sua câmera estéreo (contruída com as webcams) pela captura de suas próprias imagens de calibração e imagens de teste:</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Alterar o programa. Obter 10 a 15 imagens do padrão de calibração: python3 capture_imagens_abc.py
-  Com as imagens obtidas, calibrar a câmera estéreo: python3 calibrate_abc.py
-  Alterar o programa para apresentar as imagens da sua câmera estéreo ao vivo: python3 movie3d.py
+ As imagens a seguir foram obtidas utilizando o programa <strong>L1_3_webcam.py</strong> utilizado no laboratório 1. O script é mostrado logo após as imagens. 
 </p>
 
 <div style="display: flex; justify-content: center; gap: 5px;">
@@ -365,6 +361,153 @@ cv_file.release()
   <img src="/Lab3/Resultado_Parte_3_C/stereoL/img18.png" alt="left16" width="400" height="200">
   <img src="/Lab3/Resultado_Parte_3_C/stereoR/img18.png"  alt="right16" width="400" height="200">
 </div>
+
+<pre><code class="language-python">
+import numpy as np
+import cv2 as cv
+
+cap = cv.VideoCapture(0)
+
+if not cap.isOpened():
+    print("Cannot open camera")
+    exit()
+    
+while True:
+    # Capture frame-by-frame
+    ret, frame = cap.read()
+    # if frame is read correctly ret is True
+    if not ret:
+        print("Can't receive frame (stream end?). Exiting ...")
+        break
+    
+    # Display the resulting frame
+    cv.imshow('frame', frame)
+ 
+    if cv.waitKey(1) == ord('x'):
+        cv.imwrite('foto1.png',frame)  
+    
+    if cv.waitKey(1) == ord('q'):
+        break      
+# When everything done, release the capture
+cap.release()
+cv.destroyAllWindows()
+</code></pre>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Em posse das imagens geradas pelas nossa câmeras, utilizamos o programa <strong>calibrate_parteC.py</strong> mostrado a seguir:
+</p>
+
+<pre><code class="language-python">
+import numpy as np 
+import cv2
+from tqdm import tqdm
+
+# Set the path to the images captured by the left and right cameras
+pathL = "/home/jorge/Documentos/cv2025/lab3/Lab3_Camera_3D/stereo-camera/data/stereoL"
+pathR = "/home/jorge/Documentos/cv2025/lab3/Lab3_Camera_3D/stereo-camera/data/stereoR"
+
+print("Extracting image coordinates of respective 3D pattern ....\n")
+
+# Termination criteria for refining the detected corners
+criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+
+
+objp = np.zeros((8*6,3), np.float32)
+objp[:,:2] = np.mgrid[0:8,0:6].T.reshape(-1,2)
+
+img_ptsL = []
+img_ptsR = []
+obj_pts = []
+
+for i in tqdm(range(1,27)):
+	imgL = cv2.imread('/home/jorge/Documentos/cv2025/lab3/Lab3_Camera_3D/stereo-camera/data/stereoL/img%d.png'%i)
+	imgR = cv2.imread('/home/jorge/Documentos/cv2025/lab3/Lab3_Camera_3D/stereo-camera/data/stereoR/img%d.png'%i)
+	imgL_gray = cv2.imread('/home/jorge/Documentos/cv2025/lab3/Lab3_Camera_3D/stereo-camera/data/stereoL/img%d.png'%i,0)
+	imgR_gray = cv2.imread('/home/jorge/Documentos/cv2025/lab3/Lab3_Camera_3D/stereo-camera/data/stereoR/img%d.png'%i,0)
+
+	outputL = imgL.copy()
+	outputR = imgR.copy()
+
+	retR, cornersR =  cv2.findChessboardCorners(outputR,(8,6),None)
+	retL, cornersL = cv2.findChessboardCorners(outputL,(8,6),None)
+
+	if retR and retL:
+		obj_pts.append(objp)
+		cv2.cornerSubPix(imgR_gray,cornersR,(11,11),(-1,-1),criteria)
+		cv2.cornerSubPix(imgL_gray,cornersL,(11,11),(-1,-1),criteria)
+		cv2.drawChessboardCorners(outputR,(8,6),cornersR,retR)
+		cv2.drawChessboardCorners(outputL,(8,6),cornersL,retL)
+		cv2.imshow('cornersR',outputR)
+		cv2.imshow('cornersL',outputL)
+		cv2.waitKey(0)
+
+		img_ptsL.append(cornersL)
+		img_ptsR.append(cornersR)
+
+
+print("Calculating left camera parameters ... ")
+# Calibrating left camera
+retL, mtxL, distL, rvecsL, tvecsL = cv2.calibrateCamera(obj_pts,img_ptsL,imgL_gray.shape[::-1],None,None)
+hL,wL= imgL_gray.shape[:2]
+new_mtxL, roiL= cv2.getOptimalNewCameraMatrix(mtxL,distL,(wL,hL),1,(wL,hL))
+
+print("Calculating right camera parameters ... ")
+# Calibrating right camera
+retR, mtxR, distR, rvecsR, tvecsR = cv2.calibrateCamera(obj_pts,img_ptsR,imgR_gray.shape[::-1],None,None)
+hR,wR= imgR_gray.shape[:2]
+new_mtxR, roiR= cv2.getOptimalNewCameraMatrix(mtxR,distR,(wR,hR),1,(wR,hR))
+
+
+print("Stereo calibration .....")
+flags = 0
+flags |= cv2.CALIB_FIX_INTRINSIC
+# Here we fix the intrinsic camara matrixes so that only Rot, Trns, Emat and Fmat are calculated.
+# Hence intrinsic parameters are the same 
+
+criteria_stereo= (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+
+
+# This step is performed to transformation between the two cameras and calculate Essential and Fundamenatl matrix
+retS, new_mtxL, distL, new_mtxR, distR, Rot, Trns, Emat, Fmat = cv2.stereoCalibrate(obj_pts,
+                                                          img_ptsL,
+                                                          img_ptsR,
+                                                          new_mtxL,
+                                                          distL,
+                                                          new_mtxR,
+                                                          distR,
+                                                          imgL_gray.shape[::-1],
+                                                          criteria_stereo,
+                                                          flags)
+
+# Once we know the transformation between the two cameras we can perform stereo rectification
+# StereoRectify function
+rectify_scale= 1 # if 0 image croped, if 1 image not croped
+rect_l, rect_r, proj_mat_l, proj_mat_r, Q, roiL, roiR= cv2.stereoRectify(new_mtxL, distL, new_mtxR, distR,
+                                                 imgL_gray.shape[::-1], Rot, Trns,
+                                                 rectify_scale,(0,0))
+
+# Use the rotation matrixes for stereo rectification and camera intrinsics for undistorting the image
+# Compute the rectification map (mapping between the original image pixels and 
+# their transformed values after applying rectification and undistortion) for left and right camera frames
+Left_Stereo_Map= cv2.initUndistortRectifyMap(new_mtxL, distL, rect_l, proj_mat_l,
+                                             imgL_gray.shape[::-1], cv2.CV_16SC2)
+Right_Stereo_Map= cv2.initUndistortRectifyMap(new_mtxR, distR, rect_r, proj_mat_r,
+                                              imgR_gray.shape[::-1], cv2.CV_16SC2)
+
+
+print("Saving paraeters ......")
+cv_file = cv2.FileStorage("/home/jorge/Documentos/cv2025/lab3/Lab3_Camera_3D/stereo-camera/data/params_nossas_fotos2_py.xml", cv2.FILE_STORAGE_WRITE)
+cv_file.write("Left_Stereo_Map_x",Left_Stereo_Map[0])
+cv_file.write("Left_Stereo_Map_y",Left_Stereo_Map[1])
+cv_file.write("Right_Stereo_Map_x",Right_Stereo_Map[0])
+cv_file.write("Right_Stereo_Map_y",Right_Stereo_Map[1])
+cv_file.release()
+</code></pre>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Os resultado da execução do script acima são mostrados na sessão <strong>"Análise dos resultados"</strong>.
+</p>
+
 
 <h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Realize a gravação de um vídeo 3D com sua câmera estéreo.</h3>
 
