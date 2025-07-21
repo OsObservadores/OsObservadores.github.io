@@ -855,7 +855,7 @@ Fixam‑se as matrizes intrínsecas das câmeras para calcular apenas a matriz d
 
 <h3>3. ETAPA 3 - Retificação Stereo</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Utilizando os parâmetros intrínsecos da câmera, bem como a rotação e a translação entre as câmeras, aplica‑se a retificação estéreo. Esse processo realiza rotações que alinham os dois planos de imagem de modo que ambos passem a estar no mesmo plano. Além das matrizes de rotação, o método stereoRectify também fornece as matrizes de projeção no novo espaço de coordenadas.
+Utilizando os parâmetros intrínsecos da câmera, bem como a rotação e a translação entre as câmeras, aplica‑se a retificação estéreo. Esse processo realiza rotações que alinham os dois planos de imagem de modo que ambos passem a estar no mesmo plano. Além das matrizes de rotação, o método <strong>stereoRectify()</strong> também fornece as matrizes de projeção no novo espaço de coordenadas.
 <ul>
   <li><strong>Matrizes de rotação de retificação (rect_l, rect_r):</strong> Matrizes de rotação de retificação para a câmera esquerda e para a câmera direita.
   <li><strong>Novas matrizes de projeção (proj_mat_l, proj_mat_r):</strong> Novas matrizes de projeção para a câmera esquerda e para a câmera direita (depois da retificação).</li>
