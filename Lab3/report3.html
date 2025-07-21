@@ -986,12 +986,14 @@ salvos no arquivo de parâmetros de calibração (xml)?
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   A imagem a seguir mostra a modificação feita no script <strong>calibrate_parteC.py</strong>, utilizado para calibração da câmera stereo confeccionada no laboratório. Logo em seguida, o resultado da impressão dos parâmetros pelo programa:
 </p>
-<div style="display: flex; justify-content: center; gap: 5px;">
+
+<div style="style="text-align: center;">
   <img src="/Lab3/Resultado_Parte_3_B/script_mod.jpg" alt="letf02" width="600" height="500">
   <figcaption>
    Figura xx - Ajuste feito para impressão dos parâmetros.
   </figcaption>
 </div>
+
 
 <pre><code class="language-python">
 Stereo calibration .....
@@ -1069,8 +1071,6 @@ cv_file.write("T", Trns)
   Os parâmetros armazenados no XML são essenciais para corrigir a distorção das lentes e alinhar as imagens da câmera estéreo. Já os parâmetros intrínsecos, extrínsecos e de retificação permitem a reconstrução da cena em 3D e podem ser adicionados ao arquivo XML caso seja necessário utilizá-los posteriormente em outros scripts.
 </p>
 
-
-
 <h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Realize a gravação de um vídeo 3D com sua câmera estéreo.</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
@@ -1078,12 +1078,86 @@ cv_file.write("T", Trns)
 analise as diferenças com os resultados ao vivo e gravado.
 </p>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Primeiramente foi gravado um vídeo utilizando a câmera estereoscópica (junção de duas câmeras identicas) confeccionada no laboratório. Estes vídeos são apresentados a seguir:
+  Primeiramente, foi gravado um vídeo utilizando a câmera estereoscópica (junção de duas câmeras identicas) confeccionada no laboratório e o script abaixo. Estes vídeos são apresentados a seguir. O último vídeo mostra o vídeo 3D com a imagens anáglifas após a calibração das imagens das câmeras.
 </p>
 
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
- O vídeo a seguir mostra o vídeo duplicado com os filtros para dar o efeito 3D após a calibração das imagens das câmeras.
-</p>
+<pre><code class="language-python">
+Captura de videos:
+
+import numpy as np
+import cv2 as cv
+import os
+
+# Certifique-se de que o diretório existe
+output_dir = os.path.expanduser('~/data_you/')
+os.makedirs(output_dir, exist_ok=True)
+
+# Inicializa as câmeras
+capL = cv.VideoCapture(0)
+capR = cv.VideoCapture(2)
+
+# Verifica se ambas as câmeras foram abertas com sucesso
+if not capL.isOpened():
+    print("Não foi possível abrir a câmera esquerda (capL)")
+    exit()
+
+if not capR.isOpened():
+    print("Não foi possível abrir a câmera direita (capR)")
+    exit()
+
+# Obtém as propriedades das câmeras (usa a da esquerda como base)
+width = int(capL.get(cv.CAP_PROP_FRAME_WIDTH))
+height = int(capL.get(cv.CAP_PROP_FRAME_HEIGHT))
+fps = 20.0
+
+while True:
+    # Captura os frames de ambas as câmeras
+    retL, frameL = capL.read()
+    retR, frameR = capR.read()
+
+    if not retL or not retR:
+        print("Erro ao capturar frames. Encerrando...")
+        break
+
+
+    # Exibe os vídeos em janelas separadas
+    cv.imshow('frameL', frameL)
+    cv.imshow('frameR', frameR)
+
+    # Sai com 'q'
+    if cv.waitKey(1) == ord('q'):
+        break
+
+# Libera tudo
+#capL.release()
+#capR.release()
+#cv.destroyAllWindows()
+
+fourcc = cv.VideoWriter_fourcc(*'XVID')
+outL = cv.VideoWriter('stereoL.avi', fourcc, fps, (width, height))
+outR = cv.VideoWriter('stereoR.avi', fourcc, fps, (width, height))
+
+while capL.isOpened():
+    retL, frameL = capL.read()
+    retR, frameR = capR.read()
+    if not retL:
+        print("Can't receive frame (stream end?). Exiting ...")
+        break
+    # write the flipped frame
+    outL.write(frameL)
+    outR.write(frameR)
+    cv.imshow('frameL', frameL)
+    cv.imshow('frameR', frameR)
+    if cv.waitKey(1) == ord('q'):
+        break
+
+# Release everything if job is finished
+capL.release()
+capR.release()
+outL.release()
+outR.release()
+cv.destroyAllWindows()
+</code>
 
 <figure style="text-align: center;">
 <video width="640" height="480" controls autoplay loop muted>
