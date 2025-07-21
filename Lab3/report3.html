@@ -1050,7 +1050,6 @@ Saving paraeters ......
 
 </code></pre>
 
-<h3>3. Observações</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   Apesar de todos os parâmetros serem calculados pelo OpenCV durante o processo de calibração e retificação estéreo, apenas os mapas de remapeamento foram efetivamente salvos no arquivo XML no experimento atual. Caso desejado, os demais parâmetros também podem ser salvos com comandos adicionais no script Python, como:
 </p>
@@ -1061,17 +1060,12 @@ cv_file.write("R", Rot)
 cv_file.write("T", Trns)
 </code></pre>
 
-<h3>4. Conclusão</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   Os parâmetros armazenados no XML são essenciais para corrigir a distorção das lentes e alinhar as imagens da câmera estéreo. Já os parâmetros intrínsecos, extrínsecos e de retificação permitem a reconstrução da cena em 3D e podem ser adicionados ao arquivo XML caso seja necessário utilizá-los posteriormente em outros scripts.
 </p>
 
 <h3 id="-d-grava-o-de-v-deo-da-c-mera">(D) Realize a gravação de um vídeo 3D com sua câmera estéreo.</h3>
 
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
- Responda: a percepção individual de todos integrantes da equipe. Compare e
-analise as diferenças com os resultados ao vivo e gravado.
-</p>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   Primeiramente, foi gravado um vídeo utilizando a câmera estereoscópica (junção de duas câmeras identicas) confeccionada no laboratório e o script abaixo. Estes vídeos são apresentados a seguir. O último vídeo mostra o vídeo 3D com a imagens anáglifas após a calibração das imagens das câmeras.
 </p>
@@ -1181,6 +1175,21 @@ cv.destroyAllWindows()
 
 	
 <h2 id="conclus-o">Conclusão</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  A realização do experimento proposto neste terceiro laboratório de Visão Computacional permitiu consolidar, de forma prática, os conceitos teóricos de estereoscopia, geometria epipolar e calibração de câmeras. Por meio da construção de uma câmera estéreo utilizando duas webcams idênticas, foi possível compreender os desafios de alinhar fisicamente os dispositivos e garantir a rigidez necessária para uma calibração precisa.
+</p>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A partir da calibração com imagens fornecidas e posteriormente com imagens capturadas pelo grupo, foi possível estimar os parâmetros intrínsecos e extrínsecos de cada câmera, além de obter os mapas de remapeamento utilizados para corrigir distorções e retificar as imagens. Esses resultados foram fundamentais para gerar pares de imagens retificadas e, por fim, um vídeo 3D utilizando técnicas de anaglifo com os filtros vermelho e ciano, permitindo visualizar o efeito de profundidade com o uso de óculos apropriados.
+</p>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A experiência também evidenciou que a qualidade da calibração e a sincronia entre as câmeras impactam diretamente na percepção tridimensional do vídeo final. A partir das observações individuais dos integrantes, constatou-se que, quando a distância entre as câmeras e a calibração foram bem executadas, o efeito 3D foi satisfatório, especialmente em objetos mais próximos. Contudo, certas limitações foram notadas, como a perda de profundidade em regiões com oclusão parcial ou iluminação desigual — aspectos que reforçam a importância de um ambiente controlado para esse tipo de experimento.
+</p>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Em síntese, este laboratório proporcionou não apenas a aplicação prática dos conceitos estudados, mas também o desenvolvimento de habilidades fundamentais em programação com OpenCV, tratamento de imagens, e trabalho em equipe. A metodologia empregada poderá ser útil para projetos futuros que envolvam reconstrução 3D, realidade aumentada ou sistemas de percepção para robótica.
+</p>
 
 <h3>Referências</h3>
   <p>
