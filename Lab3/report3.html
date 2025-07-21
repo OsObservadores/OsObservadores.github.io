@@ -789,7 +789,7 @@ Abaixo são apresentadas as imagens processadas pelo programa <strong>calibrate.
 </div>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Os vídeos a seguir foram fornecidos para aplicação do script de geração de um vídeo em 3D:
+  Os vídeos a seguir foram fornecidos para aplicação do script <strong>movie3d.py</strong> que gera um vídeo em 3D:
 </p>
 
 <figure style="text-align: center;">
@@ -806,14 +806,14 @@ Abaixo são apresentadas as imagens processadas pelo programa <strong>calibrate.
 </figure>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Os vídeos foram sobrepostos e com os filtros de cores apresentam as cores do óculos 3D para causar o efeito 3D.
+  O script <strong>movie3d.py</strong> utiliza os parâmetros calculados para gerar o mapa de disparidades através das imagens estéreo geradas através das configurações de câmera estéreo. Uma imagem anáglifa para cada par de imagens estéreo é gerada e em seguida, são salvas todas as imagens anáglifas consecutivas como um vídeo. 
 </p>
 
 <figure style="text-align: center;">
 <video width="640" height="480" controls autoplay loop muted>
   <source src="Resultado_Parte_3_B/parteB.mp4" type="video/mp4">
 </video>
-<figcaption>Junção dos vídeos</figcaption>
+<figcaption>Figura xx - Vídeo 3D gerado a partir da exibição consecutiva de imagens anáglifas.</figcaption>
 </figure>
 
 
@@ -821,25 +821,52 @@ Abaixo são apresentadas as imagens processadas pelo programa <strong>calibrate.
 <h3>Parâmetros Necessários para a Câmera Estéreo</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-A calibração de uma câmera estéreo envolve determinar um conjunto de parâmetros que descrevem tanto as características internas de cada câmera quanto a relação geométrica entre elas. Esses parâmetros são essenciais para corrigir distorções e possibilitar a reconstrução 3D a partir das imagens capturadas.</p>
+A calibração de uma câmera estéreo envolve determinar um conjunto de parâmetros que descrevem tanto as características internas de cada câmera quanto a relação geométrica entre elas. Esses parâmetros são essenciais para corrigir distorções e possibilitar a reconstrução 3D a partir das imagens capturadas. São mostrados as seguir os todos os parâmetros envolvidos em cada etapa do processo de calibração stereo.</p>
 
-<h3>1. Parâmetros Intrínsecos</h3>
+<h3>1. ETAPA 1 - Calibração das câmeras individuais</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Descrevem as características internas de cada câmera individualmente:</p>
+As duas câmeras são calibradas a partir das imagens do tabuleiro e os seguintes parâmetros são obtidos:</p>
 <ul>
-  <li><strong>Matriz de Câmera (K):</strong> matriz 3×3 que inclui a distância focal (fx, fy) e o centro óptico (cx, cy).</li>
-  <li><strong>Coeficientes de Distorção (D):</strong> vetor com 5 ou mais coeficientes que modelam a distorção radial e tangencial da lente (k1, k2, p1, p2, k3...).</li>
+  <li><strong>Vetor de erro médio de reprojeção (retL,retR):</strong> Mede o quão bem os pontos projetados a partir do modelo calibrado coincidem com os pontos detectados na imagem, quanto menor, melhor.
+  <li><strong>Matrizes intrínsecas (mtxL, mtxR):</strong> Matriz 3×3 que inclui a distância focal (fx, fy) e o centro óptico (cx, cy).</li>
+  <li><strong>Coeficientes de Distorção (distL, distR):</strong> Vetor com cinco ou mais coeficientes que modelam a distorção radial e tangencial da lente (k1, k2, p1, p2, k3...).</li>
+  <li><strong>Vetores de rotação (distL, distR):</strong> Representam a relação de rotação entre o do sistemas de coordenadas do mundo e o sistema de coordenadas da câmera para cada imagem utilizada na calibração.</li>
+  <li><strong>Vetores de rotação (distL, distR):</strong> Representam a relação de translação entre o do sistemas de coordenadas do mundo e o sistema de coordenadas da câmera para cada imagem utilizada na calibração.</li>
 </ul>
+</p>
 
-<h3>2. Parâmetros Extrínsecos</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Descrevem a posição e orientação relativa entre as duas câmeras:</p>
+  A partir dos parâmetros calculados, da quantidade de pixels na horizontal e na vertical e do método cv2.getOptimalNewCameraMatrix, calcula‑se uma nova matriz intrínseca após a correção da distorção, considerando o tamanho da imagem e um fator de zoom que ajusta o campo de visão. Além disso, obtém‑se uma região de interesse recomendada (ROI – Region of Interest), no formato (x,y,w,h), que indica um retângulo dentro da imagem corrigida no qual todos os pixels são válidos, sem áreas pretas. Essa ROI permite recortar a imagem final, eliminando as bordas pretas resultantes do processo de correção de distorção.
 <ul>
-  <li><strong>R (Rotação):</strong> matriz 3×3 que representa a rotação da câmera direita em relação à esquerda.</li>
-  <li><strong>T (Translação):</strong> vetor 3×1 que representa o deslocamento da câmera direita em relação à esquerda (em milímetros ou unidades arbitrárias).</li>
-</ul>
+  <li><strong>Novas matrizes intrínsecas (new_mtxL, new_mtxR):</strong> Matriz 3×3 que inclui a distância focal (fx, fy) e o centro óptico (cx, cy).</li>
+  <li><strong>Região de interesse (roiL, roiR):</strong> retangulo dentro da imagem não distorcida onde todos os pixel são valídos(sem áreas pretas).</li> 
+ </ul>
+</p>
 
-<h3>3. Parâmetros de Retificação</h3>
+<h3>2. ETAPA 2 - Executando a calibração estéreo com parâmetros intrínsecos fixos</h3>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Fixam‑se as matrizes intrínsecas das câmeras para calcular apenas a matriz de rotação, a matriz de translação, a matriz essencial e a matriz fundamental. Como o espaço de parâmetros a ser estimado é amplo e ocorrem acúmulos de erros em etapas como a detecção de cantos e a aproximação de pontos para valores inteiros, aumentam‑se as chances de o método iterativo divergir da solução correta. Dessa forma, calculam‑se os parâmetros de cada câmera individualmente e utiliza‑se o método stereoCalibrate() apenas para determinar a transformação entre o par de câmeras estéreo, bem como a matriz essencial e a matriz fundamental.
+<ul>
+  <li><strong>Vetor de erro médio de reprojeção (retS):</strong> Mede o quão bem os pontos projetados a partir do modelo calibrado coincidem com os pontos detectados na imagem, quanto menor, melhor.
+  <li><strong>Matriz de rotação (Rot):</strong> Matriz de rotação entre as duas câmeras.</li>
+  <li><strong>Matriz de translação (Trns):</strong> Matriz de translação entre as duas câmeras.</li>
+  <li><strong>Matriz Fundamental (Fmat):</strong>A matriz fundamental é uma matriz 3×3 que estabelece a relação epipolar entre pontos correspondentes em duas imagens obtidas por câmeras diferentes. Ela opera diretamente nas coordenadas de imagem, sem considerar os parâmetros intrínsecos das câmeras, e expressa a condição geométrica segundo a qual um ponto em uma imagem corresponde a uma linha epipolar na outra. Essa matriz representa, portanto, a geometria projetiva entre os planos de imagem e possibilita determinar, a partir de correspondências de pontos, restrições para o pareamento de feições sem a necessidade prévia de calibração.</li>
+  <li><strong>Matriz Essencial (Emat):</strong> A matriz essencial é uma matriz 3×3 que descreve a relação epipolar entre duas vistas, porém no espaço normalizado obtido após a calibração intrínseca das câmeras. Ela incorpora as matrizes de parâmetros internos e, por isso, permite extrair diretamente as informações extrínsecas do sistema estéreo, como a rotação e a translação relativas entre as câmeras.Diferentemente da matriz fundamental, a matriz essencial atua no domínio das coordenadas livres de distorção e possibilita a reconstrução métrica da cena, servindo como elo entre as correspondências de imagem e a geometria tridimensional real do ambiente observado.</li>
+</ul>
+</p>
+
+<h3>3. ETAPA 3 - Retificação Stereo</h3>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Utilizando os parâmetros intrínsecos da câmera, bem como a rotação e a translação entre as câmeras, aplica‑se a retificação estéreo. Esse processo realiza rotações que alinham os dois planos de imagem de modo que ambos passem a estar no mesmo plano. Além das matrizes de rotação, o método stereoRectify também fornece as matrizes de projeção no novo espaço de coordenadas.
+<ul>
+  <li><strong>Matrizes de rotação de retificação (rect_l, rect_r):</strong> Matrizes de rotação de retificação para a câmera esquerda e para a câmera direita.
+  <li><strong>Novas matrizes de projeção (proj_mat_l, proj_mat_r):</strong> Novas matrizes de projeção para a câmera esquerda e para a câmera direita (depois da retificação).</li>
+  <li><strong>Matriz de reprojeção 3D (Q):</strong>Matriz de reprojeção em 3D (usada para transformar disparidade em coordenadas 3D). </li>
+  <li><strong>Regiões de interesse (roiL, roiR):</strong>Região de interesse válida (x, y, w, h) na imagem esquerda e direita após retificação.</li>
+</ul>
+</p>
+
+<h3>3. ETAPA 4 - Mapas de disparidade</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 	Usados para alinhar as imagens da esquerda e direita horizontalmente, o que simplifica a correspondência entre pixels:</p>
 <ul>
@@ -850,25 +877,15 @@ Descrevem a posição e orientação relativa entre as duas câmeras:</p>
 
 <h3>4. Mapas de Remapeamento</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-	Utilizados para aplicar as correções nas imagens reais:</p>
-<ul>
-  <li><strong>mapx e mapy:</strong> mapas obtidos pela função <code>cv2.initUndistortRectifyMap()</code>, que permitem a correção de distorção e a retificação das imagens.</li>
-</ul>
+	Calculam‑se os mapeamentos responsáveis por transformar um par de imagens estéreo em um par de imagens retificadas e livres de distorções, armazenando‑os para uso posterior. Esses mapeamentos geram os mapas de remapeamento (mapX e mapY), que são posteriormente utilizados pelo método cv2.remap() para efetivamente corrigir as distorções e aplicar a retificação às imagens.
+  <ul>
+  <li><strong>mapx e mapy:</strong> Dois arrays que dizem, para cada pixel da imagem retificada, de onde buscar o valor na imagem original. <code>cv2.initUndistortRectifyMap()</code>, que permitem a correção de distorção e a retificação das imagens.</li>
+  </ul>
+</p>
 
-<h3>5. Arquivo de Parâmetros Salvos</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-	Durante a calibração com OpenCV, os seguintes parâmetros são salvos no arquivo XML/YAML (por exemplo, <code>calibration_joao.xml</code>):</p>
-<ul>
-  <li>Matrizes de câmera (K1 e K2)</li>
-  <li>Coeficientes de distorção (D1 e D2)</li>
-  <li>R e T</li>
-  <li>R1, R2, P1, P2 e Q</li>
-</ul>
-
-<h3>Resumo</h3>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">Esses parâmetros são fundamentais para garantir que as imagens estejam geometricamente alinhadas, livres de distorções e preparadas para reconstrução 3D. Com eles, é possível calcular mapas de disparidade e extrair a profundidade das cenas.</p>
-
-
+  Todos os parâmetros acima são necessários para criação do par de imagens stereo que foram utilizadas para criar um vídeo em 3D. Esses parâmetros são fundamentais para garantir que as imagens estejam geometricamente alinhadas, livres de distorções e preparadas para reconstrução 3D. Com eles, é possível calcular mapas de disparidade e extrair a profundidade das cenas.
+</p>
 
 <h3 id="-c-leitura-de-imagem-de-c-mera">(C) Execute a calibração da sua câmera estéreo (contruída com as webcams) pela captura de suas próprias imagens de calibração e imagens de teste:</h3>
 
@@ -958,7 +975,7 @@ salvos no arquivo de parâmetros de calibração (xml)?
 <h3>Parâmetros Obtidos da Calibração da Câmera Estéreo</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Durante o processo de calibração das câmeras estéreo, diversos parâmetros foram estimados. Alguns desses foram armazenados no arquivo <code>params_py.xml</code>, gerado pelo script de calibração. A seguir, listam-se os parâmetros obtidos e os que foram salvos.
+  Durante o processo de calibração das câmeras estéreo, diversos parâmetros foram estimados. Alguns desses foram armazenados no arquivo <code>params_nossas_fotos_py.xml</code>, gerado pelo script de calibração. A seguir, listam-se os parâmetros obtidos e os que foram salvos.
 </p>
 
 <h4>1. Parâmetros Salvos no Arquivo XML</h4>
