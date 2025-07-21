@@ -834,7 +834,7 @@ As duas câmeras são calibradas a partir das imagens do tabuleiro e os seguinte
 </p>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  A partir dos parâmetros calculados, da quantidade de pixels na horizontal e na vertical e do método cv2.getOptimalNewCameraMatrix, calcula‑se uma nova matriz intrínseca após a correção da distorção, considerando o tamanho da imagem e um fator de zoom que ajusta o campo de visão. Além disso, obtém‑se uma região de interesse recomendada (ROI – Region of Interest), no formato (x,y,w,h), que indica um retângulo dentro da imagem corrigida no qual todos os pixels são válidos, sem áreas pretas. Essa ROI permite recortar a imagem final, eliminando as bordas pretas resultantes do processo de correção de distorção.
+  A partir dos parâmetros calculados, da quantidade de pixels na horizontal e na vertical e do método <strong>cv2.getOptimalNewCameraMatrix</strong>, calcula‑se uma nova matriz intrínseca após a correção da distorção, considerando o tamanho da imagem e um fator de zoom que ajusta o campo de visão. Além disso, obtém‑se uma região de interesse recomendada (ROI – Region of Interest), no formato (x,y,w,h), que indica um retângulo dentro da imagem corrigida no qual todos os pixels são válidos, sem áreas pretas. Essa ROI permite recortar a imagem final, eliminando as bordas pretas resultantes do processo de correção de distorção.
 <ul>
   <li><strong>Novas matrizes intrínsecas (new_mtxL, new_mtxR):</strong> Matriz 3×3 que inclui a distância focal (fx, fy) e o centro óptico (cx, cy).</li>
   <li><strong>Região de interesse (roiL, roiR):</strong> retangulo dentro da imagem não distorcida onde todos os pixel são valídos(sem áreas pretas).</li> 
