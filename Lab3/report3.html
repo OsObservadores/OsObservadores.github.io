@@ -10,11 +10,23 @@
 <p>Guilherme Eduardo Pereira - RA: 11201720498 - CPO - Desenvolvimento</p>
 <p>Data de realização do experimento: 02/07/2025</p>
 <p>Data de publicação do relatório: 21/07/2025</p>
-<h2 id="introdu-o">Introdução</h2>
+<h2 id="objetivo-o">Objetivo</h2>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 O presente relatório tem como objetivo apresentar o estudo e a aplicação prática de conceitos fundamentais relacionados à visão computacional. Inicialmente, compreende-se os princípios teóricos de Estereoscopia e Geometria Epipolar, que fornecem a base para a análise de imagens captadas por sistemas de câmeras estéreo. Em seguida, realiza-se um experimento de imagem tridimensional (3D) por meio da calibração de câmeras estéreo, a fim de validar os conceitos abordados e observar, de forma prática, a reconstrução de cenas em três dimensões. Por fim, elabora-se este relatório em equipe, integrando os resultados obtidos, a análise dos procedimentos adotados e a reflexão sobre o aprendizado adquirido ao longo do desenvolvimento do trabalho.
 </p> 
+
+<h2 id="intro-o">Introdução</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  A percepção de profundidade é uma habilidade fundamental do sistema visual humano, viabilizada pela visão estéreo, que utiliza a diferença entre as imagens captadas por cada olho para inferir a distância dos objetos. Essa capacidade, conhecida como estereopsia, inspira o desenvolvimento de sistemas de visão computacional que buscam reconstruir informações tridimensionais a partir de imagens bidimensionais. No contexto da visão computacional, a geometria epipolar e a triangulação constituem a base teórica para a estimativa de profundidade a partir de pares de imagens estéreo.
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Quando um ponto do espaço tridimensional é projetado em uma única imagem, perde-se a informação de profundidade devido à natureza da projeção planar. Para recuperar essa informação, torna-se necessário capturar o mesmo ponto a partir de dois pontos de vista distintos, permitindo a aplicação da triangulação. A correta correspondência entre os pontos nas duas imagens é facilitada pelo uso da geometria epipolar, que restringe a busca do ponto correspondente a uma única linha epipolar na imagem adjacente. Com a calibração das câmeras e o conhecimento da configuração espacial entre elas, é possível aplicar algoritmos de disparidade e gerar mapas de profundidade precisos. A utilização de métodos como o StereoSGBM no OpenCV exemplifica a aplicação prática desses conceitos, permitindo a reconstrução tridimensional densa de cenas reais.
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Dessa forma, evidencia‑se que a calibração de um sistema de câmera estéreo depende de um conjunto abrangente de parâmetros que descrevem, de maneira precisa, tanto as características intrínsecas de cada câmera quanto a relação geométrica entre elas. Ao longo das etapas de calibração individual, calibração estéreo, retificação e geração de mapas de disparidade, obtêm‑se matrizes e vetores essenciais para corrigir distorções, alinhar as imagens e estabelecer as condições necessárias para a reconstrução tridimensional. Esses parâmetros — incluindo matrizes intrínsecas e extrínsecas, coeficientes de distorção, matrizes fundamental e essencial, além de mapas de remapeamento — permitem que as imagens capturadas estejam geometricamente coerentes e prontas para a extração de profundidade. Assim, garante‑se a criação de pares estéreo alinhados e consistentes, viabilizando a produção de vídeos em 3D com informações métricas do ambiente.
+</p>
+
 
 <h2 id="procedimentos-experimentais">Procedimentos Experimentais</h2>
 
