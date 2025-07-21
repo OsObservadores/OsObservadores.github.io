@@ -960,15 +960,16 @@ salvos no arquivo de parâmetros de calibração (xml)?
   <img src="/Lab3/Resultado_Parte_3_C/img18L.png" alt="letf02" width="400" height="200">
   <img src="/Lab3/Resultado_Parte_3_C/img18R.png" alt="right02" width="400" height="200">
 </div>
-
+<figcaption>Figura xx - Resultados.</figcaption>
+</figure>
 
 <h3>Parâmetros Obtidos da Calibração da Câmera Estéreo</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Durante o processo de calibração das câmeras estéreo, diversos parâmetros foram estimados. Alguns desses foram armazenados no arquivo <code>params_nossas_fotos_py.xml</code>, gerado pelo script de calibração. A seguir, listam-se os parâmetros obtidos e os que foram salvos.
+  Durante o processo de calibração das câmeras estéreo, diversos parâmetros foram estimados. Alguns desses foram armazenados no arquivo <code>params_nossas_fotos_py.xml</code>, gerado pelo script de calibração. A seguir, listam-se os parâmetros obtidos e que foram salvos no arquivo xml. Exibir o conteúdo do arquivo xml se torna inviavél, já que se trata de um arquivo com mais de dez mil linhas, porém, o arquivo se encontrar no repositório do github.
 </p>
 
-<h4>1. Parâmetros Salvos no Arquivo XML</h4>
+<h3>1. Parâmetros Salvos no Arquivo XML</h3>
 <ul>
   <li><strong>Left_Stereo_Map_x</strong> – mapa de remapeamento no eixo X da câmera esquerda.</li>
   <li><strong>Left_Stereo_Map_y</strong> – mapa de remapeamento no eixo Y da câmera esquerda.</li>
@@ -980,22 +981,77 @@ salvos no arquivo de parâmetros de calibração (xml)?
   Esses mapas são matrizes que indicam como cada pixel da imagem original deve ser deslocado para corrigir distorções e alinhar as imagens. Eles são gerados pela função <code>cv2.initUndistortRectifyMap()</code> e utilizados posteriormente na função <code>cv2.remap()</code>.
 </p>
 
-<h4>2. Parâmetros Calculados (não salvos no XML)</h4>
-<ul>
-  <li><strong>K1 e K2:</strong> Matrizes intrínsecas das câmeras (esquerda e direita) com o formato:
-    <pre>
-[ fx   0   cx ]
-[  0  fy   cy ]
-[  0   0    1 ]
-    </pre>
-  </li>
-  <li><strong>D1 e D2:</strong> Vetores de coeficientes de distorção das lentes (k₁, k₂, p₁, p₂, k₃...)</li>
-  <li><strong>R:</strong> Matriz de rotação (3x3), representando a orientação relativa entre as câmeras.</li>
-  <li><strong>T:</strong> Vetor de translação (3x1), indicando o deslocamento entre as câmeras.</li>
-  <li><strong>R1 e R2:</strong> Matrizes de rotação para retificar as imagens.</li>
-  <li><strong>P1 e P2:</strong> Matrizes de projeção das imagens retificadas.</li>
-  <li><strong>Q:</strong> Matriz de reprojeção 4x4, usada para conversão de coordenadas de disparidade em pontos 3D.</li>
-</ul>
+<h3>2. Listagem dos parâmetros obtidos pela calibração da câmera stereo.</h3>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  A imagem a seguir mostra a modificação feita no script <strong>calibrate_parteC.py</strong>, utilizado para calibração da câmera stereo confeccionada no laboratório. Logo em seguida, o resultado da impressão dos parâmetros pelo programa:
+</p>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab3/Resultado_Parte_3_B/script_mod.jpg" alt="letf02" width="600" height="500">
+  <figcaption>
+   Figura xx - Ajuste feito para impressão dos parâmetros.
+  </figcaption>
+</div>
+
+<pre><code class="language-python">
+Stereo calibration .....
+Matrix Rotação (Rot): 
+
+[[ 0.99121894  0.00674294  0.1320589 ]
+ [-0.00530224  0.99992257 -0.01125807]
+ [-0.13212458  0.010459    0.99117794]]
+
+Matrix de translação (Trns) : 
+
+[[ 0.81684567]
+ [ 0.01282107]
+ [-0.22357859]]
+
+Matrix Essencial (Emat): 
+
+[[-0.00287945  0.22369537  0.0101909 ]
+ [-0.11368994 -0.01005097 -0.83916495]
+ [-0.0170396   0.81669597 -0.01088924]]
+
+Matrix Fundamental (Fmat) : 
+
+[[-3.67878631e-07  2.87749616e-05 -4.80658921e-03]
+ [-1.45198494e-05 -1.29243921e-06 -6.88406865e-02]
+ [ 1.62833980e-03  6.33606612e-02  1.00000000e+00]]
+
+Matriz de rotação de retificação esquerda (rect_l) : 
+
+[[ 0.99074034  0.0188782  -0.13445146]
+ [-0.01972402  0.99979315 -0.00496159]
+ [ 0.13432998  0.00756757  0.99090776]]
+
+Matriz de rotação de retificação direita (rect_r) : 
+
+[[ 0.96441237  0.01513725 -0.26396902]
+ [-0.0134645   0.99987617  0.00814505]
+ [ 0.26405963 -0.00430098  0.96449677]]
+
+Nova matriz de projeção câmera esquerda (proj_mat_l): 
+
+[[683.86057701   0.         484.93750668   0.        ]
+ [  0.         683.86057701 201.44730759   0.        ]
+ [  0.           0.           1.           0.        ]]
+
+Nova matriz de projeção câmera direita (proj_mat_r): 
+
+[[683.86057701   0.         484.93750668 579.22168168]
+ [  0.         683.86057701 201.44730759   0.        ]
+ [  0.           0.           1.           0.        ]]
+
+Matriz de reprojeção 3D (Q) : 
+
+[[   1.            0.            0.         -484.93750668]
+ [   0.            1.            0.         -201.44730759]
+ [   0.            0.            0.          683.86057701]
+ [   0.            0.           -1.18065431    0.        ]]
+Saving paraeters ......
+
+</code>
 
 <h4>3. Observações</h4>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
