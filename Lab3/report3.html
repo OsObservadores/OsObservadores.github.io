@@ -1053,13 +1053,13 @@ Saving paraeters ......
 
 </code>
 
-<h4>3. Observações</h4>
+<h3>3. Observações</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   Apesar de todos os parâmetros serem calculados pelo OpenCV durante o processo de calibração e retificação estéreo, apenas os mapas de remapeamento foram efetivamente salvos no arquivo XML no experimento atual. Caso desejado, os demais parâmetros também podem ser salvos com comandos adicionais no script Python, como:
 </p>
 <pre><code class="language-python">
-cv_file.write("K1", mtxL)
-cv_file.write("D1", distL)
+cv_file.write("mtxL", mtxL)
+cv_file.write("distL", distL)
 cv_file.write("R", Rot)
 cv_file.write("T", Trns)
 </code></pre>
