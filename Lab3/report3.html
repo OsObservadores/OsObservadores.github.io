@@ -865,15 +865,7 @@ Utilizando os parâmetros intrínsecos da câmera, bem como a rotação e a tran
 </p>
 
 <h3>3. ETAPA 4 - Mapas de disparidade</h3>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-	Usados para alinhar as imagens da esquerda e direita horizontalmente, o que simplifica a correspondência entre pixels:</p>
-<ul>
-  <li><strong>R1 e R2:</strong> matrizes de rotação para retificar a imagem da câmera esquerda e da direita.</li>
-  <li><strong>P1 e P2:</strong> matrizes de projeção para as duas câmeras retificadas.</li>
-  <li><strong>Q:</strong> matriz de reprojeção 4×4 usada para converter coordenadas de disparidade em coordenadas 3D (x, y, z).</li>
-</ul>
 
-<h3>4. Mapas de Remapeamento</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 	Calculam‑se os mapeamentos responsáveis por transformar um par de imagens estéreo em um par de imagens retificadas e livres de distorções, armazenando‑os para uso posterior. Esses mapeamentos geram os mapas de remapeamento (mapX e mapY), que são posteriormente utilizados pelo método cv2.remap() para efetivamente corrigir as distorções e aplicar a retificação às imagens.
   <ul>
