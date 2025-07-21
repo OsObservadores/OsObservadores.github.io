@@ -867,9 +867,9 @@ Utilizando os parâmetros intrínsecos da câmera, bem como a rotação e a tran
 <h3>3. ETAPA 4 - Mapas de disparidade</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-	Calculam‑se os mapeamentos responsáveis por transformar um par de imagens estéreo em um par de imagens retificadas e livres de distorções, armazenando‑os para uso posterior. Esses mapeamentos geram os mapas de remapeamento (mapX e mapY), que são posteriormente utilizados pelo método cv2.remap() para efetivamente corrigir as distorções e aplicar a retificação às imagens.
+	Calculam‑se os mapeamentos responsáveis por transformar um par de imagens estéreo em um par de imagens retificadas e livres de distorções, armazenando‑os para uso posterior. Esses mapeamentos geram os mapas de remapeamento (mapX e mapY), que são posteriormente utilizados pelo método <strong>cv2.remap()</strong> para efetivamente corrigir as distorções e aplicar a retificação às imagens.
   <ul>
-  <li><strong>mapx e mapy:</strong> Dois arrays que dizem, para cada pixel da imagem retificada, de onde buscar o valor na imagem original. <code>cv2.initUndistortRectifyMap()</code>, que permitem a correção de distorção e a retificação das imagens.</li>
+  <li><strong>mapx e mapy:</strong> Dois arrays que dizem, para cada pixel da imagem retificada, de onde buscar o valor na imagem original. <strong>cv2.initUndistortRectifyMap()</strong>, que permitem a correção de distorção e a retificação das imagens.</li>
   </ul>
 </p>
 
