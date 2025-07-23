@@ -185,13 +185,14 @@ import cv2 <span class="hljs-keyword">as</span> cv              # Importa a bibl
     <span class="hljs-keyword">print</span>(<span class="hljs-string">"Can't receive frame (stream end?). Exiting ..."</span>)    # Mostra mensagem de erro
     <span class="hljs-keyword">break</span>    # Encerra o loop
 
-    <span class="hljs-keyword">if</span> cv.waitKey(1) == ord('x'):    # Salva frame em uma imagem ao apertar tecla x
-     <span class="hljs-keyword">cv.imwrite('foto1.png',frame)</span>
 
     cv.imshow('frame', frame)    # Exibe o frame atual em uma janela chamada 'frame'
   
     <span class="hljs-keyword">if</span> cv.waitKey(1) == ord('q'):    # Espera 1 milissegundo por uma tecla. Se for 'q', sai do loop
         <span class="hljs-keyword">break</span>
+
+    <span class="hljs-keyword">if</span> cv.waitKey(1) == ord('x'):    # Salva frame em uma imagem ao apertar tecla 'x'
+        <span class="hljs-keyword">cv.imwrite('foto1.png',frame)</span>
 
 <span class="hljs-keyword">cap</span>.release()                    # Libera a câmera para outros programas/sistemas
 cv.destroyAllWindows()           # Fecha todas as janelas abertas pelo OpenCV
