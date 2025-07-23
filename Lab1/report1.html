@@ -185,7 +185,6 @@ import cv2 <span class="hljs-keyword">as</span> cv              # Importa a bibl
     <span class="hljs-keyword">print</span>(<span class="hljs-string">"Can't receive frame (stream end?). Exiting ..."</span>)    # Mostra mensagem de erro
     <span class="hljs-keyword">break</span>    # Encerra o loop
 
-
     cv.imshow('frame', frame)    # Exibe o frame atual em uma janela chamada 'frame'
   
     <span class="hljs-keyword">if</span> cv.waitKey(1) == ord('q'):    # Espera 1 milissegundo por uma tecla. Se for 'q', sai do loop
