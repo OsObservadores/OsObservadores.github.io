@@ -231,20 +231,146 @@ plt.imshow(img3, 'gray'),plt.show()
 
 
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Elaboração de um programa OpenCV para extração de características envolvendo uma câmera estereoscópica calibrada.</h3>
+
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
- Na segunda etapa (Parte B), modifica-se o programa anterior para que ele opere em tempo real. Em vez de trabalhar com arquivos de imagem, o código realiza leituras simultâneas de duas webcams pertencentes a uma câmera estereoscópica calibrada. O processamento de Feature Matching e homografia é mantido, mas agora é aplicado continuamente aos quadros capturados, permitindo visualizar ao vivo as correspondências entre as duas perspectivas. Essa adaptação demonstra a aplicabilidade do método em sistemas de captura dinâmica e em contextos onde a cena se altera em tempo real. 
+ Na segunda etapa (Parte B), modifica-se o programa anterior para que ele opere em tempo real. Em vez de trabalhar com arquivos de imagem, o código realiza leituras simultâneas de duas webcams pertencentes a uma câmera estereoscópica calibrada. O processamento de Feature Matching e homografia é mantido, mas agora é aplicado continuamente aos quadros capturados, permitindo visualizar ao vivo as correspondências entre as duas perspectivas. Essa adaptação demonstra a aplicabilidade do método em sistemas de captura dinâmica e em contextos onde a cena se altera em tempo real. O programa modificado é apresentado a seguir e os resultados e analises apresentados na sessão <strong>Análise dos Resultados</strong>.
 </p>
 
+<pre><code class="language-python">
 
-  
+SIFTvideo.py
+
+import threading
+import time
+import numpy as np
+import cv2 as cv
+
+class CameraThread(threading.Thread):
+    def __init__(self, cam_id):
+        super().__init__()
+        self.cap = cv.VideoCapture(cam_id)
+        self.ret = False
+        self.frame = None
+        self.running = True
+        self.lock = threading.Lock()
+
+        for _ in range(10):  # aquecimento da câmera
+            ret, frame = self.cap.read()
+            if ret:
+                break
+            time.sleep(0.1)
+
+    def run(self):
+        while self.running:
+            ret, frame = self.cap.read()
+            with self.lock:
+                self.ret = ret
+                if ret:
+                    self.frame = frame
+            time.sleep(0.001)
+
+    def get_frame(self):
+        with self.lock:
+            return self.ret, self.frame.copy() if self.frame is not None else None
+
+    def stop(self):
+        self.running = False
+        self.cap.release()
 
 
+CamL_id = 2
+CamR_id = 0
+
+camL_thread = CameraThread(CamL_id)
+camR_thread = CameraThread(CamR_id)
+
+camL_thread.start()
+camR_thread.start()
+
+fps = 10.0
+#width = int(camL_thread.cap.get(cv.CAP_PROP_FRAME_WIDTH))
+height = int(camL_thread.cap.get(cv.CAP_PROP_FRAME_HEIGHT))
+fourcc = cv.VideoWriter_fourcc(*'mp4v')
+outm = cv.VideoWriter('SIFTvideo.mp4', fourcc, fps, (1280, height))
+
+# Inicializa o SIFT e FLANN
+sift = cv.SIFT_create()
+FLANN_INDEX_KDTREE = 1
+index_params = dict(algorithm=FLANN_INDEX_KDTREE, trees=5)
+search_params = dict(checks=50)
+flann = cv.FlannBasedMatcher(index_params, search_params)
+
+MIN_MATCH_COUNT = 10
+
+
+
+try:
+    while True:
+        retL, frameL = camL_thread.get_frame()
+        retR, frameR = camR_thread.get_frame()
+
+        if not retL or not retR:
+            time.sleep(0.01)
+            continue
+
+        # Converte para escala de cinza
+        grayL = cv.cvtColor(frameL, cv.COLOR_BGR2GRAY)
+        grayR = cv.cvtColor(frameR, cv.COLOR_BGR2GRAY)
+
+        # Detecta keypoints e descritores
+        kp1, des1 = sift.detectAndCompute(grayL, None)
+        kp2, des2 = sift.detectAndCompute(grayR, None)
+
+        if des1 is None or des2 is None:
+            continue
+
+        # Match com FLANN
+        matches = flann.knnMatch(des1, des2, k=2)
+
+        # Lowe’s ratio test
+        good = []
+        for m, n in matches:
+            if m.distance < 0.7 * n.distance:
+                good.append(m)
+
+        matchesMask = None
+
+        if len(good) > MIN_MATCH_COUNT:
+            src_pts = np.float32([kp1[m.queryIdx].pt for m in good]).reshape(-1, 1, 2)
+            dst_pts = np.float32([kp2[m.trainIdx].pt for m in good]).reshape(-1, 1, 2)
+
+            M, mask = cv.findHomography(src_pts, dst_pts, cv.RANSAC, 5.0)
+            matchesMask = mask.ravel().tolist()
+        else:
+            matchesMask = None
+
+        # Desenhar os matches
+        draw_params = dict(matchColor=(0, 255, 0),
+                           singlePointColor=None,
+                           matchesMask=matchesMask,
+                           flags=2)
+
+        matched_img = cv.drawMatches(grayL, kp1, grayR, kp2, good, None, **draw_params)
+		
+        print(f"matched_img shape: {matched_img.shape}")
+		
+        outm.write(matched_img)
+ 
+        cv.imshow("Feature Matching Real-Time", matched_img)
+        
+        if cv.waitKey(1) & 0xFF == ord('q'):
+            break
+
+finally:
+    camL_thread.stop()
+    camR_thread.stop()
+    cv.destroyAllWindows()
+
+</code></pre>
 
 <h2 id="analise-dos-resultados">Análise dos Resultados</h2>
 
 <h3 id="-parte-2">PARTE 2 - SIFT.</h3>
-
-
 
 <h3 id="-a-leitura-de-imagem-em-arquivo">(A) Elaboração de um programa OpenCV para extração de características e correspondê-las em imagens diferentes.</h3>
 
@@ -261,6 +387,20 @@ O programa realiza a detecção, descrição e correspondência de pontos de int
 
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Elaboração de um programa OpenCV para extração de características envolvendo uma câmera estereoscópica calibrada.</h3>
 
+<h3 id="analise-dos-resultados">Análise do programa <strong>SIFTvideo.py</strong></h3>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O programa realiza a captura simultânea de imagens em tempo real a partir de duas webcams pertencentes a uma câmera estereoscópica, utilizando threads independentes para cada dispositivo a fim de garantir a leitura contínua e sincronizada. Em cada iteração, o sistema converte os quadros capturados para escala de cinza, detecta pontos-chave e extrai descritores com o algoritmo SIFT, e em seguida executa o processo de correspondência entre as duas imagens por meio do FLANN Matcher, aplicando o teste de razão de Lowe para filtrar as melhores correspondências. Quando o número mínimo de matches é atingido, o programa calcula a homografia entre as duas visões, permitindo alinhar as correspondências válidas e destacá-las graficamente. A imagem resultante, mostrando os pontos de interesse correspondidos, é exibida em uma janela em tempo real e simultaneamente gravada em um arquivo de vídeo, possibilitando análise posterior do processo de Feature Matching dinâmico. O vídeo obtido pelo programa é apresentado a seguir:
+</p>
+
+<figure style="text-align: center;">
+<video width="640" height="480" controls autoplay loop muted>
+  <source src="Lab5/Parte B/SIFTvideo2.mp4" type="video/mp4">
+</video>
+<figcaption>Vídeo 1 - Resultados da dectecção e correspondência de características em vídeo utilizando uma câmera estereoscópica.</figcaption>
+</figure>
+
+
 <h3 id="-parte-2">PARTE 3 - Hough Transform.</h3>
 
 <h3 id="-a-leitura-de-imagem-em-arquivo">(C) Elaboração de um programa OpenCV que realiza "Hough Transform".</h3>
@@ -269,12 +409,7 @@ O programa realiza a detecção, descrição e correspondência de pontos de int
 
 <h3 id="analise-dos-resultados">Análise de como as técnicas de Detecção de Features pode ser utilizada no trabalho T1<strong>SIFTfeatures.py</strong></h3>
 
-<figure style="text-align: center;">
-<video width="640" height="480" controls autoplay loop muted>
-  <source src="Resultado_Parte_3_B/stereoR2.mp4" type="video/mp4">
-</video>
-<figcaption>Vídeo 2 - Câmera lado direito.</figcaption>
-</figure>
+
 	
 <h2 id="conclus-o">Conclusão</h2>
 
