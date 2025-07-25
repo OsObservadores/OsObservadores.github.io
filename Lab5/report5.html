@@ -248,7 +248,7 @@ plt.imshow(img3, 'gray'),plt.show()
 
 <h3 id="-a-leitura-de-imagem-em-arquivo">(A) Elaboração de um programa OpenCV para extração de características e correspondê-las em imagens diferentes.</h3>
 
-<h2 id="analise-dos-resultados">Análise do programa <strong>SIFTfeatures.py</strong></h2>
+<h3 id="analise-dos-resultados">Análise do programa <strong>SIFTfeatures.py</strong></h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 O programa realiza a detecção, descrição e correspondência de pontos de interesse entre duas imagens utilizando o algoritmo SIFT (Scale-Invariant Feature Transform) e a técnica de Feature Matching com o uso do FLANN (Fast Library for Approximate Nearest Neighbors). Ele identifica pontos-chave nas duas imagens, calcula descritores e aplica o teste de razão de Lowe para selecionar apenas as correspondências mais consistentes. Quando a quantidade de correspondências válidas é suficiente, o programa estima uma homografia entre as imagens por meio do método RANSAC, projetando o contorno da primeira imagem sobre a segunda para indicar a posição do objeto correspondente. Por fim, ele exibe uma imagem resultante mostrando as correspondências válidas com linhas verdes, destacando visualmente a relação entre os pontos de interesse das duas imagens. O resultado do processamento das duas imagens é apresentado a seguir:
@@ -267,7 +267,7 @@ O programa realiza a detecção, descrição e correspondência de pontos de int
 
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(D) Elaboração de um programa OpenCV que realiza "Hough Transform" envolvendo uma câmera estereoscópica calibrada.</h3>
 
-<h2 id="analise-dos-resultados">Análise de como as técnicas de Detecção de Features pode ser utilizada no trabalho T1<strong>SIFTfeatures.py</strong></h2>
+<h3 id="analise-dos-resultados">Análise de como as técnicas de Detecção de Features pode ser utilizada no trabalho T1<strong>SIFTfeatures.py</strong></h3>
 
 <figure style="text-align: center;">
 <video width="640" height="480" controls autoplay loop muted>
