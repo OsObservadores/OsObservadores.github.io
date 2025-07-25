@@ -13,10 +13,18 @@
 <h2 id="objetivo-o">Objetivo</h2>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O objetivo deste experimento é compreender os conceitos de features e extração de características, bem como realizar a extração e a detecção dessas características em duas imagens distintas.
 </p> 
 
 <h2 id="intro-o">Introdução</h2>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+ A detecção e descrição de características (features) constitui um dos fundamentos da visão computacional e está presente em diversas aplicações, como reconhecimento de objetos, rastreamento e reconstrução de cenas. Uma feature representa um ponto de interesse ou um padrão localizado em uma imagem, geralmente associado a regiões com variações significativas de intensidade, como quinas, bordas e texturas. O estudo desses elementos permite que algoritmos identifiquem correspondências entre diferentes imagens e realizem tarefas avançadas, como alinhamento e mapeamento de objetos.
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Diversos métodos são empregados para detectar e descrever features. Entre os algoritmos clássicos estão o Harris Corner Detector, que identifica quinas em regiões de variação de gradiente, e o Shi-Tomasi Corner Detector, que aprimora a seleção de pontos relevantes para rastreamento. Esses métodos estabelecem as bases para técnicas mais robustas, como o SIFT (Scale-Invariant Feature Transform), que detecta e descreve características invariantes a escala e rotação, garantindo maior confiabilidade em cenários com mudanças de perspectiva ou iluminação.
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A partir dessas detecções, é possível realizar a correspondência de características (Feature Matching), técnica que compara descritores de duas imagens distintas para identificar regiões equivalentes. Quando aplicada em conjunto com a homografia, essa correspondência permite mapear a posição de um objeto entre diferentes pontos de vista, possibilitando que sua localização seja projetada de uma imagem para outra. Esses conceitos e técnicas, apresentados nos tutoriais da documentação do OpenCV, fundamentam a execução do experimento e orientam a implementação dos algoritmos utilizados. 
 </p>
 
 
