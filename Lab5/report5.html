@@ -244,7 +244,20 @@ plt.imshow(img3, 'gray'),plt.show()
 
 <h3 id="-parte-2">PARTE 2 - SIFT.</h3>
 
+
+
 <h3 id="-a-leitura-de-imagem-em-arquivo">(A) Elaboração de um programa OpenCV para extração de características e correspondê-las em imagens diferentes.</h3>
+
+<h2 id="analise-dos-resultados">Análise do programa <strong>SIFTfeatures.py</strong></h2>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O programa realiza a detecção, descrição e correspondência de pontos de interesse entre duas imagens utilizando o algoritmo SIFT (Scale-Invariant Feature Transform) e a técnica de Feature Matching com o uso do FLANN (Fast Library for Approximate Nearest Neighbors). Ele identifica pontos-chave nas duas imagens, calcula descritores e aplica o teste de razão de Lowe para selecionar apenas as correspondências mais consistentes. Quando a quantidade de correspondências válidas é suficiente, o programa estima uma homografia entre as imagens por meio do método RANSAC, projetando o contorno da primeira imagem sobre a segunda para indicar a posição do objeto correspondente. Por fim, ele exibe uma imagem resultante mostrando as correspondências válidas com linhas verdes, destacando visualmente a relação entre os pontos de interesse das duas imagens. O resultado do processamento das duas imagens é apresentado a seguir:
+</p>
+
+<figure style="text-align: center;">
+  <img src="/Lab5/Parte A/Figure_1.png" alt="Figura1" width="600" height="500">
+  <figcaption>Figura 2 - Extração e correspondências de características.</figcaption>
+</figure>
 
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Elaboração de um programa OpenCV para extração de características envolvendo uma câmera estereoscópica calibrada.</h3>
 
@@ -254,7 +267,7 @@ plt.imshow(img3, 'gray'),plt.show()
 
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(D) Elaboração de um programa OpenCV que realiza "Hough Transform" envolvendo uma câmera estereoscópica calibrada.</h3>
 
-
+<h2 id="analise-dos-resultados">Análise de como as técnicas de Detecção de Features pode ser utilizada no trabalho T1<strong>SIFTfeatures.py</strong></h2>
 
 <figure style="text-align: center;">
 <video width="640" height="480" controls autoplay loop muted>
@@ -262,19 +275,6 @@ plt.imshow(img3, 'gray'),plt.show()
 </video>
 <figcaption>Vídeo 2 - Câmera lado direito.</figcaption>
 </figure>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  O script <strong>movie3d.py</strong> utiliza os parâmetros calculados para gerar o mapa de disparidades através das imagens estéreo geradas através das configurações de câmera estéreo. Uma imagem anáglifa para cada par de imagens estéreo é gerada e em seguida, são salvas todas as imagens anáglifas consecutivas como um vídeo. 
-</p>
-
-<figure style="text-align: center;">
-<video width="640" height="480" controls autoplay loop muted>
-  <source src="Resultado_Parte_3_B/parteB.mp4" type="video/mp4">
-</video>
-<figcaption>Vídeo 3 - Vídeo 3D gerado a partir da exibição consecutiva de imagens anáglifas.</figcaption>
-</figure>
-
-
 	
 <h2 id="conclus-o">Conclusão</h2>
 
