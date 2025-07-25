@@ -49,12 +49,12 @@ Foram apresentados os seguintes links com o conteúdo a ser estudado para execu�
   O presente experimento reproduz e adapta técnicas de processamento de imagem utilizando a biblioteca OpenCV, com foco na detecção e correspondência de características visuais entre diferentes imagens. O objetivo central é aplicar o método conhecido como Feature Matching aliado à transformação de homografia, de modo a identificar e localizar um objeto presente em duas perspectivas distintas. A implementação é dividida em duas etapas complementares: uma primeira baseada em imagens previamente gravadas e uma segunda em fluxo contínuo obtido por câmeras de uma configuração estereoscópica calibrada.
 </p>
 
-<h3 id="-a-leitura-de-imagem-em-arquivo">(A) Obtenção dos códigos do exemplo da câmera estéreo com OpenCV.</h3>
+<h3 id="-a-leitura-de-imagem-em-arquivo">(A) Elaboração de um programa OpenCV para extração de características e correspondê-las em imagens diferentes.</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   Na primeira etapa (Parte A), desenvolve-se um programa seguindo o tutorial oficial do OpenCV intitulado Feature Matching + Homography to find Objects. O programa lê duas imagens salvas, cada uma contendo o mesmo objeto, porém em posições e ângulos diferentes. Em seguida, ele aplica algoritmos de detecção e descrição de pontos-chave, calcula correspondências entre as imagens e realiza a homografia para projetar a posição do objeto em uma das imagens sobre a outra, exibindo ao final as correspondências encontradas de forma visual, conforme demonstrado no tutorial.
 </p>
 
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Exemplo com imagens fornecidas.</h3>
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Elaboração de um programa OpenCV para extração de características envolvendo uma câmera estereoscópica calibrada.</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
  Na segunda etapa (Parte B), modifica-se o programa anterior para que ele opere em tempo real. Em vez de trabalhar com arquivos de imagem, o código realiza leituras simultâneas de duas webcams pertencentes a uma câmera estereoscópica calibrada. O processamento de Feature Matching e homografia é mantido, mas agora é aplicado continuamente aos quadros capturados, permitindo visualizar ao vivo as correspondências entre as duas perspectivas. Essa adaptação demonstra a aplicabilidade do método em sistemas de captura dinâmica e em contextos onde a cena se altera em tempo real. 
 </p>
