@@ -495,18 +495,18 @@ Essa análise reforça a importância da calibração da câmera: ao corrigir di
 
 <h3 id="analise-dos-resultados">Análise de como as técnicas de Detecção de Features pode ser utilizada no Trabalho T1</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-O nosso trabalho tem como objetivo monitorar uma pessoa em seu quarto quando ela levanta, quando o programa identifica que uma pessoa está de pé, um email é enviado para o usuário saber que a pessoa monitorada levantou.
+O objetivo do nosso trabalho é desenvolver um sistema de monitoramento para identificar quando uma pessoa se levanta em um ambiente, como um quarto. A ideia é que, ao detectar que a pessoa monitorada está em pé, o sistema envie automaticamente um e-mail ao responsável, informando a mudança de postura.
 </p>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Em tese o programa Hough Transform poderia ser conficurado para quando identificar linhas muito longas avisar o usuário, porque se uma pessoa está de pé em teoria as linhas seriam maiores do que quando ela está sentada.
+Uma possível abordagem seria utilizar a Transformada de Hough para detectar linhas retas no corpo da pessoa. Em teoria, quando uma pessoa está em pé, a tendência é que apareçam linhas mais longas e verticais no contorno do corpo em comparação com a posição sentada ou deitada. Assim, o programa poderia ser configurado para emitir um alerta quando determinadas características lineares forem detectadas.
 </p>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Porém na prática o programa poderia não funcionar direito pelos seguintes motivos:
+No entanto, essa abordagem enfrenta algumas limitações práticas:
 <ul>
-  <li>Ficar de pé: O público alvo é para idosos que podem ficar de pé de forma meio curvada, o que pode dificultar a identificação de linhas</li>
-  <li>Identificação errada: a câmera pode monitorar quando o idoso está deitado, deittado o proframa pode identificar linhas e avisar de forma errônea o usuário.</li>
-  <li>Sensibilidade: o código precisa ser preciso, o tamanho das linhas vão depender do tamanho do idoso analisado, da distância da câmera, dos objetos que tem no ambiente etc. Essas configurações para cada usuário pode dificultar a aplicação</li>
+  <li>Postura curvada: O público-alvo inclui idosos, que podem ficar em pé com a postura encurvada. Isso pode resultar em linhas mais curtas ou em ângulos não verticais, dificultando a detecção confiáve</li>
+  <li>Falsos positivos: Mesmo quando a pessoa está deitada, o algoritmo pode identificar linhas horizontais (como as da cama, cobertores ou do corpo) e interpretar erroneamente como uma postura de pé.</li>
+  <li>Sensibilidade à configuração: O comprimento das linhas detectadas varia com o tamanho da pessoa, distância da câmera, iluminação e objetos no ambiente. Isso torna difícil criar uma configuração única que funcione bem para todos os usuários, exigindo calibração personalizada.</li>
 </p>
 
 
