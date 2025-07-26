@@ -421,7 +421,7 @@ O programa realiza a captura simultânea de imagens em tempo real a partir de du
 <h3 id="-a-leitura-de-imagem-em-arquivo">(C) Elaboração de um programa OpenCV que realiza "Hough Transform" e cria linhas.</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Enquanto o Feature Matching com o uso do FLANN analisa as imagens e identifica os pontos em comum, o Hough Transform identifica as linhas das imagens e destaca elas, é possível ver nas imagens abaixo as linhas identificadas pelo programa.
+Enquanto a técnica de Feature Matching utilizando o FLANN localiza correspondências entre pontos-chave nas imagens, a Transformada de Hough (Hough Transform) é utilizada para detectar linhas retas, permitindo destacar estruturas lineares presentes na cena. Abaixo, é possível observar diferentes exemplos da aplicação da Transformada de Hough:
 </p>
 
 <figure style="text-align: center;">
@@ -442,17 +442,17 @@ Enquanto o Feature Matching com o uso do FLANN analisa as imagens e identifica o
 </figure>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Vale ressaltar que a imagem 4 e 5 são a mesma imagem base mas com a configuração de linhas diferente, ao passo que é possível perceber faixas na estrada que passaram desapercebidas na figura 4, na figura 5 tem linhas em excesso.
+É importante observar que as Figuras 4 e 5 se referem à mesma imagem base, porém com configurações diferentes para a detecção de linhas. Na Figura 4, há um número reduzido de linhas detectadas, o que pode resultar em perda de informações importantes, como faixas da pista. Já na Figura 5, o aumento da sensibilidade leva à detecção de linhas em excesso, o que pode gerar ruído visual.
 </p>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-O programa pode ser utilizado para identificar linhas na estrada por exemplo, em carros de direção automática (isso é dirigir sem a intervenção humana), o programa pode ajudar o carro a se orientar e seguir as linhas da estrada para chegar no destino e evitar acidentes.
+Essa técnica tem aplicação prática em sistemas de direção autônoma. A identificação das linhas da estrada permite que veículos automatizados se mantenham corretamente na faixa e tomem decisões de navegação com maior segurança, reduzindo o risco de acidentes.
 </p>
 
 <h3 id="-a-leitura-de-imagem-em-arquivo">(C) Elaboração de um programa OpenCV que realiza "Hough Transform" e cria circunferências.</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-O programa Hough Transform também pode ser usado para identificar circunferências nas imagens, conforme os exemplos a seguir.
+A Transformada de Hough também pode ser configurada para identificar formas circulares em imagens. Essa capacidade é demonstrada nas imagens a seguir:
 </p>
 
 <figure style="text-align: center;">
@@ -465,11 +465,7 @@ O programa Hough Transform também pode ser usado para identificar circunferênc
 </figure>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-XXXXX
-</p>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-O programa também pode ser usado por carros com direção automática, regulando o programa para identificar os círculos do faról e ajudar o carro com o sinal verde, vermelho ou amarelo para evitar acidentes em cruzamentos.
+Assim como na detecção de linhas, a identificação automática de circunferências pode ser integrada a veículos autônomos. Um exemplo prático seria a detecção de sinais luminosos — como os faróis de trânsito — onde o programa pode identificar as luzes vermelha, amarela e verde, auxiliando o carro a parar ou seguir em cruzamentos com mais segurança.
 </p>
 
 
