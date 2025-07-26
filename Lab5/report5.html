@@ -473,7 +473,7 @@ Assim como na detecção de linhas, a identificação automática de circunferê
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(D) Elaboração de um programa OpenCV que realiza "Hough Transform" envolvendo uma câmera estereoscópica calibrada.</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-O programa para gerar as linhas e circunferências utilizando o hought transform gerou o vídeo com a câmera calibrada a seguir:
+O programa que utiliza a Transformada de Hough para detecção de linhas e circunferências foi aplicado em imagens capturadas por uma câmera estéreo previamente calibrada. O resultado pode ser observado no vídeo a seguir:
 </p>
 <figure style="text-align: center;">
 <video width="640" height="480" controls autoplay loop muted>
@@ -482,9 +482,16 @@ O programa para gerar as linhas e circunferências utilizando o hought transform
 <figcaption>Vídeo 2 - Hough transform com câmera estereoscópica calibrada.</figcaption>
 </figure>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-É possível ver no vídeo as linhas geradas, as linhas seguem o encosto da cadeira e a estrutura de ferro que a segura, ao fundo é possível perceber as linhas do teto identificadas pelo programa também. Já as ciscunferências dependen do raio máximo e mínimo configurado no programa, em momentos que o círculo do símbolo da UFABC está muito longe ou muito perto da câmera a ciscunferência não é identificada, porém quando está dentro do raio configurado é possível ver a circunferência identificada.
+No vídeo, é possível perceber a eficácia da Transformada de Hough na identificação de estruturas geométricas na cena. As linhas detectadas seguem contornos reais do ambiente, como o encosto da cadeira e a estrutura metálica que a sustenta. Ao fundo, o algoritmo também identifica corretamente as linhas do teto, demonstrando a sensibilidade da técnica mesmo para objetos em diferentes profundidades.
 </p>
 
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+No caso das circunferências, a detecção depende dos valores de raio mínimo e máximo configurados no algoritmo. Isso é evidente ao observar o símbolo da UFABC: quando o símbolo está fora da faixa de raio especificada — por estar muito próximo ou muito distante da câmera — a circunferência correspondente não é detectada. No entanto, quando o símbolo está a uma distância adequada, o algoritmo reconhece com sucesso sua forma circular.
+</p>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Essa análise reforça a importância da calibração da câmera: ao corrigir distorções ópticas e fornecer parâmetros intrínsecos precisos, a calibração melhora significativamente a qualidade da detecção de formas. Com isso, o sistema pode ser aplicado em diversas áreas, como robótica, navegação autônoma e análise de cenas tridimensionais.
+</p>
 
 <h3 id="analise-dos-resultados">Análise de como as técnicas de Detecção de Features pode ser utilizada no Trabalho T1</h3>
 
