@@ -494,8 +494,20 @@ Essa análise reforça a importância da calibração da câmera: ao corrigir di
 </p>
 
 <h3 id="analise-dos-resultados">Análise de como as técnicas de Detecção de Features pode ser utilizada no Trabalho T1</h3>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O nosso trabalho tem como objetivo monitorar uma pessoa em seu quarto quando ela levanta, quando o programa identifica que uma pessoa está de pé, um email é enviado para o usuário saber que a pessoa monitorada levantou.
+</p>
 
-
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Em tese o programa Hough Transform poderia ser conficurado para quando identificar linhas muito longas avisar o usuário, porque se uma pessoa está de pé em teoria as linhas seriam maiores do que quando ela está sentada.
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Porém na prática o programa poderia não funcionar direito pelos seguintes motivos:
+<ul>
+  <li>Ficar de pé: O público alvo é para idosos que podem ficar de pé de forma meio curvada, o que pode dificultar a identificação de linhas</li>
+  <li>Identificação errada: a câmera pode monitorar quando o idoso está deitado, deittado o proframa pode identificar linhas e avisar de forma errônea o usuário.</li>
+  <li>Sensibilidade: o código precisa ser preciso, o tamanho das linhas vão depender do tamanho do idoso analisado, da distância da câmera, dos objetos que tem no ambiente etc. Essas configurações para cada usuário pode dificultar a aplicação</li>
+</p>
 
 
 	
