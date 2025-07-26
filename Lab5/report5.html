@@ -472,12 +472,25 @@ Assim como na detecção de linhas, a identificação automática de circunferê
 
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(D) Elaboração de um programa OpenCV que realiza "Hough Transform" envolvendo uma câmera estereoscópica calibrada.</h3>
 
-<h3 id="analise-dos-resultados">Análise de como as técnicas de Detecção de Features pode ser utilizada no Trabalho T1</h3>
-
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O programa para gerar as linhas e circunferências utilizando o hought transform gerou o vídeo com a câmera calibrada a seguir:
+</p>
 <figure style="text-align: center;">
 <video width="640" height="480" controls autoplay loop muted>
   <source src="/Lab5/Parte D/HoughVideo.mp4" type="video/mp4">
 </video>
+<figcaption>Vídeo 2 - Hough transform com câmera estereoscópica calibrada.</figcaption>
+</figure>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+É possível ver no vídeo as linhas geradas, as linhas seguem o encosto da cadeira e a estrutura de ferro que a segura, ao fundo é possível perceber as linhas do teto identificadas pelo programa também. Já as ciscunferências dependen do raio máximo e mínimo configurado no programa, em momentos que o círculo do símbolo da UFABC está muito longe ou muito perto da câmera a ciscunferência não é identificada, porém quando está dentro do raio configurado é possível ver a circunferência identificada.
+</p>
+
+
+<h3 id="analise-dos-resultados">Análise de como as técnicas de Detecção de Features pode ser utilizada no Trabalho T1</h3>
+
+
+
+
 	
 <h2 id="conclus-o">Conclusão</h2>
 
