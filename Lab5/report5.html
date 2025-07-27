@@ -380,12 +380,237 @@ finally:
 
 </code></pre>
 
-<h3 id="-parte-2">PARTE 3 - Hough Transform.</h3>
+<h3 id="-parte-3">PARTE 3 - Hough Transform.</h3>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+      O presente experimento reproduz e adapta técnicas de detecção de formas geométricas utilizando a biblioteca OpenCV, com ênfase na aplicação da Transformada de Hough para identificação de linhas e círculos em imagens. O objetivo central é aplicar algoritmos robustos de detecção baseados em acumuladores paramétricos, capazes de reconhecer padrões mesmo em cenários com ruído e imperfeições. A implementação é dividida em duas etapas complementares: a primeira utiliza imagens previamente gravadas para demonstrar a identificação de estruturas lineares e circulares; a segunda explora a aplicação em tempo real, por meio de um sistema estereoscópico com duas câmeras calibradas, permitindo a visualização dinâmica das formas detectadas.
+</p>
 
 <h3 id="-a-leitura-de-imagem-em-arquivo">(C) Elaboração de um programa OpenCV que realiza "Hough Transform".</h3>
 
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(D) Elaboração de um programa OpenCV que realiza "Hough Transform" envolvendo uma câmera estereoscópica calibrada.</h3>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+      Para esta etapa, desenvolvemos dois programas utilizando a biblioteca OpenCV com Python. O primeiro programa realiza a detecção de <strong>linhas retas</strong> em uma imagem usando a função <code>HoughLinesP</code>, com base na transformada de Hough. A imagem de entrada é convertida para escala de cinza, submetida ao detector de bordas de Canny, e posteriormente analisada para extração de linhas.
+</p>
+<pre><code class="language-python">
+  import cv2
+import numpy as np
 
+# Leitura da imagem
+img = cv2.imread('placa.jpg', cv2.IMREAD_COLOR)
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# Detecção de bordas
+edges = cv2.Canny(gray, 50, 200)
+
+# Parâmetros do Hough
+max_slider = 70  # Aumenta para reduzir o número de linhas
+min_length = 50   # Tamanho mínimo da linha
+
+# Detecta linhas
+lines = cv2.HoughLinesP(edges, 1, np.pi/180, max_slider, minLineLength=10, maxLineGap=250)
+
+# Desenha linhas com filtro e transparência
+if lines is not None:
+    overlay = img.copy()
+    for line in lines:
+        x1, y1, x2, y2 = line[0]
+        length = np.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+        if length >= min_length:
+            cv2.line(overlay, (x1, y1), (x2, y2), (255, 0, 0), 2)
+    cv2.addWeighted(overlay, 0.4, img, 0.6, 0, img)
+
+# Exibe e salva o resultado
+cv2.imshow("Result Image", img)
+cv2.imwrite("saida_linhas_.jpg", img)
+print("Imagem salva como 'saida_linhas.jpg'")
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+</code></pre>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+          O segundo programa realiza a detecção de <strong>círculos</strong> usando a função <code>HoughCircles</code>. Após o pré-processamento da imagem com desfoque (mediana), a transformada de Hough é aplicada para identificar círculos com base nos parâmetros configurados.
+</p>
+<pre><code class="language-python">
+  import cv2
+import numpy as np
+
+# Carrega a imagem em modo colorido
+img = cv2.imread('igreja.jpeg', cv2.IMREAD_COLOR)
+
+# Converte a imagem para escala de cinza
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# Aplica um desfoque para reduzir ruídos antes da detecção de círculos
+img_blur = cv2.medianBlur(gray, 5)
+
+# Aplica a Transformada de Hough para detecção de círculos
+# Parâmetros:
+# - Método: cv2.HOUGH_GRADIENT
+# - dp: resolução do acumulador em relação à imagem
+# - minDist: distância mínima entre os centros dos círculos detectados
+# - param1: limiar superior para o detector de bordas Canny
+# - param2: limiar para o acumulador do centro do círculo
+# - minRadius e maxRadius: raio mínimo e máximo dos círculos a serem detectados
+circles = cv2.HoughCircles(
+    img_blur,
+    cv2.HOUGH_GRADIENT,
+    dp=1,
+    minDist=img.shape[0] / 64,
+    param1=300,
+    param2=10,
+    minRadius=90,
+    maxRadius=95
+)
+
+# Se círculos forem detectados
+if circles is not None:
+    # Arredonda os valores e converte para inteiros
+    circles = np.uint16(np.around(circles))
+    for i in circles[0, :]:
+        # Desenha o círculo externo (verde)
+        cv2.circle(img, (i[0], i[1]), i[2], (0, 255, 0), 2)
+        # Desenha o centro do círculo (vermelho)
+        cv2.circle(img, (i[0], i[1]), 2, (0, 0, 255), 3)
+
+# Exibe a imagem com os círculos detectados
+cv2.imshow("Detected Circles", img)
+
+# Salva a imagem com os círculos desenhados
+cv2.imwrite("saida_circulos-igreja.jpg", img)
+print("Imagem com círculos salva como 'saida_circulos.jpg'.")
+
+# Aguarda uma tecla e fecha a janela
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+</code></pre>
+
+
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(D) Elaboração de um programa OpenCV que realiza "Hough Transform" envolvendo uma câmera estereoscópica calibrada.</h3>
+<section>
+  <h2>Parte D: Hough Transform com câmeras estereoscópicas</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    Nesta parte, modificamos os códigos anteriores para processar vídeo em tempo real capturado por uma <strong>câmera estereoscópica</strong>, ou seja, duas webcams calibradas previamente. Utilizamos a classe <code>threading.Thread</code> para garantir que ambas as câmeras fossem lidas simultaneamente com desempenho satisfatório.
+  </p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    Cada quadro capturado é submetido ao mesmo processamento da Parte C: as funções <code>HoughCircles</code> e <code>HoughLinesP</code> são aplicadas para detectar as formas circulares e retas. Em seguida, os resultados das duas câmeras são exibidos lado a lado em tempo real na janela <em>Hough Circle + Line Real-Time</em>.
+  </p>
+<pre><code class="language-python">
+  import threading
+import time
+import numpy as np
+import cv2 as cv
+
+class CameraThread(threading.Thread):
+    def __init__(self, cam_id):
+        super().__init__()
+        self.cap = cv.VideoCapture(cam_id)
+        self.ret = False
+        self.frame = None
+        self.running = True
+        self.lock = threading.Lock()
+
+        # Aquecimento da câmera
+        for _ in range(10):
+            ret, frame = self.cap.read()
+            if ret:
+                break
+            time.sleep(0.1)
+
+    def run(self):
+        while self.running:
+            ret, frame = self.cap.read()
+            with self.lock:
+                self.ret = ret
+                if ret:
+                    self.frame = frame
+            time.sleep(0.001)
+
+    def get_frame(self):
+        with self.lock:
+            return self.ret, self.frame.copy() if self.frame is not None else None
+
+    def stop(self):
+        self.running = False
+        self.cap.release()
+
+# IDs das câmeras
+CamL_id = 2
+CamR_id = 0
+
+camL_thread = CameraThread(CamL_id)
+camR_thread = CameraThread(CamR_id)
+
+camL_thread.start()
+camR_thread.start()
+
+# Parâmetros de vídeo
+fps = 10.0
+height = int(camL_thread.cap.get(cv.CAP_PROP_FRAME_HEIGHT))
+outm = cv.VideoWriter('HoughVideo.mp4', cv.VideoWriter_fourcc(*'mp4v'), fps, (1280, height))
+
+def process_hough(frame):
+    output = frame.copy()
+    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    
+    # Detecção de círculos
+    blur = cv.medianBlur(gray, 5)
+    circles = cv.HoughCircles(blur, cv.HOUGH_GRADIENT, dp=1, minDist=gray.shape[0] / 64,
+                              param1=300, param2=10, minRadius=90, maxRadius=95)
+    if circles is not None:
+        circles = np.uint16(np.around(circles))
+        for i in circles[0, :]:
+            cv.circle(output, (i[0], i[1]), i[2], (0, 255, 0), 2)  # Círculo
+            cv.circle(output, (i[0], i[1]), 2, (0, 0, 255), 3)     # Centro
+    
+    # Detecção de linhas
+    edges = cv.Canny(gray, 50, 200)
+    lines = cv.HoughLinesP(edges, 1, np.pi / 180, 70, minLineLength=50, maxLineGap=250)
+    if lines is not None:
+        overlay = output.copy()
+        for line in lines:
+            x1, y1, x2, y2 = line[0]
+            length = np.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+            if length >= 50:
+                cv.line(overlay, (x1, y1), (x2, y2), (255, 0, 0), 2)
+        cv.addWeighted(overlay, 0.4, output, 0.6, 0, output)
+    
+    return output
+
+try:
+    while True:
+        retL, frameL = camL_thread.get_frame()
+        retR, frameR = camR_thread.get_frame()
+
+        if not retL or not retR:
+            time.sleep(0.01)
+            continue
+
+        processedL = process_hough(frameL)
+        processedR = process_hough(frameR)
+
+        # Combina os dois frames lado a lado
+        combined = np.hstack((processedL, processedR))
+
+        print(f"combined shape: {combined.shape}")
+        outm.write(combined)
+        cv.imshow("Hough Circle + Line Real-Time", combined)
+
+        if cv.waitKey(1) & 0xFF == ord('q'):
+            break
+
+finally:
+    camL_thread.stop()
+    camR_thread.stop()
+    cv.destroyAllWindows()
+    outm.release()
+</code></pre>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    A gravação do vídeo de saída é salva no arquivo <code>HoughVideo.mp4</code>. Esse vídeo representa visualmente a capacidade do algoritmo em reconhecer padrões geométricos em tempo real, mesmo com ruídos e variações típicas de uma aplicação prática.
+  </p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    A execução é encerrada ao pressionar a tecla <strong>Q</strong>, garantindo a liberação segura dos recursos das câmeras e janelas.
+  </p>
+</section>
 <h2 id="analise-dos-resultados">Análise dos Resultados</h2>
 
 <h3 id="-parte-2">PARTE 2 - SIFT.</h3>
@@ -514,7 +739,13 @@ No entanto, essa abordagem enfrenta algumas limitações práticas:
 <h2 id="conclus-o">Conclusão</h2>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  
+  O presente experimento integrou diferentes técnicas fundamentais de visão computacional, com foco na extração e análise de características visuais em imagens. Inicialmente, foi explorado o algoritmo SIFT (Scale-Invariant Feature Transform), que demonstrou ser uma ferramenta poderosa para a identificação e correspondência de pontos de interesse entre diferentes perspectivas de uma mesma cena. Através da aplicação da transformação de homografia, foi possível mapear essas correspondências de forma robusta, permitindo a localização precisa de objetos em imagens distintas, mesmo diante de mudanças de escala, rotação e iluminação.
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Na sequência, foi aplicada a Transformada de Hough, tanto para detecção de linhas retas quanto de círculos, em imagens previamente gravadas. Essa técnica mostrou-se altamente eficaz na identificação de formas geométricas simples, especialmente após um pré-processamento adequado com detecção de bordas e suavização. A etapa final estendeu essa abordagem para um sistema de duas câmeras estereoscópicas, permitindo a detecção em tempo real de padrões geométricos em vídeo, demonstrando a viabilidade prática dos algoritmos em cenários dinâmicos e complexos.
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Como um todo, o experimento permitiu a consolidação dos conceitos de extração de características, correspondência de pontos, homografia e detecção de formas, reforçando a importância do pré-processamento, da calibração das câmeras e da escolha adequada dos parâmetros. A combinação dessas técnicas oferece um arcabouço sólido para aplicações avançadas em áreas como reconstrução tridimensional, robótica, navegação autônoma e realidade aumentada.
 </p>
 
 
