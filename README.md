@@ -21,11 +21,10 @@ cd "OsObservadores.github.io/Teste projeto/"
 TELEGRAM_TOKEN=seu_token_aqui
 TELEGRAM_CHAT_ID=seu_chat_id_aqui
 ```
-  Tutorial para obter Token e Chat ID no Telegram
+# Tutorial para obter Token e Chat ID no Telegram
 
-Veja o vídeo explicativo abaixo:
+[![Assistir vídeo explicativo](https://img.youtube.com/vi/l5YDtSLGhqk/0.jpg)](https://www.youtube.com/watch?v=l5YDtSLGhqk)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/l5YDtSLGhqk" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
 
   Instale as dependências:
 ```
