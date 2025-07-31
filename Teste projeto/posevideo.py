@@ -1,7 +1,30 @@
 import cv2
+import time
 import mediapipe as mp
 import numpy as np
 import math
+import requests
+
+TOKEN = '7985242451:AAFMkoEhWSeRu27ELKtm3igBceg-eFsoPyc' # Token do bot do telegram
+CHAT_ID = '-1002767527800' # ID do chat que ele vai enviar mensagem
+MENSAGEM = 'Pessoa observada esta de pé ou saiu do alcance de visão'
+
+def enviar_mensagem(texto):
+    url = f'https://api.telegram.org/bot{TOKEN}/sendMessage'
+    payload = {
+        'chat_id': CHAT_ID,
+        'text': texto
+    }
+
+    response = requests.post(url, data=payload)
+    
+    if response.status_code == 200:
+        print('✅ Mensagem enviada com sucesso!')
+    else:
+        print(f'❌ Erro ao enviar mensagem. Código: {response.status_code}')
+        print(response.text)
+
+# === Funções de cálculo e classificação ===
 
 def calculate_angle(a, b, c):
     a = np.array(a); b = np.array(b); c = np.array(c)
@@ -32,6 +55,8 @@ def classify_pose(landmarks):
         return 'Sentada'
     return 'Em pé'
 
+# === Loop principal com monitoramento de tempo ===
+
 def main():
     mp_pose = mp.solutions.pose
     pose = mp_pose.Pose(static_image_mode=False, model_complexity=1, enable_segmentation=False)
@@ -40,6 +65,11 @@ def main():
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
         raise RuntimeError('Não foi possível acessar a webcam.')
+
+    em_pe_start = None
+    ausente_start = None
+    em_pe_alertado = False
+    ausente_alertado = False
     try:
         while True:
             ret, frame = cap.read()
@@ -48,6 +78,7 @@ def main():
                 break
             results = pose.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
             annotated = frame.copy()
+            label = 'Ausente'
             if results.pose_landmarks:
                 mp_drawing.draw_landmarks(
                     annotated, results.pose_landmarks,
@@ -55,10 +86,35 @@ def main():
                     landmark_drawing_spec=mp.solutions.drawing_styles.get_default_pose_landmarks_style()
                 )
                 label = classify_pose(results.pose_landmarks.landmark)
+
+                # Reinicia o estado de ausência
+                ausente_start = None
+                ausente_alertado = False
+
+                # Detecção de "em pé"
+                if label == 'Em pé':
+                    if em_pe_start is None:
+                        em_pe_start = time.time()
+                    elif not em_pe_alertado and (time.time() - em_pe_start) >= 5:
+                        enviar_mensagem("Pessoa está em pé por 5 segundos!")
+                        em_pe_alertado = True
+                else:
+                    em_pe_start = None
+                    em_pe_alertado = False
+            else:
+                # Ninguém na imagem
+                em_pe_start = None
+                em_pe_alertado = False
+
+                if ausente_start is None:
+                    ausente_start = time.time()
+                elif not ausente_alertado and (time.time() - ausente_start) >= 5:
+                    enviar_mensagem("Ninguém detectado na câmera por 5 segundos!")
+                    ausente_alertado = True                    
                 # sobrepõe o rótulo
-                font, pos, scale, thickness = cv2.FONT_HERSHEY_SIMPLEX, (20,30), 1.0, 2
-                cv2.putText(annotated, label, pos, font, scale, (0,0,0), thickness+2, cv2.LINE_AA)
-                cv2.putText(annotated, label, pos, font, scale, (255,255,255), thickness, cv2.LINE_AA)
+            font, pos, scale, thickness = cv2.FONT_HERSHEY_SIMPLEX, (20,30), 1.0, 2
+            cv2.putText(annotated, label, pos, font, scale, (0,0,0), thickness+2, cv2.LINE_AA)
+            cv2.putText(annotated, label, pos, font, scale, (255,255,255), thickness, cv2.LINE_AA)
             cv2.imshow('Pose Detection (press q to quit)', annotated)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
