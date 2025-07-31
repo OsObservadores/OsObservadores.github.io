@@ -4,9 +4,13 @@ import mediapipe as mp
 import numpy as np
 import math
 import requests
+import os
+from dotenv import load_dotenv
 
-TOKEN = '7985242451:AAFMkoEhWSeRu27ELKtm3igBceg-eFsoPyc' # Token do bot do telegram
-CHAT_ID = '-1002767527800' # ID do chat que ele vai enviar mensagem
+load_dotenv()
+
+TOKEN = os.getenv('TELEGRAM_TOKEN')
+CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 MENSAGEM = 'Pessoa observada esta de pé ou saiu do alcance de visão'
 
 def enviar_mensagem(texto):
