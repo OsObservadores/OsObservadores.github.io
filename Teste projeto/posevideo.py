@@ -13,6 +13,12 @@ TOKEN = os.getenv('TELEGRAM_TOKEN')
 CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 MENSAGEM = 'Pessoa observada esta de pé ou saiu do alcance de visão'
 
+# === PARÂMETROS DE CALIBRAÇÃO ===
+fs = cv2.FileStorage("calibration.xml", cv2.FILE_STORAGE_READ)
+camera_matrix = fs.getNode("camera_matrix").mat()
+dist_coeffs = fs.getNode("distortion_coefficients").mat()
+fs.release()
+
 def enviar_mensagem(texto):
     url = f'https://api.telegram.org/bot{TOKEN}/sendMessage'
     payload = {
@@ -80,6 +86,10 @@ def main():
             if not ret:
                 print('Falha ao capturar frame da webcam.')
                 break
+                
+            # === CORRIGE DISTORÇÃO USANDO CALIBRAÇÃO ===
+            frame_undistorted = cv2.undistort(frame, camera_matrix, dist_coeffs)
+            
             results = pose.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
             annotated = frame.copy()
             label = 'Ausente'
@@ -129,3 +139,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
