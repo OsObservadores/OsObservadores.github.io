@@ -53,6 +53,10 @@ python calibration.py
 ```
 python posevideo.py
 ```
+## Resultados Esperados
+Notificação no telegram:
+- Após 5 segundos com a pessoa filmada ser identificada **estando de pé**.
+- Após 5 segundos com a pessoa filmada não ser identificada pela câmera, estando assim **ausente**.
 ## Observações
 
   Pressione q para sair da aplicação.
