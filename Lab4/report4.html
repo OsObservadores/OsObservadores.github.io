@@ -778,6 +778,7 @@ while True:
 		CamL= cv2.VideoCapture(CamL_id)
 		CamR= cv2.VideoCapture(CamR_id)
 </code></pre>
+
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 	A imagem a seguir foi registrada durante a execução do código acima:
 </p>
@@ -786,15 +787,22 @@ while True:
   <img src="/Lab4/data_lab4/data/Imagem colada.png" alt="letf01" width="640" height="480">
 </div>
 
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(v) As medidas de distância realizadas deverão ser colocadas numa tabela. </h3>
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(v) Análise dos Resultados  </h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-	As medidas de distância realizadas deverão ser colocadas numa tabela, e comparadas com a distância real. Calcule o erro, e faça uma análise dos resultados das medições bem como da influencia dos parametros.
+    O sistema estima a profundidade do objeto em aproximadamente <strong>17 cm</strong>, enquanto a distância real é de <strong>40 cm</strong>. Essa discrepância evidencia que os parâmetros de calibração e de correspondência estéreo não se encontram adequadamente ajustados. A diferença significativa entre o valor medido e o valor esperado revela uma sensibilidade elevada do método aos ajustes dos parâmetros, como <code>numDisparities</code>, <code>blockSize</code>, <code>uniquenessRatio</code> e o coeficiente de calibração <code>M</code>, que são utilizados na conversão do mapa de disparidade em profundidade real :contentReference[oaicite:1]{index=1}.
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    Observa-se que valores de disparidade insuficientemente calibrados ou ruídos no mapa de disparidade geram estimativas de profundidade com viés sistemático. No caso, a profundidade estimada é demasiado reduzida em relação à real, o que sugere que o coeficiente <code>M</code> está subestimado ou que a disparidade medida foi menor do que efetivamente deveria ser. Portanto, conclui-se que a construção do mapa de profundidade ainda não reflete com precisão a configuração geométrica real das câmeras.
 </p>
 
 
 	
 <h2 id="conclus-o">Conclusão</h2>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+	O experimento evidencia que, na situação atual, os parâmetros adotados para calibração e geração do mapa de disparidade não alcançam precisão satisfatória. A subestimação da profundidade em comparação com o valor real confirma que é necessário proceder a um ajuste mais refinado dos parâmetros do algoritmo e da calibração estéreo.
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    Sugere-se revisar o processo de calibração, garantindo que os parâmetros intrínsecos e extrínsecos das câmeras correspondem corretamente à realidade do sistema. Além disso, é imprescindível testar diferentes combinações de parâmetros de correspondência estéreo (como <code>numDisparities</code>, <code>blockSize</code> e <code>uniquenessRatio</code>) e realizar calibração empírica do coeficiente <code>M</code> com mais amostras. Dessa forma, o método pode atingir maior robustez e exatidão na estimativa da profundidade a partir do mapa de disparidade.
 </p>
 
 <h2>Referências</h2>
