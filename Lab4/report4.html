@@ -43,24 +43,23 @@ Foram apresentados os seguintes links com o conteúdo a ser estudado para execu�
 
 <h3 id="-parte-2">PARTE 2 - Construção de uma câmera estereoscópica simples.</h3>
 
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Foram fornecidas duas câmeras identicas no laboratório. As duas câmeras foram fixadas em uma prancheta, lado a lado, de tal forma que o centro das lentes do óculos 3D vermelho-ciano coincidiam com o centro da lente de cada câmera.
-</p>
-
-<h3 id="-parte-3">PARTE 3 - Calibração de uma câmera estereoscópica e geração de imagem 3D.</h3>
-
-<h3 id="-a-leitura-de-imagem-em-arquivo">(A) Obtenção dos códigos do exemplo da câmera estéreo com OpenCV.</h3>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Os códigos utilizados para o experimento foram retirados do seguinte repositório: <strong>Link:</strong><a href="https://github.com/spmallick/learnopencv/tree/master/stereo-camera" target="_blank">
-    Stereo-camera.
-  </a>
-</p> 
-
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(B) Exemplo com imagens fornecidas.</h3>
+<h3 id="-a-leitura-de-imagem-em-arquivo">(i) Calibração estéreo e arquivo <strong>params_py.xml</strong></h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
   Para realização desta etapa, foram fornecidas imagens tiradas de uma câmera estereoscópica (junção de duas câmeras iguais) desconhecida. As imagens para cada câmera foram geradas ao mesmo tempo. E através destas, foram calibradas as duas câmeras (lado direito e lado esquerdo). A seguir são apresentadas as imagens fornecidas, onde a imagem a esquerda provém da primeira câmera e a imagem a direita da segunda câmera.
+</p>
+
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(ii) Executar o algoritmo Block Matching do OpenCV, sintonizando seus parâmetros.</h3>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Neste caso é utilizado o programa “disparity_params_gui.py”. Este programa deverá ser adaptado para leitura do arquivo “params_py.xml”, com os parâmetros de calibração da sua camera estéreo. Ao final do processo, o mapa de disparidade será salvo no arquivo “depth_estmation_params_py.xml”. Este arquivo será utilizado no próximo procedimento.
+</p>
+
+
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(iii) Obter o mapa de profundidade. </h3>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+
+	
 </p>
 
 <div style="display: flex; justify-content: center; gap: 5px;">
