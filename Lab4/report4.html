@@ -73,100 +73,10 @@ Foram apresentados os seguintes links com o conteúdo a ser estudado para execu�
   Para realização desta etapa, foram fornecidas imagens tiradas de uma câmera estereoscópica (junção de duas câmeras iguais) desconhecida. As imagens para cada câmera foram geradas ao mesmo tempo. E através destas, foram calibradas as duas câmeras (lado direito e lado esquerdo). A seguir são apresentadas as imagens fornecidas, onde a imagem a esquerda provém da primeira câmera e a imagem a direita da segunda câmera.
 </p>
 
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(ii) Executar o algoritmo Block Matching do OpenCV, sintonizando seus parâmetros.</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Neste caso é utilizado o programa “disparity_params_gui.py”. Este programa deverá ser adaptado para leitura do arquivo “params_py.xml”, com os parâmetros de calibração da sua camera estéreo. Ao final do processo, o mapa de disparidade será salvo no arquivo “depth_estmation_params_py.xml”. Este arquivo será utilizado no próximo procedimento.
+  O script a seguir é o código 'capture_images.py' que realiza a captura das imagens com as duas câmeras.
 </p>
-
-
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(iii) Obter o mapa de profundidade. </h3>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-
-	Neste caso é utilizado o programa “disparity2depth_calib.py”. Este programa deverá ser adaptado para leitura do arquivo “params_py.xml”, com os parâmetros de calibração da sua camera estéreo. Neste caso, será utilizado o mapa de disparidade do arquivo “depth_estmation_params_py.xml”. Este mesmo arquivo xml será atualizado com novos valores, pois será utilizado no próximo procedimento
-</p>
-
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(iv)  Realizar medidas de distância seguindo as orientações indicadas na seção “Obstacle avoidance system” . </h3>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-	Neste caso é utilizado o programa “obstacle_avoidance.py”. Este programa deverá ser adaptado para leitura do arquivo “params_py.xml”, e do arquivo “depth_estmation_params_py.xml”. Utilize pelo menos três objetos distintos.
-</p>
-
-<h3 id="-b-leitura-de-v-deo-em-arquivo">(v) As medidas de distância realizadas deverão ser colocadas numa tabela. </h3>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-	As medidas de distância realizadas deverão ser colocadas numa tabela, e comparadas com a distância real. Calcule o erro, e faça uma análise dos resultados das medições bem como da influencia dos parametros.
-</p>
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Para realização desta etapa, foram fornecidas imagens tiradas de uma câmera estereoscópica (junção de duas câmeras iguais) desconhecida. As imagens para cada câmera foram geradas ao mesmo tempo utilizando o código 'capture_images.py'. E através destas, foram calibradas as duas câmeras (lado direito e lado esquerdo) utilizando o código 'calibrate.py'. A seguir são apresentadas as imagens fornecidas, onde a imagem a esquerda provém da primeira câmera e a imagem a direita da segunda câmera.
-</p>
-
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="/Lab4/data_lab4/data/stereoL/img1.png" alt="letf01" width="400" height="200">
-  <img src="/Lab4/data_lab4/data/stereoR/img1.png" alt="right01" width="400" height="200">
-</div>
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="/Lab4/data_lab4/data/stereoL/img2.png" alt="letf01" width="400" height="200">
-  <img src="/Lab4/data_lab4/data/stereoR/img2.png" alt="right01" width="400" height="200">
-</div>
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="/Lab4/data_lab4/data/stereoL/img3.png" alt="letf01" width="400" height="200">
-  <img src="/Lab4/data_lab4/data/stereoR/img3.png" alt="right01" width="400" height="200">
-</div>
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="/Lab4/data_lab4/data/stereoL/img4.png" alt="letf01" width="400" height="200">
-  <img src="/Lab4/data_lab4/data/stereoR/img4.png" alt="right01" width="400" height="200">
-</div>
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="/Lab4/data_lab4/data/stereoL/img5.png" alt="letf01" width="400" height="200">
-  <img src="/Lab4/data_lab4/data/stereoR/img5.png" alt="right01" width="400" height="200">
-</div>
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="/Lab4/data_lab4/data/stereoL/img6.png" alt="letf01" width="400" height="200">
-  <img src="/Lab4/data_lab4/data/stereoR/img6.png" alt="right01" width="400" height="200">
-</div>
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="/Lab4/data_lab4/data/stereoL/img7.png" alt="letf01" width="400" height="200">
-  <img src="/Lab4/data_lab4/data/stereoR/img7.png" alt="right01" width="400" height="200">
-</div>
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="/Lab4/data_lab4/data/stereoL/img8.png" alt="letf01" width="400" height="200">
-  <img src="/Lab4/data_lab4/data/stereoR/img8.png" alt="right01" width="400" height="200">
-</div>
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="/Lab4/data_lab4/data/stereoL/img9.png" alt="letf01" width="400" height="200">
-  <img src="/Lab4/data_lab4/data/stereoR/img9.png" alt="right01" width="400" height="200">
-</div>
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="/Lab4/data_lab4/data/stereoL/img10.png" alt="letf01" width="400" height="200">
-  <img src="/Lab4/data_lab4/data/stereoR/img10.png" alt="right01" width="400" height="200">
-</div>
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="/Lab4/data_lab4/data/stereoL/img11.png" alt="letf01" width="400" height="200">
-  <img src="/Lab4/data_lab4/data/stereoR/img11.png" alt="right01" width="400" height="200">
-</div>
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="/Lab4/data_lab4/data/stereoL/img12.png" alt="letf01" width="400" height="200">
-  <img src="/Lab4/data_lab4/data/stereoR/img12.png" alt="right01" width="400" height="200">
-</div>
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="/Lab4/data_lab4/data/stereoL/img13.png" alt="letf01" width="400" height="200">
-  <img src="/Lab4/data_lab4/data/stereoR/img13.png" alt="right01" width="400" height="200">
-</div>
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="/Lab4/data_lab4/data/stereoL/img14.png" alt="letf01" width="400" height="200">
-  <img src="/Lab4/data_lab4/data/stereoR/img14.png" alt="right01" width="400" height="200">
-</div>
-<div style="display: flex; justify-content: center">
-  <figcaption>Figura 1 - Imagens capturadas para calibração.</figcaption>
-</div>
-  
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Inicialmente, realiza-se a calibração individual de cada câmera por meio do método de calibração OpenCV. Em seguida, determina-se a transformação entre as duas câmeras configuradas no sistema estéreo. Com os parâmetros obtidos, emprega-se o método <strong>stereoCalibrate</strong> para calcular as transformações necessárias à retificação estéreo. A partir disso, utiliza-se o método <strong>initUndistortRectifyMap</strong> para gerar o mapeamento que corrige distorções e prepara as imagens para retificação. Por fim, aplica-se esse mapeamento às imagens originais, obtendo-se um par estéreo retificado e livre de distorções.
-</p>
-<h3 id="-b-leitura-de-v-deo-em-arquivo">Método para obter o par de imagens estéreo:</h3>
-
-<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  O script a seguir realiza a captura das imagens com as duas câmeras. as quatro etapas descritas acima: calibração das câmeras individuais, calibração estéreo com parâmetros intrínsecos fixos, retificação estéreo e por fim o mapeamento que obtém o par de imagens estéreo retificadas e sem distorções.</p>
 
 <pre><code class="language-python">
 # Importa bibliotecas necessárias
@@ -275,6 +185,234 @@ CamR.release()
 CamL.release()
 cv2.destroyAllWindows()
 </code></pre>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  O código a seguir é o 'calibrate.py' que vai calibrar em estéreo com parâmetros intrínsecos fixos, retificação estéreo e por fim o mapeamento que obtém o par de imagens estéreo retificadas e sem distorções.</p>
+
+<pre><code class="language-python">
+# Importa as bibliotecas necessárias
+import numpy as np                # Usada para trabalhar com arrays e matrizes
+import cv2                        # OpenCV: biblioteca para processamento de imagens e vídeo
+from tqdm import tqdm             # Biblioteca para mostrar uma barra de progresso no terminal
+
+# Define os caminhos para as imagens capturadas pelas câmeras esquerda e direita
+pathL = "./data/stereoL/"
+pathR = "./data/stereoR/"
+
+print("Extracting image coordinates of respective 3D pattern ....\n")
+
+# Critério de parada para melhorar a precisão dos cantos detectados (refinamento dos cantos do tabuleiro)
+criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+
+# Prepara um array com as posições 3D esperadas dos cantos do tabuleiro de xadrez
+# Nesse caso, 8 colunas x 6 linhas de quadrados (48 pontos), com z=0 (superfície plana)
+objp = np.zeros((8*6,3), np.float32)
+objp[:,:2] = np.mgrid[0:8,0:6].T.reshape(-1,2)
+
+# Listas para armazenar:
+img_ptsL = []  # Cantos detectados nas imagens da câmera esquerda
+img_ptsR = []  # Cantos detectados nas imagens da câmera direita
+obj_pts = []   # Posições 3D correspondentes a esses cantos
+
+# Loop para processar as imagens de 1 até 13
+for i in tqdm(range(1,14)):  # tqdm mostra uma barra de progresso bonitinha
+    # Lê as imagens coloridas e em escala de cinza das duas câmeras
+    imgL = cv2.imread('./data/stereoL/img%d.png'%i)
+    imgR = cv2.imread('./data/stereoR/img%d.png'%i)
+    imgL_gray = cv2.imread('./data/stereoL/img%d.png'%i, 0)
+    imgR_gray = cv2.imread('./data/stereoR/img%d.png'%i, 0)
+
+    # Faz uma cópia para desenhar os cantos depois
+    outputL = imgL.copy()
+    outputR = imgR.copy()
+
+    # Tenta encontrar o tabuleiro de xadrez nas imagens
+    retR, cornersR = cv2.findChessboardCorners(outputR, (8,6), None)
+    retL, cornersL = cv2.findChessboardCorners(outputL, (8,6), None)
+
+    # Se o padrão for detectado nas duas imagens
+    if retR and retL:
+        # Adiciona os pontos 3D (iguais para todas as imagens) na lista
+        obj_pts.append(objp)
+
+        # Melhora a precisão dos cantos encontrados
+        cv2.cornerSubPix(imgR_gray, cornersR, (11,11), (-1,-1), criteria)
+        cv2.cornerSubPix(imgL_gray, cornersL, (11,11), (-1,-1), criteria)
+
+        # Desenha os cantos detectados para visualização
+        cv2.drawChessboardCorners(outputR, (8,6), cornersR, retR)
+        cv2.drawChessboardCorners(outputL, (8,6), cornersL, retL)
+        cv2.imshow('cornersR', outputR)
+        cv2.imshow('cornersL', outputL)
+        cv2.waitKey(0)  # Espera uma tecla para continuar (útil para ver os cantos)
+
+        # Salva os pontos 2D das imagens nas listas
+        img_ptsL.append(cornersL)
+        img_ptsR.append(cornersR)
+
+# Calibração da câmera esquerda
+print("Calculating left camera parameters ... ")
+retL, mtxL, distL, rvecsL, tvecsL = cv2.calibrateCamera(obj_pts, img_ptsL, imgL_gray.shape[::-1], None, None)
+
+# Calcula a matriz de câmera ajustada para melhor visualização (evita distorções)
+hL, wL = imgL_gray.shape[:2]
+new_mtxL, roiL = cv2.getOptimalNewCameraMatrix(mtxL, distL, (wL, hL), 1, (wL, hL))
+
+# Calibração da câmera direita
+print("Calculating right camera parameters ... ")
+retR, mtxR, distR, rvecsR, tvecsR = cv2.calibrateCamera(obj_pts, img_ptsR, imgR_gray.shape[::-1], None, None)
+
+# Também calcula a matriz ajustada da câmera direita
+hR, wR = imgR_gray.shape[:2]
+new_mtxR, roiR = cv2.getOptimalNewCameraMatrix(mtxR, distR, (wR, hR), 1, (wR, hR))
+
+# Calibração estéreo entre as duas câmeras
+print("Stereo calibration .....")
+
+flags = 0
+flags |= cv2.CALIB_FIX_INTRINSIC  # Fixa os parâmetros internos (já calibrados individualmente)
+# Assim, só serão calculadas:
+# - Rotação (Rot), Translação (Trns), Matriz Essencial (Emat) e Matriz Fundamental (Fmat)
+
+# Critérios de parada para a calibração estéreo
+criteria_stereo = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+
+# Calcula os parâmetros entre as duas câmeras (posição relativa, etc.)
+retS, new_mtxL, distL, new_mtxR, distR, Rot, Trns, Emat, Fmat = cv2.stereoCalibrate(
+    obj_pts, img_ptsL, img_ptsR,
+    new_mtxL, distL, new_mtxR, distR,
+    imgL_gray.shape[::-1], criteria_stereo, flags
+)
+
+# Retificação estéreo: alinha as imagens para facilitar a correspondência de pixels
+rectify_scale = 1  # Se 0, corta as bordas para eliminar áreas inúteis; se 1, mantém tudo
+
+# Gera as matrizes de retificação e projeção, e a matriz Q para reconstrução 3D
+rect_l, rect_r, proj_mat_l, proj_mat_r, Q, roiL, roiR = cv2.stereoRectify(
+    new_mtxL, distL, new_mtxR, distR,
+    imgL_gray.shape[::-1], Rot, Trns,
+    rectify_scale, (0, 0)
+)
+
+# Gera os mapas de remapeamento para retificar e corrigir distorções nas imagens
+# Esses mapas dizem como transformar cada pixel da imagem original para sua nova posição
+Left_Stereo_Map = cv2.initUndistortRectifyMap(
+    new_mtxL, distL, rect_l, proj_mat_l,
+    imgL_gray.shape[::-1], cv2.CV_16SC2
+)
+
+Right_Stereo_Map = cv2.initUndistortRectifyMap(
+    new_mtxR, distR, rect_r, proj_mat_r,
+    imgR_gray.shape[::-1], cv2.CV_16SC2
+)
+
+# Salva os parâmetros de retificação em um arquivo XML
+print("Saving parameters ......")
+cv_file = cv2.FileStorage("data/params_py.xml", cv2.FILE_STORAGE_WRITE)
+
+# Escreve os mapas de retificação no arquivo
+cv_file.write("Left_Stereo_Map_x", Left_Stereo_Map[0])
+cv_file.write("Left_Stereo_Map_y", Left_Stereo_Map[1])
+cv_file.write("Right_Stereo_Map_x", Right_Stereo_Map[0])
+cv_file.write("Right_Stereo_Map_y", Right_Stereo_Map[1])
+
+# Fecha o arquivo
+cv_file.release()
+
+</code></pre>
+
+
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(ii) Executar o algoritmo Block Matching do OpenCV, sintonizando seus parâmetros.</h3>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Neste caso é utilizado o programa “disparity_params_gui.py”. Este programa deverá ser adaptado para leitura do arquivo “params_py.xml”, com os parâmetros de calibração da sua camera estéreo. Ao final do processo, o mapa de disparidade será salvo no arquivo “depth_estmation_params_py.xml”. Este arquivo será utilizado no próximo procedimento.
+</p>
+
+
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(iii) Obter o mapa de profundidade. </h3>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+
+	Neste caso é utilizado o programa “disparity2depth_calib.py”. Este programa deverá ser adaptado para leitura do arquivo “params_py.xml”, com os parâmetros de calibração da sua camera estéreo. Neste caso, será utilizado o mapa de disparidade do arquivo “depth_estmation_params_py.xml”. Este mesmo arquivo xml será atualizado com novos valores, pois será utilizado no próximo procedimento
+</p>
+
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(iv)  Realizar medidas de distância seguindo as orientações indicadas na seção “Obstacle avoidance system” . </h3>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+	Neste caso é utilizado o programa “obstacle_avoidance.py”. Este programa deverá ser adaptado para leitura do arquivo “params_py.xml”, e do arquivo “depth_estmation_params_py.xml”. Utilize pelo menos três objetos distintos.
+</p>
+
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(v) As medidas de distância realizadas deverão ser colocadas numa tabela. </h3>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+	As medidas de distância realizadas deverão ser colocadas numa tabela, e comparadas com a distância real. Calcule o erro, e faça uma análise dos resultados das medições bem como da influencia dos parametros.
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Para realização desta etapa, foram fornecidas imagens tiradas de uma câmera estereoscópica (junção de duas câmeras iguais) desconhecida. As imagens para cada câmera foram geradas ao mesmo tempo utilizando o código 'capture_images.py'. E através destas, foram calibradas as duas câmeras (lado direito e lado esquerdo) utilizando o código 'calibrate.py'. A seguir são apresentadas as imagens fornecidas, onde a imagem a esquerda provém da primeira câmera e a imagem a direita da segunda câmera.
+</p>
+
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img1.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img1.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img2.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img2.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img3.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img3.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img4.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img4.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img5.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img5.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img6.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img6.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img7.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img7.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img8.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img8.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img9.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img9.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img10.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img10.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img11.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img11.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img12.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img12.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img13.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img13.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img14.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img14.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center">
+  <figcaption>Figura 1 - Imagens capturadas para calibração.</figcaption>
+</div>
+  
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Inicialmente, realiza-se a calibração individual de cada câmera por meio do método de calibração OpenCV. Em seguida, determina-se a transformação entre as duas câmeras configuradas no sistema estéreo. Com os parâmetros obtidos, emprega-se o método <strong>stereoCalibrate</strong> para calcular as transformações necessárias à retificação estéreo. A partir disso, utiliza-se o método <strong>initUndistortRectifyMap</strong> para gerar o mapeamento que corrige distorções e prepara as imagens para retificação. Por fim, aplica-se esse mapeamento às imagens originais, obtendo-se um par estéreo retificado e livre de distorções.
+</p>
+<h3 id="-b-leitura-de-v-deo-em-arquivo">Método para obter o par de imagens estéreo:</h3>
+
 
 	
 <h2 id="conclus-o">Conclusão</h2>
