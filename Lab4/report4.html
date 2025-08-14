@@ -61,7 +61,17 @@ Neste caso é utilizado o programa “disparity_params_gui.py”. Este programa 
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(iii) Obter o mapa de profundidade. </h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 
-	
+	Neste caso é utilizado o programa “disparity2depth_calib.py”. Este programa deverá ser adaptado para leitura do arquivo “params_py.xml”, com os parâmetros de calibração da sua camera estéreo. Neste caso, será utilizado o mapa de disparidade do arquivo “depth_estmation_params_py.xml”. Este mesmo arquivo xml será atualizado com novos valores, pois será utilizado no próximo procedimento
+</p>
+
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(iv)  Realizar medidas de distância seguindo as orientações indicadas na seção “Obstacle avoidance system” . </h3>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+	Neste caso é utilizado o programa “obstacle_avoidance.py”. Este programa deverá ser adaptado para leitura do arquivo “params_py.xml”, e do arquivo “depth_estmation_params_py.xml”. Utilize pelo menos três objetos distintos.
+</p>
+
+<h3 id="-b-leitura-de-v-deo-em-arquivo">(v) As medidas de distância realizadas deverão ser colocadas numa tabela. </h3>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+	As medidas de distância realizadas deverão ser colocadas numa tabela, e comparadas com a distância real. Calcule o erro, e faça uma análise dos resultados das medições bem como da influencia dos parametros.
 </p>
 
 <div style="display: flex; justify-content: center; gap: 5px;">
