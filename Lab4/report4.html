@@ -320,6 +320,75 @@ cv_file.release()
 
 </code></pre>
 
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+  Para realização desta etapa, foram fornecidas imagens tiradas de uma câmera estereoscópica (junção de duas câmeras iguais) desconhecida. As imagens para cada câmera foram geradas ao mesmo tempo utilizando o código 'capture_images.py'. E através destas, foram calibradas as duas câmeras (lado direito e lado esquerdo) utilizando o código 'calibrate.py'. A seguir são apresentadas as imagens fornecidas, onde a imagem a esquerda provém da primeira câmera e a imagem a direita da segunda câmera.
+</p>
+
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img1.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img1.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img2.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img2.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img3.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img3.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img4.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img4.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img5.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img5.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img6.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img6.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img7.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img7.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img8.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img8.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img9.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img9.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img10.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img10.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img11.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img11.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img12.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img12.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img13.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img13.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="/Lab4/data_lab4/data/stereoL/img14.png" alt="letf01" width="400" height="200">
+  <img src="/Lab4/data_lab4/data/stereoR/img14.png" alt="right01" width="400" height="200">
+</div>
+<div style="display: flex; justify-content: center">
+  <figcaption>Figura 1 - Imagens capturadas para calibração.</figcaption>
+</div>
+  
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Inicialmente, realiza-se a calibração individual de cada câmera por meio do método de calibração OpenCV. Em seguida, determina-se a transformação entre as duas câmeras configuradas no sistema estéreo. Com os parâmetros obtidos, emprega-se o método <strong>stereoCalibrate</strong> para calcular as transformações necessárias à retificação estéreo. A partir disso, utiliza-se o método <strong>initUndistortRectifyMap</strong> para gerar o mapeamento que corrige distorções e prepara as imagens para retificação. Por fim, aplica-se esse mapeamento às imagens originais, obtendo-se um par estéreo retificado e livre de distorções.
+</p>
+
 <h3 id="-b-leitura-de-v-deo-em-arquivo">(ii) Executar o algoritmo Block Matching do OpenCV, sintonizando seus parâmetros.</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
