@@ -24,7 +24,29 @@ O presente experimento tem como objetivo compreender e aplicar os conceitos de v
   Quando um ponto do espaço tridimensional é projetado em uma única imagem, perde-se a informação de profundidade devido à natureza da projeção planar. Para recuperar essa informação, torna-se necessário capturar o mesmo ponto a partir de dois pontos de vista distintos, permitindo a aplicação da triangulação. A correta correspondência entre os pontos nas duas imagens é facilitada pelo uso da geometria epipolar, que restringe a busca do ponto correspondente a uma única linha epipolar na imagem adjacente. Com a calibração das câmeras e o conhecimento da configuração espacial entre elas, é possível aplicar algoritmos de disparidade e gerar mapas de profundidade precisos. A utilização de métodos como o StereoSGBM no OpenCV exemplifica a aplicação prática desses conceitos, permitindo a reconstrução tridimensional densa de cenas reais.
 </p>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Dessa forma, evidencia‑se que a calibração de um sistema de câmera estéreo depende de um conjunto abrangente de parâmetros que descrevem, de maneira precisa, tanto as características intrínsecas de cada câmera quanto a relação geométrica entre elas. Ao longo das etapas de calibração individual, calibração estéreo, retificação e geração de mapas de disparidade, obtêm‑se matrizes e vetores essenciais para corrigir distorções, alinhar as imagens e estabelecer as condições necessárias para a reconstrução tridimensional. Esses parâmetros — incluindo matrizes intrínsecas e extrínsecas, coeficientes de distorção, matrizes fundamental e essencial, além de mapas de remapeamento — permitem que as imagens capturadas estejam geometricamente coerentes e prontas para a extração de profundidade. Assim, garante‑se a criação de pares estéreo alinhados e consistentes, viabilizando a produção de vídeos em 3D com informações métricas do ambiente.
+O conceito de mapa de profundidade fundamenta-se na relação inversa entre a disparidade observada e a distância dos objetos capturados por uma câmera estéreo. Quando o sistema processa pares de imagens retificadas, cada pixel gera um valor de disparidade que corresponde ao deslocamento horizontal entre as posições correlatas nas duas imagens. A partir dessa disparidade, calcula-se a profundidade 
+Z
+Z usando a fórmula clássica 
+Z=f×Bd
+Z=
+d
+f×B
+	​
+
+, onde 
+f
+f representa a distância focal em pixels, 
+B
+B indica a linha base (distância entre as câmeras) e 
+d
+d é a disparidade 
+learnopencv.com
+GeeksforGeeks
+. Em cenários práticos, como diferenças entre os parâmetros ópticos ou imprecisões na medição da linha base, o valor de profundidade é estimado experimentalmente, determinando-se um coeficiente 
+M
+M que relaciona profundidade e inverso da disparidade por meio de um ajuste de mínimos quadrados 
+learnopencv.com
+. Dessa forma, o mapa de disparidade é convertido em um mapa de profundidade, viabilizando a percepção tridimensional do ambiente.
 </p>
 
 
