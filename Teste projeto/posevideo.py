@@ -1,3 +1,14 @@
+# ====================================================================
+# Título do projeto: Monitoramento automatizado de indivíduos em situação de vulnerabilidade
+# Nome do programa: posevideo.py
+# Exemplo de chamada (Linux): python3 posevideo.py
+# Autores:
+#  - Jorge Luiz Pinto Junior — RA: 11058715 — CEO
+#  - Marcos Baldrigue Andrade — RA: 11201921777 — CFO (Financeiro)
+#  - Guilherme Eduardo Pereira — RA: 11201720498 — CPO (Desenvolvimento)
+# Data: 2025-07-18
+# ====================================================================
+
 import cv2
 import time
 import mediapipe as mp
