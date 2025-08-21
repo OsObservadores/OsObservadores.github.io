@@ -35,10 +35,10 @@ Mais detalhes do Cenário de Aplicação podem ser obtidos através do documento
 <h3 id="fundament">Fundamentação Teórica</h3>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Esta fundamentação teórica apresenta, em linguagem acadêmica e no presente do indicativo, conceitos essenciais que sustentam um projeto de visão computacional. O texto discute a biblioteca OpenCV como infraestrutura algorítmica para aquisição, transformação e análise de imagens, descreve filtros de processamento espacial com ênfase em suavização, realce e detecção de bordas, formaliza o processo de calibração de câmeras segundo o modelo de câmara pinhole com parâmetros intrínsecos e extrínsecos e, por fim, caracteriza a biblioteca MediaPipe como arcabouço de estimativa de marcos corporais e rastreamento em tempo real. Imagens ilustrativas acompanham as seções a fim de tornar os conceitos mais concretos e operacionais.
+Esta fundamentação teórica apresenta conceitos essenciais que sustentam um projeto de visão computacional. O texto discute a biblioteca OpenCV como infraestrutura algorítmica para aquisição, transformação e análise de imagens, descreve filtros de processamento espacial com ênfase em suavização, realce e detecção de bordas, formaliza o processo de calibração de câmeras segundo o modelo de câmara pinhole com parâmetros intrínsecos e extrínsecos e, por fim, caracteriza a biblioteca MediaPipe como arcabouço de estimativa de marcos corporais e rastreamento em tempo real. Imagens ilustrativas acompanham as seções a fim de tornar os conceitos mais concretos e operacionais.
 </p>
 
-<h2 id="">2. Biblioteca OpenCV</h2>
+<h4 id="">Biblioteca OpenCV</h4>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 A OpenCV constitui uma biblioteca de código aberto amplamente adotada para processamento de imagens e visão computacional. Ela provê interfaces em C++ e Python, oferece rotinas otimizadas para operações matriciais e integra módulos para entrada e saída de vídeo, conversão de espaços de cor, filtragem espacial, detecção de características e reconstrução geométrica. Em um projeto típico, a OpenCV gerencia a captura de quadros da webcam, executa transformações relevantes (como redimensionamento, equalização de histograma ou conversão para tons de cinza) e aplica filtros ou detectores conforme o objetivo da aplicação. A arquitetura modular permite que o desenvolvedor componha pipelines de processamento que operam em tempo real, beneficiando-se de otimizações vetoriais e paralelismo quando disponíveis.
 </p>
@@ -91,7 +91,7 @@ cv2.destroyAllWindows()
   </figcaption>
 </figure>
 
-<h2 id="">3. Filtros de Imagens</h2>
+<h4 id="">Filtros de Imagens</h4>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 A filtragem espacial opera diretamente sobre a vizinhança de cada pixel com o objetivo de atenuar ruídos, realçar estruturas e extrair informações relevantes para estágios posteriores. A suavização por média ou por Gaussiana reduz flutuações de alta frequência, enquanto a mediana apresenta robustez superior a outliers do tipo “sal e pimenta”. O filtro bilateral conserva descontinuidades ao ponderar simultaneamente a distância espacial e a diferença de intensidade, produzindo desfoque que respeita bordas. Na etapa de realce, o afilamento por máscara não nítida (unsharp masking) reforça transições, e operadores de gradiente como Sobel ou Scharr aproximam derivadas discretas que revelam variações locais. Para detecção de bordas bem condicionada, o algoritmo de Canny encadeia suavização, cálculo de gradiente, supressão não máxima e histerese, retornando um contorno binário parcimonioso. A escolha do filtro e de seus parâmetros ocorre de forma dirigida pelo objetivo do sistema, equilibrando suavização e preservação de detalhes.
 </p>
@@ -202,7 +202,7 @@ edges = cv2.Canny(gray, 80, 160)                      # Canny
   </figcaption>
 </figure>
 
-<h2 id="">4. Calibração de Câmeras</h2>
+<h4 id="">Calibração de Câmeras</h4>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 A calibração de câmeras formaliza a relação entre pontos do mundo e suas projeções na imagem por meio do modelo pinhole, no qual a matriz intrínseca encapsula parâmetros de focal e centro óptico, e os coeficientes de distorção lidam com efeitos de ordem radial e tangencial oriundos da lente. O processo estima, adicionalmente, parâmetros extrínsecos que descrevem a pose da câmera no espaço por uma rotação e uma translação. Em procedimentos práticos, o sistema observa um padrão conhecido, como um tabuleiro de xadrez, identifica automaticamente seus cantos em múltiplas vistas e resolve um problema de otimização que minimiza o erro de reprojeção. Após a calibração, o algoritmo aplica a undistorção aos quadros adquiridos, o que corrige deformações e melhora a precisão geométrica para etapas subsequentes, como estimação de pose ou reconstrução métrica.
 </p>
@@ -258,7 +258,7 @@ A calibração de câmeras formaliza a relação entre pontos do mundo e suas pr
   </figcaption>
 </figure>
 
-<h2 id="">5. Biblioteca MediaPipe</h2>
+<h4 id="">Biblioteca MediaPipe</h4>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 A biblioteca MediaPipe provê pipelines de percepção prontos para uso que executam em tempo real e abrangem tarefas como detecção de mãos, rosto e pose corporal. Em aplicações de visão computacional que dependem de marcos anatômicos, o MediaPipe estima posições bidimensionais e, em determinados modelos, tridimensionais, de pontos de interesse com estabilidade temporal, o que favorece medições angulares e rastreamento. O pipeline opera sobre quadros RGB, entrega estruturas de dados com coordenadas normalizadas e disponibiliza utilitários de desenho que tornam evidente o esqueleto inferido. Em termos computacionais, o MediaPipe organiza grafos de processamento, onde cada nó representa um cálculo, e otimiza a passagem de dados para reduzir latências em dispositivos convencionais.
 </p>
@@ -313,7 +313,7 @@ cv2.imshow("Pose", frame); cv2.waitKey(0)
   </figcaption>
 </figure>
 
-<h2 id="">6. Considerações Finais</h2>
+<h4 id="">Considerações Finais</h4>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 A combinação de OpenCV e MediaPipe sustenta um pipeline contemporâneo de visão computacional que captura, calibra, filtra e interpreta imagens com desempenho compatível com tempo real. A OpenCV fornece os blocos fundamentais de aquisição, transformação e filtragem, enquanto o MediaPipe disponibiliza estimadores robustos de marcos corporais que viabilizam medições geométricas e decisões de alto nível. A calibração de câmeras corrobora a consistência métrica das observações ao remover distorções e ao alinhar o modelo de formação da imagem com a realidade física. Em conjunto, esses elementos delineiam uma base teórica sólida para o desenvolvimento, a avaliação e a validação de sistemas de percepção visual aplicados.
 </p>
