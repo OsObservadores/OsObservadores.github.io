@@ -13,6 +13,25 @@
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 </p>
 <h3 id="aplicacao">Cenário de Aplicação (CA)</h3>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O Contexto e Cenário de Aplicação deste projeto de monitoramento por visão computacional, teve sua origem em entrevistas com familiares dos alunos. O problema emerge do cuidado domiciliar de uma idosa com Alzheimer e demência: a câmera instalada não emite aviso quando a pessoa se levanta, o que exige vigilância contínua e inviabiliza a prevenção durante períodos como o sono. Em 18/06/2025 registra-se a necessidade de um sistema que notifique, de forma imediata, a saída da cama, reduzindo riscos associados à locomoção desassistida.    
+</p>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+    O objetivo do projeto consiste em desenvolver um sistema que identifique, em tempo real, a permanência de uma pessoa em um móvel (cama, cadeira, sofá) e que reconheça a transição de postura ao levantar, enviando um alerta imediato ao responsável. A proposta contempla o uso em contextos domésticos e institucionais, ampliando o alcance da supervisão sem requerer presença física constante do cuidador e respondendo às demandas de indivíduos em situação de vulnerabilidade.
+</p>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O funcionamento prevê uma câmera posicionada de modo estratégico, cujas imagens alimentam algoritmos de visão computacional para detecção de presença e postura; ao identificar a saída do móvel, o sistema aciona notificações por aplicativo, SMS ou sinais locais. Espera-se, como benefício, o aumento da segurança, a resposta rápida a eventos críticos e a otimização do tempo dos cuidadores, promovendo autonomia, bem-estar e qualidade de vida da pessoa assistida.
+</p>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Mais detalhes do Cenário de Aplicação podem ser obtidos através do documento de entrevistas empáticas a seguir:
+</p>
+
+<a href="/T1/Entrevistas Jorge.pdf" target="_blank" download>Download Entrevistas Jorge</a>
+
 <h3 id="fundament">Fundamentação Teórica</h3>
 
 <h2 id="materiais-metodos">Materiais e Métodos</h2>
@@ -31,7 +50,7 @@ A implementação utiliza a API OpenCV para captura, exibição e correção de 
 
 <h4 id="">2. Explicações sobre o script desenvolvido</h2>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-A seguir é apresentado o script em sua totalidade. Os detalhes de cada trecho do script são explicados mais adiante.
+A seguir é apresentado o script e a descrição do seu funcionamento:
 </p>
 
 <pre><code class="language-python">
