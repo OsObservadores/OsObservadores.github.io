@@ -20,6 +20,20 @@
 <h3 id="model">Modelagem Funcional do SPV (MF)</h3>
 <h3 id="Descr">Descrição da implementação do Sistema de Processamento da Visão (SPV)</h3>
 
+<h2 id="">1. Visão geral do sistema</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O sistema implementa um pipeline de monitoramento postural em tempo real para apoio ao “Monitoramento automatizado de indivíduos em situação de vulnerabilidade”. O programa captura vídeo da webcam do laboratório em Ubuntu Linux, corrige a distorção óptica via parâmetros de calibração, estima a pose humana por marcos anatômicos, classifica o estado postural (<em>Em pé</em>, <em>Sentada</em>, <em>Deitada</em> ou <em>Ausente</em>) e emite notificações automáticas via Telegram quando eventos de interesse persistem por um intervalo pré-definido (padrão de 5 segundos). A visualização e os cálculos (ângulos articulares, heurísticas de classificação e lógica temporal) ocorrem <em>on-the-fly</em> sobre o fluxo de vídeo.
+</p>
+
+<h2 id="">2. Tecnologias e bibliotecas empregadas</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A implementação utiliza a API OpenCV para captura, exibição e correção de distorção; o MediaPipe Pose para detecção e rastreamento de marcos corporais; NumPy e <code>math</code> para cálculos vetoriais e angulares; <code>requests</code> para integração HTTP com o Telegram; e <code>python-dotenv</code> para gestão de credenciais por variáveis de ambiente. Todas as bibliotecas possuem reconhecimento notório, são gratuitas e estão disponíveis para utilização pública.
+</p>
+
+<h2 id="">3. Ambiente de execução e operação por usuários leigos</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O código é escrito em Python 3 e executa em Ubuntu Linux com acesso a uma webcam padrão. A inicialização ocorre por linha de comando:
+</p>
 
 <pre><code class="language-python">
 
@@ -178,6 +192,69 @@ if __name__ == '__main__':
 
 </code></pre>
 
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Durante a execução, o sistema apresenta uma janela de vídeo com sobreposição gráfica da pose e um rótulo textual do estado detectado, permitindo encerramento por meio da tecla <code>q</code>. A lógica de alertas não exige intervenção técnica: mensagens são disparadas automaticamente quando as condições de persistência são satisfeitas. Recomenda-se, para aderência formal, que o título da janela inclua o nome do programa e o nome da equipe, conforme a diretriz institucional.
+</p>
+
+<h2 id="">4. Aquisição e calibração da câmera</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+No início da execução, o sistema lê os parâmetros de calibração a partir do arquivo <code>calibration.xml</code> com <code>cv2.FileStorage</code>, obtendo a matriz intrínseca (<em>camera matrix</em>) e os coeficientes de distorção. Em cada iteração, o quadro bruto é corrigido por <code>cv2.undistort</code>, o que reduz artefatos geométricos, melhora a precisão dos pontos anatômicos e atende ao requisito de calibração intrínseca.
+</p>
+
+<h2 id="">5. Estimativa de pose e sobreposição gráfica</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A estimação de pose utiliza o MediaPipe Pose em modo dinâmico (<code>static_image_mode=False</code>), detectando marcos como quadris, joelhos e tornozelos. Quando a pose é identificada, o sistema desenha conexões e pontos sobre o quadro com o estilo padrão da biblioteca, fornecendo explicabilidade visual imediata do rastreamento e facilitando a interpretação por usuários leigos.
+</p>
+
+<h2 id="">6. Cálculo on-the-fly e classificação postural</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O módulo de cálculo define a função <code>calculate_angle(a, b, c)</code>, que projeta vetores, normaliza, limita o cosseno para robustez numérica e calcula o ângulo em graus via <code>arccos</code>. A classificação postural ocorre por heurísticas executadas a cada quadro:
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+<strong>(i) Heurística de deitado:</strong> quando a largura do <em>bounding box</em> da pose excede 1,3 vezes a altura, o estado é classificado como “Deitada”.
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+<strong>(ii) Ângulos de joelho:</strong> calculam-se os ângulos esquerdo e direito (quadril–joelho–tornozelo); média inferior a 160° indica flexão compatível com “Sentada”.
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+<strong>(iii) Caso remanescente:</strong> estados que não satisfazem as condições anteriores são classificados como “Em pé”.
+</p>
+
+<h2 id="">7. Lógica temporal e geração de eventos</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A lógica temporal utiliza temporizadores por estado para robustecer decisões e mitigar falsos positivos. Ao detectar “Em pé”, o sistema inicia um cronômetro; se a condição persiste por pelo menos 5 segundos e não há alerta prévio, uma mensagem é enviada ao Telegram. Em ausência de detecção de pose, um temporizador de “Ausente” é iniciado e, mantida a condição por 5 segundos, o sistema emite um alerta de ausência. Os temporizadores são reiniciados quando o estado muda, assegurando consistência temporal.
+</p>
+
+<h2 id="">8. Mecanismo de notificação (integração com Telegram)</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+As credenciais de acesso (<code>TELEGRAM_TOKEN</code> e <code>TELEGRAM_CHAT_ID</code>) são obtidas por variáveis de ambiente, carregadas via <code>python-dotenv</code>. O envio de notificações utiliza requisições HTTP <code>POST</code> por meio da biblioteca <code>requests</code>, com verificação de códigos de retorno e registro de sucesso/erro no console. Esse mecanismo permite coleta e auditoria de resultados em canal externo ao programa.
+</p>
+
+<h2 id="">9. Interface e comunicação com o usuário</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O sistema exibe o rótulo do estado com contorno escuro e preenchimento claro para legibilidade, além da sobreposição dos marcos anatômicos, fornecendo explicabilidade visual. O encerramento pela tecla <code>q</code> é intuitivo. Para atender plenamente à exigência formal, o título da janela deve incluir o nome do programa e da equipe.
+</p>
+
+<h2 id="">10. Conformidade com as diretrizes do edital</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A solução utiliza OpenCV, executa em Ubuntu com webcam do laboratório, é produzida pela própria equipe, emprega bibliotecas notórias e gratuitas, realiza cálculos em tempo real sobre o vídeo, adota cabeçalhos padronizados nos arquivos, apresenta (ou permite configurar) o título da janela com programa e equipe, adere ao Contexto e Cenário de Aplicação e possibilita uso por usuários leigos com coleta de resultados via Telegram.
+</p>
+
+<h2 id="">11. Coleta de resultados e registro</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Os eventos relevantes (persistência de “Em pé” e ausência prolongada) são enviados ao Telegram, funcionando como log externo com data e hora. A janela de vídeo atua como evidência visual em tempo real durante testes e demonstrações, enquanto o histórico do chat pode ser exportado para documentação.
+</p>
+
+<h2 id="">12. Limitações e considerações práticas</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A presença do arquivo de calibração <code>calibration.xml</code> é necessária, recomendando-se validação de existência e tratamento de erros amigáveis ao usuário. Condições de iluminação desfavoráveis e oclusões podem reduzir a confiabilidade da pose; a lógica temporal mitiga ruído, mas não elimina casos extremos. As heurísticas (relação largura/altura e limiar de 160° nos joelhos) são leves e explicáveis, podendo ser especializadas futuramente com vetores de tronco/quadril, filtragem temporal suave e modelos mais robustos.
+</p>
+
+<h2 id="">13. Procedimentos para implantação no laboratório (resumo)</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+(1) Instalar dependências: <code>pip install opencv-python mediapipe numpy requests python-dotenv</code>. (2) Criar arquivo <code>.env</code> com <code>TELEGRAM_TOKEN</code> e <code>TELEGRAM_CHAT_ID</code>. (3) Disponibilizar <code>calibration.xml</code> gerado previamente. (4) Executar <code>python3 posevideo.py</code>. (5) Verificar janela com título contendo nome do programa e equipe. (6) Conferir mensagens no Telegram ao manter-se “Em pé” por ≥ 5 s ou ao permanecer “Ausente” por ≥ 5 s.
+</p>
+
 <h3 id="lista">Lista de arquivos: dos código-fonte, imagens, vídeos, e arquivos auxiliares.</h3>
 <h3 id="-parte-1">Escrever uma análise técnica.</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
@@ -203,6 +280,10 @@ Nesta seção a equipe deverá comentar se os objetivos propostos na
 introdução e a modelagem do trabalho foram atingidos ou não, baseados nos
 exemplos apresentados. Deverá ainda comentar sobre os pontos positivos e
 negativos e da implementação.
+</p>
+
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A implementação atende aos requisitos funcionais e acadêmicos do SPV: utiliza OpenCV e bibliotecas reconhecidas, executa em Ubuntu com webcam, realiza cálculos em tempo real fundamentados na pose estimada, oferece visualização explicável e notifica condições críticas coerentes com o cenário de aplicação. Para conformidade formal plena, padroniza-se o cabeçalho dos arquivos e configura-se o título da janela com programa e equipe.
 </p>
 
 <h2>Referências Bibliográficas</h2>
