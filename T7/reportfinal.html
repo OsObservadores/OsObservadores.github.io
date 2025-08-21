@@ -287,3 +287,152 @@ A implementação atende aos requisitos funcionais e acadêmicos do SPV: utiliza
 deverá apresentar os códigos e todos arquivos
 </p>
   
+<h3 id="">Descrição detalhada do Sistema de Processamento da Visão (SPV) com diagramas</h3>
+
+<h2 id="">Introdução</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Este documento apresenta uma explicação técnica, contínua e em estilo acadêmico, da implementação de um sistema de processamento da visão que realiza aquisição de vídeo, correção de distorção baseada em calibração, estimação de pose humana, classificação de estados posturais e notificação automática de eventos por meio de integração com o Telegram. O texto emprega o presente do indicativo, descrevendo como o programa opera em tempo real no ambiente Ubuntu, e inclui dois diagramas: um para elucidar a geometria do cálculo angular e outro para explicitar a máquina de estados e a temporização de alertas.
+</p>
+
+<h2 id="">Configuração das dependências e variáveis de ambiente</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O código importa e utiliza bibliotecas de amplo reconhecimento público e disponíveis gratuitamente, a saber, OpenCV para captura e exibição de vídeo e para rotinas de calibração, MediaPipe para estimação de pose, NumPy e o módulo <em>math</em> para operações vetoriais e trigonométricas, <em>requests</em> para comunicação HTTP com a API do Telegram e <em>python-dotenv</em> para a leitura segura de credenciais a partir de variáveis de ambiente. O carregamento do arquivo <code>.env</code> ocorre no início da execução, e os valores de <code>TELEGRAM_TOKEN</code> e <code>TELEGRAM_CHAT_ID</code> são lidos em memória, permitindo que a aplicação mantenha as chaves fora do código-fonte e preserve boas práticas de segurança operacional.
+</p>
+
+<h2 id="">Parâmetros de calibração e correção de distorção</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O programa acessa um arquivo de calibração em formato XML e recupera a matriz intrínseca da câmera e os coeficientes de distorção, que são parâmetros gerados previamente por um procedimento de calibração com alvos conhecidos. A cada frame adquirido da webcam, o sistema aplica a função de undistorção do OpenCV, que remove as deformações introduzidas pela ótica e restabelece proporcionalidade geométrica. Essa etapa melhora a acurácia da estimação de pose e a estabilidade dos cálculos subsequentes, pois reduz erros sistemáticos de projeção no plano da imagem.
+</p>
+
+<h2 id="">Estimativa de pose e estruturas de dados</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A estimação de pose utiliza o modelo de pose do MediaPipe em modo de fluxo contínuo, o que permite rastrear marcos anatômicos ao longo do vídeo com custo computacional moderado. A estrutura de <em>landmarks</em> retorna a posição normalizada de pontos-chave como quadris, joelhos e tornozelos, representados por coordenadas bidimensionais no intervalo unitário. O sistema copia o frame para uma imagem anotada e sobrepõe os marcos e conexões fornecidos pela biblioteca, o que favorece a interpretabilidade do processo por observadores leigos e fornece evidências visuais para avaliação em laboratório.
+</p>
+
+<h2 id="">Cálculo geométrico do ângulo articular</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A função de cálculo angular recebe três pontos organizados como A, B e C e computa o ângulo no vértice B, que corresponde, para o contexto, ao ângulo do joelho. O algoritmo converte as listas em vetores, constrói os segmentos BA e BC, calcula suas normas e avalia o cosseno do ângulo por meio do produto escalar normalizado. Em seguida, o método limita o valor de cosseno ao intervalo válido e aplica a função arco-cosseno, convertendo o resultado em graus. Essa formulação vetorial apresenta robustez numérica e evita instabilidades quando um dos segmentos possui norma muito pequena, caso em que o procedimento retorna um valor padrão.
+</p>
+
+<figure style="margin: 1em 0;">
+  <svg viewBox="0 0 720 360" width="100%" aria-label="Diagrama da geometria do ângulo no ponto B">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z"></path>
+      </marker>
+      <style>
+        .axis { stroke: #999; stroke-dasharray: 4 4; }
+        .vec { stroke-width: 3; fill: none; }
+        .pt  { fill: #000; }
+        .lbl { font-family: sans-serif; font-size: 14px; }
+        .theta { fill: none; stroke-width: 3; opacity: .6; }
+      </style>
+    </defs>
+
+    <!-- Points -->
+    <circle cx="180" cy="260" r="6" class="pt"/>
+    <circle cx="360" cy="180" r="6" class="pt"/>
+    <circle cx="540" cy="120" r="6" class="pt"/>
+
+    <!-- Labels for points -->
+    <text x="168" y="280" class="lbl">A (quadril)</text>
+    <text x="342" y="170" class="lbl">B (joelho)</text>
+    <text x="548" y="140" class="lbl">C (tornozelo)</text>
+
+    <!-- Vectors BA and BC -->
+    <line x1="360" y1="180" x2="180" y2="260" class="vec" stroke="#1f77b4" marker-end="url(#arrow)"/>
+    <line x1="360" y1="180" x2="540" y2="120" class="vec" stroke="#2ca02c" marker-end="url(#arrow)"/>
+    <text x="250" y="210" class="lbl" fill="#1f77b4">BA</text>
+    <text x="460" y="155" class="lbl" fill="#2ca02c">BC</text>
+
+    <!-- Angle arc at B -->
+    <path d="M 450 150 A 90 90 0 0 0 300 210" class="theta" stroke="#d62728"/>
+    <text x="390" y="150" class="lbl" fill="#d62728">θ = ∠ABC</text>
+
+    <!-- Formula -->
+    <text x="60" y="330" class="lbl">cos(θ) = (BA · BC) / (‖BA‖ · ‖BC‖)</text>
+  </svg>
+  <figcaption style="text-align:center; font-family: sans-serif; font-size: 14px;">
+    Geometria do cálculo do ângulo no vértice B, com vetores BA e BC e representação do arco correspondente ao ângulo θ.
+  </figcaption>
+</figure>
+
+<h2 id="">Classificação postural a partir dos marcos</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A rotina de classificação executa duas decisões de natureza geométrica e um caso remanescente. Inicialmente, o sistema avalia a razão entre a largura e a altura do retângulo mínimo que contém os marcos e declara o estado deitada quando a largura excede em trinta por cento a altura, o que caracteriza orientação predominantemente horizontal. Em seguida, o método calcula os ângulos dos joelhos esquerdo e direito e determina a média, classificando como sentada quando a flexão média é inferior a cento e sessenta graus, o que representa uma configuração compatível com o ato de sentar. Quando nenhum dos critérios anteriores se verifica, o sistema classifica a postura como em pé, que constitui a hipótese complementar no domínio estabelecido.
+</p>
+
+<h2 id="">Máquina de estados e temporização de alertas</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A lógica temporal organiza-se como uma máquina de estados finitos que integra percepção instantânea e persistência temporal. Quando o estimador de pose não identifica marcos corporais, o sistema entra no estado de ausência, inicia um cronômetro e, se a condição persiste por pelo menos cinco segundos, emite uma notificação de ausência por meio do Telegram. Quando a pose é detectada, o sistema reinicia a contagem de ausência e transita para estados de presença. Se a classificação identifica o estado em pé, o sistema inicia um segundo cronômetro e, ao completar cinco segundos de persistência ininterrupta nesse estado, emite uma notificação de presença em pé. Se a classificação não indica em pé, o sistema mantém presença sem disparo e reinicia a contagem para o caso de o estado em pé voltar a ocorrer, o que preserva a capacidade de gerar novos alertas em eventos subsequentes.
+</p>
+
+<figure style="margin: 1em 0;">
+  <svg viewBox="0 0 860 420" width="100%" aria-label="Diagrama da máquina de estados com temporização">
+    <defs>
+      <marker id="arrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z"></path>
+      </marker>
+      <style>
+        .box { fill: #f8f8f8; stroke: #555; stroke-width: 2; rx: 10; ry: 10; }
+        .lbl { font-family: sans-serif; font-size: 14px; }
+        .edge { stroke: #333; stroke-width: 2; fill: none; }
+        .note { font-family: sans-serif; font-size: 13px; fill: #444; }
+      </style>
+    </defs>
+
+    <!-- States -->
+    <rect x="60"  y="150" width="220" height="120" class="box"/>
+    <text x="90" y="190" class="lbl">Ausente</text>
+    <text x="90" y="215" class="note">Inicia T<sub>aus</sub></text>
+    <text x="90" y="240" class="note">Se T<sub>aus</sub> ≥ 5s → alerta</text>
+
+    <rect x="340" y="50"  width="220" height="120" class="box"/>
+    <text x="375" y="90" class="lbl">Presença detectada</text>
+    <text x="375" y="115" class="note">Não em pé</text>
+
+    <rect x="620" y="150" width="220" height="120" class="box"/>
+    <text x="650" y="190" class="lbl">Presença detectada</text>
+    <text x="650" y="215" class="note">Em pé</text>
+    <text x="650" y="240" class="note">Inicia T<sub>pé</sub> (5s)</text>
+
+    <!-- Edges -->
+    <path d="M 280 210 C 320 210, 340 180, 340 140" class="edge" marker-end="url(#arrow2)"/>
+    <text x="305" y="165" class="note">Pose detectada</text>
+
+    <path d="M 560 110 C 600 110, 680 140, 700 150" class="edge" marker-end="url(#arrow2)"/>
+    <text x="585" y="100" class="note">Classificação: em pé</text>
+
+    <path d="M 740 150 C 740 130, 740 110, 620 90" class="edge" marker-end="url(#arrow2)"/>
+    <text x="650" y="120" class="note">Classificação: não em pé</text>
+
+    <path d="M 700 270 C 650 330, 500 350, 280 270" class="edge" marker-end="url(#arrow2)"/>
+    <text x="460" y="335" class="note">Perda da pose</text>
+
+    <path d="M 170 150 C 170 120, 170 100, 420 90" class="edge" marker-end="url(#arrow2)"/>
+    <text x="190" y="120" class="note">Pose detectada</text>
+
+    <path d="M 420 170 C 350 210, 300 220, 280 220" class="edge" marker-end="url(#arrow2)"/>
+    <text x="320" y="210" class="note">Perda da pose</text>
+
+    <!-- Alert edge (temporal condition) -->
+    <path d="M 840 210 C 850 210, 850 260, 810 280" class="edge" marker-end="url(#arrow2)"/>
+    <text x="760" y="300" class="note">T<sub>pé</sub> ≥ 5s → alerta</text>
+
+    <path d="M 60 210 C 40 210, 40 260, 90 270" class="edge" marker-end="url(#arrow2)"/>
+    <text x="70" y="300" class="note">T<sub>aus</sub> ≥ 5s → alerta</text>
+  </svg>
+  <figcaption style="text-align:center; font-family: sans-serif; font-size: 14px;">
+    Máquina de estados com duas janelas temporais independentes: ausência e presença em pé. As setas indicam transições acionadas pela detecção de pose, pela perda de pose e pela classificação.
+  </figcaption>
+</figure>
+
+<h2 id="">Renderização, interação do usuário e notificação</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+O sistema apresenta rótulos textuais com contorno para maximizar a legibilidade e sobrepõe os marcos e conexões da pose estimada, o que fornece compreensão visual imediata do funcionamento. A interação do usuário se resume ao encerramento por meio da tecla <code>q</code>, o que confere simplicidade de uso em ambiente didático. A integração com a API do Telegram utiliza um endpoint autenticado por token e envia mensagens ao identificador de chat configurado, registrando no console os códigos de retorno e as mensagens de erro quando necessário. Esse mecanismo constitui um canal de coleta de eventos e um recurso de auditoria externa à interface gráfica.
+</p>
+
+<h2 id="">Considerações de robustez e conformidade</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A execução do algoritmo com o frame corrigido por undistorção tende a aprimorar a estabilidade da estimação de pose e dos cálculos geométricos, razão pela qual se recomenda que o processamento do MediaPipe ocorra sobre a imagem já corrigida. O título da janela exibe o nome do programa e o nome da equipe, de modo a cumprir formalmente a diretriz institucional. A leitura e a validação de arquivos de calibração e de variáveis de ambiente ocorrem na fase de inicialização e devem apresentar mensagens amigáveis em caso de falhas. Por fim, a escolha de limiares para detecção de deitado e de sentada apresenta caráter explicável e eficiente, e admite calibração empírica adicional para adaptar-se a diferentes condições de iluminação, distância e oclusões no laboratório.
+</p>
