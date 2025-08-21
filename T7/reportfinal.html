@@ -21,7 +21,7 @@
 
 <h3 id="Descr">Descrição da implementação do Sistema de Processamento da Visão (SPV)</h3>
 
-<h2 id="">1. Visão geral do sistema</h2>
+<h4 id="">1. Visão geral do sistema</h4>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 O sistema implementa um pipeline de monitoramento postural em tempo real para apoio ao “Monitoramento automatizado de indivíduos em situação de vulnerabilidade”. O programa captura vídeo da webcam do laboratório em Ubuntu Linux, corrige a distorção óptica via parâmetros de calibração, estima a pose humana por marcos anatômicos, classifica o estado postural (<em>Em pé</em>, <em>Sentada</em>, <em>Deitada</em> ou <em>Ausente</em>) e emite notificações automáticas via Telegram quando eventos de interesse persistem por um intervalo pré-definido (padrão de 5 segundos). A visualização e os cálculos (ângulos articulares, heurísticas de classificação e lógica temporal) ocorrem <em>on-the-fly</em> sobre o fluxo de vídeo.
 </p>
