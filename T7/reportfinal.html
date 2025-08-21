@@ -34,6 +34,290 @@ Mais detalhes do Cenário de Aplicação podem ser obtidos através do documento
 
 <h3 id="fundament">Fundamentação Teórica</h3>
 
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Esta fundamentação teórica apresenta, em linguagem acadêmica e no presente do indicativo, conceitos essenciais que sustentam um projeto de visão computacional. O texto discute a biblioteca OpenCV como infraestrutura algorítmica para aquisição, transformação e análise de imagens, descreve filtros de processamento espacial com ênfase em suavização, realce e detecção de bordas, formaliza o processo de calibração de câmeras segundo o modelo de câmara pinhole com parâmetros intrínsecos e extrínsecos e, por fim, caracteriza a biblioteca MediaPipe como arcabouço de estimativa de marcos corporais e rastreamento em tempo real. Imagens ilustrativas acompanham as seções a fim de tornar os conceitos mais concretos e operacionais.
+</p>
+
+<h2 id="">2. Biblioteca OpenCV</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A OpenCV constitui uma biblioteca de código aberto amplamente adotada para processamento de imagens e visão computacional. Ela provê interfaces em C++ e Python, oferece rotinas otimizadas para operações matriciais e integra módulos para entrada e saída de vídeo, conversão de espaços de cor, filtragem espacial, detecção de características e reconstrução geométrica. Em um projeto típico, a OpenCV gerencia a captura de quadros da webcam, executa transformações relevantes (como redimensionamento, equalização de histograma ou conversão para tons de cinza) e aplica filtros ou detectores conforme o objetivo da aplicação. A arquitetura modular permite que o desenvolvedor componha pipelines de processamento que operam em tempo real, beneficiando-se de otimizações vetoriais e paralelismo quando disponíveis.
+</p>
+<pre><code># Exemplo (Python): leitura, conversão e exibição
+import cv2
+cap = cv2.VideoCapture(0)
+ret, frame = cap.read()
+gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+cv2.imshow("Frame em tons de cinza", gray)
+cv2.waitKey(0)
+cap.release()
+cv2.destroyAllWindows()
+</code></pre>
+
+<figure style="margin: 1em 0;">
+  <!-- Diagrama SVG: Pipeline OpenCV -->
+  <svg viewBox="0 0 960 220" width="100%" aria-label="Pipeline simplificado com OpenCV">
+    <defs>
+      <style>
+        .box { fill:#f7f7f7; stroke:#444; stroke-width:2; rx:10; ry:10; }
+        .lbl { font-family:sans-serif; font-size:14px; }
+        .edge { stroke:#333; stroke-width:2; fill:none; marker-end:url(#arrow); }
+      </style>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"></path>
+      </marker>
+    </defs>
+    <rect x="30"  y="60" width="180" height="100" class="box"></rect>
+    <text x="45"  y="105" class="lbl">Captura</text>
+    <text x="45"  y="125" class="lbl">(cv2.VideoCapture)</text>
+
+    <rect x="250" y="60" width="180" height="100" class="box"></rect>
+    <text x="265" y="105" class="lbl">Pré-processamento</text>
+    <text x="265" y="125" class="lbl">(resize, cores, equalização)</text>
+
+    <rect x="470" y="60" width="180" height="100" class="box"></rect>
+    <text x="485" y="105" class="lbl">Filtragem</text>
+    <text x="485" y="125" class="lbl">(blur, Canny, Sobel)</text>
+
+    <rect x="690" y="60" width="240" height="100" class="box"></rect>
+    <text x="705" y="105" class="lbl">Análise / Decisão</text>
+    <text x="705" y="125" class="lbl">(detecção, classificação, rastreamento)</text>
+
+    <path d="M 210 110 L 250 110" class="edge"></path>
+    <path d="M 430 110 L 470 110" class="edge"></path>
+    <path d="M 650 110 L 690 110" class="edge"></path>
+  </svg>
+  <figcaption style="text-align:center; font-family:sans-serif; font-size:14px;">
+    Esquema conceitual de um pipeline em OpenCV: captura, pré-processamento, filtragem e análise.
+  </figcaption>
+</figure>
+
+<h2 id="">3. Filtros de Imagens</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A filtragem espacial opera diretamente sobre a vizinhança de cada pixel com o objetivo de atenuar ruídos, realçar estruturas e extrair informações relevantes para estágios posteriores. A suavização por média ou por Gaussiana reduz flutuações de alta frequência, enquanto a mediana apresenta robustez superior a outliers do tipo “sal e pimenta”. O filtro bilateral conserva descontinuidades ao ponderar simultaneamente a distância espacial e a diferença de intensidade, produzindo desfoque que respeita bordas. Na etapa de realce, o afilamento por máscara não nítida (unsharp masking) reforça transições, e operadores de gradiente como Sobel ou Scharr aproximam derivadas discretas que revelam variações locais. Para detecção de bordas bem condicionada, o algoritmo de Canny encadeia suavização, cálculo de gradiente, supressão não máxima e histerese, retornando um contorno binário parcimonioso. A escolha do filtro e de seus parâmetros ocorre de forma dirigida pelo objetivo do sistema, equilibrando suavização e preservação de detalhes.
+</p>
+
+<pre><code># Exemplos (Python/OpenCV)
+blur  = cv2.GaussianBlur(img, (5,5), 1.2)            # suavização Gaussiana
+med   = cv2.medianBlur(img, 5)                        # mediana
+bilat = cv2.bilateralFilter(img, 9, 75, 75)           # bilateral
+sobelx = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=3)   # gradiente em x
+sobely = cv2.Sobel(gray, cv2.CV_64F, 0, 1, ksize=3)   # gradiente em y
+edges = cv2.Canny(gray, 80, 160)                      # Canny
+</code></pre>
+
+<figure style="margin: 1em 0;">
+  <!-- Diagrama SVG: Convolução 3x3 -->
+  <svg viewBox="0 0 900 320" width="100%" aria-label="Convolução 3x3 ilustrativa">
+    <defs>
+      <style>
+        .cell { fill:#fff; stroke:#bbb; }
+        .kcell { fill:#eef7ff; stroke:#559; }
+        .lbl { font-family:sans-serif; font-size:13px; }
+        .title { font-family:sans-serif; font-size:14px; }
+        .edge { stroke:#333; stroke-width:2; fill:none; marker-end:url(#arrow); }
+      </style>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"></path>
+      </marker>
+    </defs>
+
+    <!-- Imagem 5x5 -->
+    <text x="30" y="20" class="title">Imagem (janela 3x3)</text>
+    <g transform="translate(20,30)">
+      <!-- grid -->
+      <g>
+        <!-- draw 5x5 cells -->
+        <script type="application/ecmascript"><![CDATA[
+          // (nota: alguns renderizadores ignoram <script> no SVG; as formas abaixo são estáticas)
+        ]]></script>
+      </g>
+      <!-- static cells -->
+      <!-- rows -->
+      <!-- We'll draw simple 5x5 grid -->
+      <!-- each cell 30x30 -->
+      <!-- highlight a 3x3 window in light blue -->
+      <!-- base grid -->
+      <!-- rows -->
+      <!-- create grid manually -->
+      <!-- row 0 -->
+      <rect x="0" y="0" width="30" height="30" class="cell"></rect>
+      <rect x="30" y="0" width="30" height="30" class="cell"></rect>
+      <rect x="60" y="0" width="30" height="30" class="cell"></rect>
+      <rect x="90" y="0" width="30" height="30" class="cell"></rect>
+      <rect x="120" y="0" width="30" height="30" class="cell"></rect>
+      <!-- row 1 -->
+      <rect x="0" y="30" width="30" height="30" class="cell"></rect>
+      <rect x="30" y="30" width="30" height="30" class="kcell"></rect>
+      <rect x="60" y="30" width="30" height="30" class="kcell"></rect>
+      <rect x="90" y="30" width="30" height="30" class="kcell"></rect>
+      <rect x="120" y="30" width="30" height="30" class="cell"></rect>
+      <!-- row 2 -->
+      <rect x="0" y="60" width="30" height="30" class="cell"></rect>
+      <rect x="30" y="60" width="30" height="30" class="kcell"></rect>
+      <rect x="60" y="60" width="30" height="30" class="kcell"></rect>
+      <rect x="90" y="60" width="30" height="30" class="kcell"></rect>
+      <rect x="120" y="60" width="30" height="30" class="cell"></rect>
+      <!-- row 3 -->
+      <rect x="0" y="90" width="30" height="30" class="cell"></rect>
+      <rect x="30" y="90" width="30" height="30" class="kcell"></rect>
+      <rect x="60" y="90" width="30" height="30" class="kcell"></rect>
+      <rect x="90" y="90" width="30" height="30" class="kcell"></rect>
+      <rect x="120" y="90" width="30" height="30" class="cell"></rect>
+      <!-- row 4 -->
+      <rect x="0" y="120" width="30" height="30" class="cell"></rect>
+      <rect x="30" y="120" width="30" height="30" class="cell"></rect>
+      <rect x="60" y="120" width="30" height="30" class="cell"></rect>
+      <rect x="90" y="120" width="30" height="30" class="cell"></rect>
+      <rect x="120" y="120" width="30" height="30" class="cell"></rect>
+    </g>
+
+    <!-- Kernel 3x3 -->
+    <text x="300" y="20" class="title">Kernel 3x3 (ex.: Sobel X)</text>
+    <g transform="translate(290,30)">
+      <rect x="0" y="0" width="100" height="100" fill="#f7f7f7" stroke="#444" stroke-width="2" rx="10" ry="10"></rect>
+      <text x="10" y="25" class="lbl">[-1 0 1;</text>
+      <text x="10" y="45" class="lbl"> -2 0 2;</text>
+      <text x="10" y="65" class="lbl"> -1 0 1]</text>
+    </g>
+
+    <!-- Seta -->
+    <path d="M 180 90 L 290 80" class="edge"></path>
+
+    <!-- Resultado -->
+    <text x="520" y="20" class="title">Gradiente e Bordas</text>
+    <rect x="510" y="30" width="160" height="140" fill="url(#g1)" stroke="#444" stroke-width="2"></rect>
+    <defs>
+      <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#111"/>
+        <stop offset="50%" stop-color="#aaa"/>
+        <stop offset="100%" stop-color="#fff"/>
+      </linearGradient>
+    </defs>
+
+    <text x="700" y="40" class="lbl">|∂I/∂x| elevado →</text>
+    <text x="700" y="60" class="lbl">regiões de borda destacadas</text>
+  </svg>
+  <figcaption style="text-align:center; font-family:sans-serif; font-size:14px;">
+    Convolução com um kernel 3×3 do tipo Sobel em x produz resposta elevada em transições horizontais de intensidade.
+  </figcaption>
+</figure>
+
+<h2 id="">4. Calibração de Câmeras</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A calibração de câmeras formaliza a relação entre pontos do mundo e suas projeções na imagem por meio do modelo pinhole, no qual a matriz intrínseca encapsula parâmetros de focal e centro óptico, e os coeficientes de distorção lidam com efeitos de ordem radial e tangencial oriundos da lente. O processo estima, adicionalmente, parâmetros extrínsecos que descrevem a pose da câmera no espaço por uma rotação e uma translação. Em procedimentos práticos, o sistema observa um padrão conhecido, como um tabuleiro de xadrez, identifica automaticamente seus cantos em múltiplas vistas e resolve um problema de otimização que minimiza o erro de reprojeção. Após a calibração, o algoritmo aplica a undistorção aos quadros adquiridos, o que corrige deformações e melhora a precisão geométrica para etapas subsequentes, como estimação de pose ou reconstrução métrica.
+</p>
+
+<figure style="margin: 1em 0;">
+  <!-- Diagrama SVG: Modelo pinhole + distorção -->
+  <svg viewBox="0 0 920 360" width="100%" aria-label="Modelo pinhole e undistorção">
+    <defs>
+      <style>
+        .axis { stroke:#999; stroke-dasharray:4 4; }
+        .cam { fill:#f7f7f7; stroke:#333; stroke-width:2; }
+        .ray { stroke:#1f77b4; stroke-width:2; }
+        .img { fill:none; stroke:#444; stroke-width:2; }
+        .lbl { font-family:sans-serif; font-size:14px; }
+      </style>
+    </defs>
+
+    <!-- Pinhole camera -->
+    <rect x="60" y="130" width="80" height="100" class="cam"></rect>
+    <line x1="140" y1="180" x2="260" y2="180" class="axis"></line>
+    <text x="60" y="125" class="lbl">Câmera (pinhole)</text>
+    <circle cx="140" cy="180" r="4" fill="#333"></circle>
+    <text x="128" y="200" class="lbl">Centro</text>
+
+    <!-- Image plane -->
+    <line x1="260" y1="80" x2="260" y2="280" class="img"></line>
+    <text x="240" y="75" class="lbl">Plano da imagem</text>
+
+    <!-- Object points -->
+    <circle cx="460" cy="120" r="5" fill="#2ca02c"></circle>
+    <circle cx="520" cy="220" r="5" fill="#2ca02c"></circle>
+    <text x="470" y="115" class="lbl">Ponto 1</text>
+    <text x="530" y="225" class="lbl">Ponto 2</text>
+
+    <!-- Rays -->
+    <line x1="140" y1="180" x2="460" y2="120" class="ray"></line>
+    <line x1="140" y1="180" x2="520" y2="220" class="ray"></line>
+
+    <!-- Intersections on image plane -->
+    <circle cx="260" cy="150" r="4" fill="#d62728"></circle>
+    <circle cx="260" cy="210" r="4" fill="#d62728"></circle>
+    <text x="268" y="150" class="lbl">u₁,v₁</text>
+    <text x="268" y="210" class="lbl">u₂,v₂</text>
+
+    <!-- Distortion sketch -->
+    <circle cx="740" cy="180" r="90" fill="none" stroke="#aaa" stroke-width="2"></circle>
+    <ellipse cx="740" cy="180" rx="110" ry="90" fill="none" stroke="#999" stroke-width="2"></ellipse>
+    <text x="680" y="80" class="lbl">Distorção radial/tangencial</text>
+    <text x="665" y="320" class="lbl">Undistorção ↔ Parametrização (k₁, k₂, p₁, p₂, k₃)</text>
+  </svg>
+  <figcaption style="text-align:center; font-family:sans-serif; font-size:14px;">
+    Esquema do modelo pinhole com interseção no plano da imagem e representação qualitativa de distorções e sua correção.
+  </figcaption>
+</figure>
+
+<h2 id="">5. Biblioteca MediaPipe</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A biblioteca MediaPipe provê pipelines de percepção prontos para uso que executam em tempo real e abrangem tarefas como detecção de mãos, rosto e pose corporal. Em aplicações de visão computacional que dependem de marcos anatômicos, o MediaPipe estima posições bidimensionais e, em determinados modelos, tridimensionais, de pontos de interesse com estabilidade temporal, o que favorece medições angulares e rastreamento. O pipeline opera sobre quadros RGB, entrega estruturas de dados com coordenadas normalizadas e disponibiliza utilitários de desenho que tornam evidente o esqueleto inferido. Em termos computacionais, o MediaPipe organiza grafos de processamento, onde cada nó representa um cálculo, e otimiza a passagem de dados para reduzir latências em dispositivos convencionais.
+</p>
+<pre><code># Exemplo (Python): esqueleto da pose
+import cv2, mediapipe as mp
+pose = mp.solutions.pose.Pose(static_image_mode=False, model_complexity=1)
+draw = mp.solutions.drawing_utils
+ret, frame = cv2.VideoCapture(0).read()
+rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+res = pose.process(rgb)
+if res.pose_landmarks:
+    draw.draw_landmarks(frame, res.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
+cv2.imshow("Pose", frame); cv2.waitKey(0)
+</code></pre>
+
+<figure style="margin: 1em 0;">
+  <!-- Diagrama SVG: Pipeline MediaPipe -->
+  <svg viewBox="0 0 940 260" width="100%" aria-label="Pipeline do MediaPipe para pose">
+    <defs>
+      <style>
+        .box { fill:#f5fbff; stroke:#2b6cb0; stroke-width:2; rx:10; ry:10; }
+        .lbl { font-family:sans-serif; font-size:14px; }
+        .edge { stroke:#2b6cb0; stroke-width:2; fill:none; marker-end:url(#arrowMP); }
+      </style>
+      <marker id="arrowMP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#2b6cb0"></path>
+      </marker>
+    </defs>
+
+    <rect x="30"  y="70" width="180" height="100" class="box"></rect>
+    <text x="60" y="110" class="lbl">Entrada RGB</text>
+    <text x="60" y="130" class="lbl">(frame da webcam)</text>
+
+    <rect x="250" y="70" width="210" height="100" class="box"></rect>
+    <text x="270" y="110" class="lbl">Detecção/Rastreamento</text>
+    <text x="270" y="130" class="lbl">(modelo de pose)</text>
+
+    <rect x="490" y="70" width="210" height="100" class="box"></rect>
+    <text x="510" y="110" class="lbl">Landmarks Normalizados</text>
+    <text x="510" y="130" class="lbl">(x,y[,&nbsp;z])</text>
+
+    <rect x="730" y="70" width="180" height="100" class="box"></rect>
+    <text x="760" y="110" class="lbl">Desenho/Análise</text>
+    <text x="760" y="130" class="lbl">(medidas/alertas)</text>
+
+    <path d="M 210 120 L 250 120" class="edge"></path>
+    <path d="M 460 120 L 490 120" class="edge"></path>
+    <path d="M 700 120 L 730 120" class="edge"></path>
+  </svg>
+  <figcaption style="text-align:center; font-family:sans-serif; font-size:14px;">
+    Fluxo típico do MediaPipe: o frame RGB alimenta o modelo de pose, que produz landmarks normalizados para desenho e análise.
+  </figcaption>
+</figure>
+
+<h2 id="">6. Considerações Finais</h2>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+A combinação de OpenCV e MediaPipe sustenta um pipeline contemporâneo de visão computacional que captura, calibra, filtra e interpreta imagens com desempenho compatível com tempo real. A OpenCV fornece os blocos fundamentais de aquisição, transformação e filtragem, enquanto o MediaPipe disponibiliza estimadores robustos de marcos corporais que viabilizam medições geométricas e decisões de alto nível. A calibração de câmeras corrobora a consistência métrica das observações ao remover distorções e ao alinhar o modelo de formação da imagem com a realidade física. Em conjunto, esses elementos delineiam uma base teórica sólida para o desenvolvimento, a avaliação e a validação de sistemas de percepção visual aplicados.
+</p>
+
 <h2 id="materiais-metodos">Materiais e Métodos</h2>
 
 <h3 id="model">Modelagem Funcional do SPV (MF)</h3>
