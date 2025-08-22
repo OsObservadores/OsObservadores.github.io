@@ -573,15 +573,17 @@ A solução utiliza OpenCV, executa em Ubuntu com webcam do laboratório, é pro
 
 <h3 id="lista">Lista de arquivos: dos código-fonte, imagens, vídeos, e arquivos auxiliares.</h3>
 <h3 id="-parte-1">Escrever uma análise técnica.</h3>
+<h3 id="-parte-1">Análise Técnica</h3>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  O projeto foi apresentado no seminário no dia 13 de agosto de 2025, nele 14 voluntários testaram e avaliaram o programa, todos os 14 voluntários responderam que a câmera conseguiu indentificá-los quando eles estavam de pé por mais de 5 segundos e viram a notificação no telegram, avisando que a pessoa estava de pé por 5 segundos.
+  O projeto foi apresentado no seminário em 13 de agosto de 2025, com a participação de 14 voluntários. Nos testes, todos os voluntários (100%) confirmaram que o sistema conseguiu identificá-los corretamente quando estavam de pé por mais de 5 segundos, gerando a notificação no Telegram conforme esperado. Isso demonstra que a funcionalidade principal foi atingida com sucesso.
 </p>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  No mesmo seminário os mesmos voluntários foram perguntados se a câmera conseguiu avisar que não estavam identificando os alunos na câmera. Apenas 7 dos 14 responderam que sim. Sobre esse caso vale ressaltar que com o seminario várias pessoas passavam na frente da câmers, dessa forma o mediapipe identificava uma pessoa que passava na frente e recomessava a contagem de 5 segundos para avisar que ninguem foi avistado, para contornar esse problema a câmera era bloqueada com a mão para não identificar ninguém. Após 5 segundos de câmera bloqueada a notificação avisando que ninguém foi avistado surge no telegram.
+  Quanto à detecção de ausência, apenas 7 dos 14 participantes (50%) relataram ter recebido corretamente a notificação de que nenhuma pessoa estava visível na câmera. Essa limitação ocorreu porque, durante o seminário, outras pessoas passavam em frente ao campo de visão, levando o <i>MediaPipe</i> a reiniciar a contagem de 5 segundos. Para contornar o problema durante o teste, a câmera foi coberta manualmente, e nesses casos a notificação de ausência foi enviada corretamente.
 </p>
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-  Sendo assim nos testes práticos foi um sucesso visto que todos os voluntários foram identificados quando estavam de pé e os que não conseguiram ver o programa não identificar ninguém, foi contornado.
+  Portanto, a análise mostra que o sistema tem alto desempenho na detecção de pessoas em pé, com taxa de acerto próxima a 100%, mas ainda apresenta fragilidades na detecção de ausência em ambientes com múltiplos indivíduos. Apesar dessas limitações, o protótipo atendeu ao objetivo principal do cenário de aplicação e demonstrou viabilidade prática, sendo necessário em trabalhos futuros melhorar a robustez frente a interferências externas.
 </p>
+
 
 <h2 id="lab">Laboratório Experimental</h2>
 <h3 id="Roteiro">Roteiro do laboratório Experimental</h3>
