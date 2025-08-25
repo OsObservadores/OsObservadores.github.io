@@ -661,11 +661,15 @@ A solução utiliza OpenCV, executa em Ubuntu com webcam do laboratório, é pro
 <h2 id="conclus-o">Conclusões</h2>
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
-Nesta seção a equipe deverá comentar se os objetivos propostos na
-introdução e a modelagem do trabalho foram atingidos ou não, baseados nos
-exemplos apresentados. Deverá ainda comentar sobre os pontos positivos e
-negativos e da implementação.
+O projeto atinge os objetivos propostos na introdução, uma vez que o sistema de monitoramento por visão computacional é capaz de identificar, em tempo real, a presença e as transições posturais de um indivíduo, enviando notificações automáticas após os intervalos de persistência definidos. A modelagem do trabalho se mostra adequada, pois integra conceitos de calibração de câmera, processamento de imagens e detecção de pose com bibliotecas de uso consolidado, resultando em uma implementação funcional e coerente com o cenário de aplicação definido.
 </p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Entre os pontos positivos, destaca-se a confiabilidade do sistema em diferenciar estados posturais (em pé, sentado, deitado ou ausente), a explicabilidade visual proporcionada pelo desenho dos marcos corporais sobre o vídeo e a integração com o Telegram, que garante o envio de alertas de forma prática e imediata. Além disso, os testes de campo confirmam a aceitação do público-alvo, refletida em altas notas de recomendação e em comentários que reconhecem o valor da solução no cuidado de pessoas em situação de vulnerabilidade.
+</p>
+<p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
+Como aspectos a serem aprimorados, observa-se que o sistema opera de forma individual, não abrangendo múltiplos indivíduos em simultâneo, e apresenta dependência da iluminação adequada para manter a acurácia da detecção. Ainda assim, esses pontos não comprometem a validade da implementação, mas representam oportunidades de evolução futura.
+</p>
+
 
 <p style="text-align: justify; line-height: 1.5; text-indent: 2em;">
 A implementação atende aos requisitos funcionais e acadêmicos do SPV: utiliza OpenCV e bibliotecas reconhecidas, executa em Ubuntu com webcam, realiza cálculos em tempo real fundamentados na pose estimada, oferece visualização explicável e notifica condições críticas coerentes com o cenário de aplicação. Para conformidade formal plena, padroniza-se o cabeçalho dos arquivos e configura-se o título da janela com programa e equipe.
